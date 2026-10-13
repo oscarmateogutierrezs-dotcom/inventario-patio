@@ -1,0 +1,7 @@
+{
+  "name": "inventario-patio",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
