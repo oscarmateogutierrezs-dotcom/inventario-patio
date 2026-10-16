@@ -53,8 +53,9 @@
 }
 
 .yard-exit__submit {
+  display: block;
   min-height: 38px;
-  margin: 12px;
+  margin: 12px auto;
   padding: 0 18px;
   border: 0;
   border-radius: 6px;
@@ -130,9 +131,5 @@
   .yard-exit__fields {
     flex-basis: 100%;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .yard-exit__submit {
-    width: 100%;
   }
 }

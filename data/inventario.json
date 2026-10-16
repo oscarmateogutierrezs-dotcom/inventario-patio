@@ -1,0 +1,74 @@
+{
+    "items": [
+        {
+            "codigo": "1",
+            "item": "Bloque 4 Primera",
+            "cantidad": 300259
+        },
+        {
+            "codigo": "2",
+            "item": "Bloque 4 Segunda",
+            "cantidad": 11316
+        },
+        {
+            "codigo": "3",
+            "item": "Ladrillos Sem",
+            "cantidad": 22752
+        },
+        {
+            "codigo": "4",
+            "item": "Vertical nuevo",
+            "cantidad": 2099
+        },
+        {
+            "codigo": "5",
+            "item": "Vertical viejo",
+            "cantidad": 1487
+        },
+        {
+            "codigo": "6",
+            "item": "Vertical #5",
+            "cantidad": 1076
+        },
+        {
+            "codigo": "7",
+            "item": "Vertical #6",
+            "cantidad": 4260
+        },
+        {
+            "codigo": "8",
+            "item": "Estructural",
+            "cantidad": 219
+        },
+        {
+            "codigo": "9",
+            "item": "Tolete 18 hueco",
+            "cantidad": 4440
+        },
+        {
+            "codigo": "10",
+            "item": "Gran formato",
+            "cantidad": 699
+        },
+        {
+            "codigo": "11",
+            "item": "Teja española",
+            "cantidad": 1622
+        },
+        {
+            "codigo": "12",
+            "item": "Teja californiana",
+            "cantidad": 1516
+        },
+        {
+            "codigo": "13",
+            "item": "Bloque #6",
+            "cantidad": 33792
+        },
+        {
+            "codigo": "14",
+            "item": "Bloque #5",
+            "cantidad": 28686
+        }
+    ]
+}
