@@ -1,0 +1,138 @@
+.yard-exit {
+  box-sizing: border-box;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 16px;
+  color: #172033;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.yard-exit__form {
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.yard-exit__fields {
+  display: grid;
+  flex: 1 1 680px;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.yard-exit__field {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 5px;
+  color: #172033;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.yard-exit__field input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: 38px;
+  padding: 8px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 5px;
+  background: #fff;
+  color: #172033;
+  font: inherit;
+  font-weight: 400;
+}
+
+.yard-exit__field input:focus {
+  border-color: #3b82f6;
+  outline: 2px solid rgb(59 130 246 / 20%);
+}
+
+.yard-exit__field input::placeholder {
+  color: #64748b;
+}
+
+.yard-exit__submit {
+  min-height: 38px;
+  margin: 12px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 6px;
+  background: #0754c7;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.yard-exit__submit:hover {
+  background: #0646a8;
+}
+
+.yard-exit__table-wrap {
+  overflow-x: auto;
+  border: 1px solid #dbe3ee;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.yard-exit__table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.yard-exit__table th {
+  padding: 12px 10px;
+  border-bottom: 1px solid #dbe3ee;
+  background: #f8fafc;
+  color: #172033;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.yard-exit__table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #edf1f6;
+  color: #344256;
+  text-align: left;
+}
+
+.yard-exit__table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.yard-exit__table .yard-exit__empty {
+  height: 56px;
+  color: #64748b;
+  text-align: center;
+}
+
+.yard-exit__delete {
+  padding: 5px 8px;
+  border: 1px solid #dc2626;
+  border-radius: 4px;
+  background: #fff;
+  color: #b91c1c;
+  cursor: pointer;
+  font: inherit;
+}
+
+@media (max-width: 600px) {
+  .yard-exit {
+    padding: 12px;
+  }
+
+  .yard-exit__fields {
+    flex-basis: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .yard-exit__submit {
+    width: 100%;
+  }
+}
