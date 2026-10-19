@@ -1,0 +1,32 @@
+{
+    "conductores": [
+        {
+            "nombre": "nombre",
+            "placa": "ESZ 929"
+        },
+        {
+            "nombre": "nombre",
+            "placa": "EVZ 109"
+        },
+        {
+            "nombre": "nombre",
+            "placa": "UYZ 474"
+        },
+        {
+            "nombre": "nombre",
+            "placa": "KPO 628"
+        },
+        {
+            "nombre": "nombre",
+            "placa": "QMT 429"
+        },
+        {
+            "nombre": "nombre",
+            "placa": "UQM 877"
+        },
+        {
+            "nombre": "nombre",
+            "placa": "WEL 888"
+        }
+    ]
+}

@@ -32,7 +32,8 @@
   font-weight: 600;
 }
 
-.yard-exit__field input {
+.yard-exit__field input,
+.yard-exit__field select {
   box-sizing: border-box;
   width: 100%;
   min-width: 0;
@@ -46,7 +47,8 @@
   font-weight: 400;
 }
 
-.yard-exit__field input:focus {
+.yard-exit__field input:focus,
+.yard-exit__field select:focus {
   border-color: #3b82f6;
   outline: 2px solid rgb(59 130 246 / 20%);
 }
@@ -152,6 +154,7 @@
   }
 
   .yard-exit__field input,
+  .yard-exit__field select,
   .yard-exit__submit {
     min-height: 50px;
   }
