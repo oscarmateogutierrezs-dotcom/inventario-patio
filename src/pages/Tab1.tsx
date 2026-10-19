@@ -1,6 +1,7 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { useDrivers } from '../drivers';
+import { useInventoryProducts } from '../inventory';
 import './Tab1.css';
 
 const emptyForm = {
@@ -26,7 +27,7 @@ const fields: Array<{
   { name: 'remision', label: 'Remisión', type: 'text', placeholder: 'Folio' },
   { name: 'placaVehiculo', label: 'Placa vehículo', type: 'select', placeholder: 'Seleccionar placa' },
   { name: 'cantidadEntregada', label: 'Cantidad entregada', type: 'number', placeholder: '#' },
-  { name: 'codigoProducto', label: 'Código producto', type: 'text', placeholder: 'Código' },
+  { name: 'codigoProducto', label: 'Código producto', type: 'select', placeholder: 'Seleccionar producto' },
   { name: 'loteDespachado', label: 'Lote despachado', type: 'text', placeholder: 'Lote' },
   { name: 'cantidad', label: 'Cantidad', type: 'number', placeholder: '#' },
   { name: 'desperdicioGenerado', label: 'Desperdicio generado', type: 'number', placeholder: '#' },
@@ -37,6 +38,13 @@ const Tab1: React.FC = () => {
   const [form, setForm] = useState<EntryForm>({ ...emptyForm });
   const [entries, setEntries] = useState<Entry[]>([]);
   const { drivers } = useDrivers();
+  const { products } = useInventoryProducts();
+
+  useEffect(() => {
+    if (form.codigoProducto && !products.some((product) => product.codigo === form.codigoProducto)) {
+      setForm((currentForm) => ({ ...currentForm, codigoProducto: '' }));
+    }
+  }, [form.codigoProducto, products]);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -80,11 +88,17 @@ const Tab1: React.FC = () => {
                       required
                     >
                       <option value="">{field.placeholder}</option>
-                      {drivers.map((driver) => (
-                        <option key={`${driver.placa}-${driver.nombre}`} value={driver.placa}>
-                          {driver.placa}
-                        </option>
-                      ))}
+                      {field.name === 'placaVehiculo'
+                        ? drivers.map((driver) => (
+                            <option key={`${driver.placa}-${driver.nombre}`} value={driver.placa}>
+                              {driver.placa}
+                            </option>
+                          ))
+                        : products.map((product) => (
+                            <option key={product.codigo} value={product.codigo}>
+                              {product.codigo} - {product.item}
+                            </option>
+                          ))}
                     </select>
                   ) : (
                     <input

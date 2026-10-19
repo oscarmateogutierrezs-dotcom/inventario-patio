@@ -19,6 +19,69 @@
   font-size: 16px;
 }
 
+.inventory__product-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+  gap: 12px;
+  align-items: end;
+  margin-bottom: 20px;
+  padding: 16px;
+  border: 1px solid #d7e0ec;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.inventory__product-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #172033;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.inventory__product-field input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  padding: 9px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  background: #fff;
+  color: #172033;
+  font: inherit;
+  font-weight: 400;
+}
+
+.inventory__add,
+.inventory__remove {
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 7px;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+}
+
+.inventory__add {
+  background: #0754c7;
+}
+
+.inventory__remove {
+  background: #b91c1c;
+}
+
+.inventory__table th:last-child,
+.inventory__table td:last-child {
+  width: 130px;
+}
+
+.inventory__empty {
+  color: #64748b;
+  text-align: center !important;
+}
+
 .inventory__table-wrap {
   overflow-x: auto;
   border: 1px solid #d7e0ec;
