@@ -80,3 +80,18 @@ test('removes a product from both tabs and saved inventory', () => {
   ).not.toBeInTheDocument();
 
 });
+
+test('shows errors and shakes missing product fields', () => {
+  render(<Tab2 />);
+
+  fireEvent.change(screen.getByLabelText('Cantidad inicial del producto'), { target: { value: '' } });
+  fireEvent.click(screen.getByRole('button', { name: 'Agregar producto' }));
+
+  expect(screen.getByRole('alert')).toHaveTextContent('Completa correctamente los campos señalados.');
+  expect(screen.getByLabelText('Código del producto nuevo')).toHaveClass('form-input-invalid');
+  expect(screen.getByLabelText('Nombre del producto nuevo')).toHaveClass('form-input-invalid');
+  expect(screen.getByLabelText('Cantidad inicial del producto')).toHaveClass('form-input-invalid');
+  expect(screen.getByText('Ingresa el código del producto.')).toBeInTheDocument();
+  expect(screen.getByText('Ingresa el nombre del producto.')).toBeInTheDocument();
+  expect(screen.getByText('Ingresa una cantidad inicial válida.')).toBeInTheDocument();
+});

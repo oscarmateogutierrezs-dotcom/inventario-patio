@@ -82,3 +82,16 @@ test('uses product codes from the inventory list', () => {
     })
   ).toHaveValue(firstProduct.codigo);
 });
+
+test('shows errors and shakes every missing required field', () => {
+  render(<Tab1 />);
+
+  fireEvent.click(screen.getByRole('button', { name: 'Agregar registro' }));
+
+  expect(screen.getByRole('alert')).toHaveTextContent('Completa los campos obligatorios señalados.');
+  expect(screen.getByLabelText('Remisión')).toHaveAttribute('aria-invalid', 'true');
+  expect(screen.getByLabelText('Remisión')).toHaveClass('form-input-invalid');
+  expect(screen.getByText('Completa el campo Remisión.')).toBeInTheDocument();
+  expect(screen.getByText('Completa el campo Código producto.')).toBeInTheDocument();
+  expect(screen.queryByText('Aún no hay registros para este turno.')).toBeInTheDocument();
+});

@@ -58,3 +58,15 @@ test('keeps a driver when deletion is canceled', () => {
   expect(screen.getByText('ESZ 929')).toBeInTheDocument();
   expect(screen.queryByRole('status')).not.toBeInTheDocument();
 });
+
+test('shows errors and shakes missing driver fields', () => {
+  render(<Tab3 />);
+
+  fireEvent.click(screen.getByRole('button', { name: 'Agregar conductor' }));
+
+  expect(screen.getByRole('alert')).toHaveTextContent('Completa los campos obligatorios señalados.');
+  expect(screen.getByLabelText('Nombre del conductor')).toHaveClass('form-input-invalid');
+  expect(screen.getByLabelText('Placa')).toHaveClass('form-input-invalid');
+  expect(screen.getByText('Ingresa el nombre del conductor.')).toBeInTheDocument();
+  expect(screen.getByText('Ingresa la placa.')).toBeInTheDocument();
+});

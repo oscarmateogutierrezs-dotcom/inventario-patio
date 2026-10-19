@@ -1,13 +1,17 @@
 import { FormEvent, useState } from 'react';
 import { IonAlert, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { useDrivers } from '../drivers';
+import './form-validation.css';
 import './Tab3.css';
+
+type DriverField = 'nombre' | 'placa';
 
 const Tab3: React.FC = () => {
   const { drivers, error: storageError, saveDrivers } = useDrivers();
   const [nombre, setNombre] = useState('');
   const [placa, setPlaca] = useState('');
   const [formError, setFormError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Partial<Record<DriverField, string>>>({});
   const [deleteMessage, setDeleteMessage] = useState('');
   const [driverToDelete, setDriverToDelete] = useState<{ nombre: string; placa: string } | null>(null);
 
@@ -16,10 +20,19 @@ const Tab3: React.FC = () => {
     const normalizedName = nombre.trim();
     const normalizedPlate = placa.trim().toUpperCase();
 
-    if (!normalizedName || !normalizedPlate) {
-      setFormError('Ingresa el nombre del conductor y la placa.');
+    const missingFields: Partial<Record<DriverField, string>> = {};
+    if (!normalizedName) {
+      missingFields.nombre = 'Ingresa el nombre del conductor.';
+    }
+    if (!normalizedPlate) {
+      missingFields.placa = 'Ingresa la placa.';
+    }
+    if (Object.keys(missingFields).length > 0) {
+      setFieldErrors(missingFields);
+      setFormError(null);
       return;
     }
+    setFieldErrors({});
 
     if (drivers.some((driver) => driver.placa.toUpperCase() === normalizedPlate)) {
       setFormError('Ya existe un conductor registrado con esa placa.');
@@ -30,6 +43,7 @@ const Tab3: React.FC = () => {
       setNombre('');
       setPlaca('');
       setFormError(null);
+      setFieldErrors({});
     }
   };
 
@@ -56,8 +70,11 @@ const Tab3: React.FC = () => {
           </IonToolbar>
         </IonHeader>
         <main className="drivers">
-          <form className="drivers__form" onSubmit={handleSubmit}>
+          <form className="drivers__form" noValidate onSubmit={handleSubmit}>
             <h2 className="drivers__heading">Agregar conductor</h2>
+            {Object.keys(fieldErrors).length > 0 && (
+              <p className="form-validation-error" role="alert">Completa los campos obligatorios señalados.</p>
+            )}
             <div className="drivers__fields">
               <label className="drivers__field" htmlFor="driver-name">
                 <span>Nombre del conductor</span>
@@ -65,11 +82,23 @@ const Tab3: React.FC = () => {
                   id="driver-name"
                   name="nombre"
                   type="text"
+                  aria-label="Nombre del conductor"
                   autoComplete="name"
                   value={nombre}
-                  onChange={(event) => setNombre(event.target.value)}
+                  aria-invalid={Boolean(fieldErrors.nombre)}
+                  aria-describedby={fieldErrors.nombre ? 'driver-name-error' : undefined}
+                  className={fieldErrors.nombre ? 'form-input-invalid' : undefined}
+                  onChange={(event) => {
+                    setNombre(event.target.value);
+                    setFieldErrors((currentErrors) => {
+                      const nextErrors = { ...currentErrors };
+                      delete nextErrors.nombre;
+                      return nextErrors;
+                    });
+                  }}
                   required
                 />
+                {fieldErrors.nombre && <span className="form-field-error" id="driver-name-error">{fieldErrors.nombre}</span>}
               </label>
               <label className="drivers__field" htmlFor="driver-plate">
                 <span>Placa</span>
@@ -77,11 +106,23 @@ const Tab3: React.FC = () => {
                   id="driver-plate"
                   name="placa"
                   type="text"
+                  aria-label="Placa"
                   autoCapitalize="characters"
                   value={placa}
-                  onChange={(event) => setPlaca(event.target.value)}
+                  aria-invalid={Boolean(fieldErrors.placa)}
+                  aria-describedby={fieldErrors.placa ? 'driver-plate-error' : undefined}
+                  className={fieldErrors.placa ? 'form-input-invalid' : undefined}
+                  onChange={(event) => {
+                    setPlaca(event.target.value);
+                    setFieldErrors((currentErrors) => {
+                      const nextErrors = { ...currentErrors };
+                      delete nextErrors.placa;
+                      return nextErrors;
+                    });
+                  }}
                   required
                 />
+                {fieldErrors.placa && <span className="form-field-error" id="driver-plate-error">{fieldErrors.placa}</span>}
               </label>
             </div>
             {formError && <p className="drivers__error" role="alert">{formError}</p>}

@@ -1,0 +1,39 @@
+.form-input-invalid {
+  border-color: #d92d20 !important;
+  box-shadow: 0 0 0 3px rgb(217 45 32 / 12%);
+  animation: invalid-field-shake 320ms ease-in-out;
+}
+
+.form-field-error {
+  margin: 0;
+  color: #b91c1c;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.form-validation-error {
+  margin: 0 0 16px;
+  color: #b91c1c;
+  font-size: 15px;
+}
+
+@keyframes invalid-field-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-5px);
+  }
+
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .form-input-invalid {
+    animation: none;
+  }
+}

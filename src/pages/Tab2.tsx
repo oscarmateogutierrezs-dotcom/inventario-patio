@@ -1,7 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { IonAlert, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { InventoryProduct, useInventoryProducts } from '../inventory';
+import './form-validation.css';
 import './Tab2.css';
+
+type NewProductField = 'codigo' | 'item' | 'cantidad';
 
 type InventoryState = {
   quantities: Record<string, string>;
@@ -49,6 +52,7 @@ const Tab2: React.FC = () => {
   const lastSavedQuantities = useRef(inventory.quantities);
   const lastSavedProducts = useRef(products);
   const [newProduct, setNewProduct] = useState({ codigo: '', item: '', cantidad: '0' });
+  const [newProductErrors, setNewProductErrors] = useState<Partial<Record<NewProductField, string>>>({});
   const [formError, setFormError] = useState<string | null>(null);
   const [deleteMessage, setDeleteMessage] = useState('');
   const [productToDelete, setProductToDelete] = useState<Pick<InventoryProduct, 'codigo' | 'item'> | null>(null);
@@ -110,15 +114,28 @@ const Tab2: React.FC = () => {
 
   const handleAddProduct = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const validationErrors: Partial<Record<NewProductField, string>> = {};
+    if (!newProduct.codigo.trim()) {
+      validationErrors.codigo = 'Ingresa el código del producto.';
+    }
+    if (!newProduct.item.trim()) {
+      validationErrors.item = 'Ingresa el nombre del producto.';
+    }
+    const cantidad = Number(newProduct.cantidad);
+    if (!newProduct.cantidad.trim() || !Number.isInteger(cantidad) || cantidad < 0) {
+      validationErrors.cantidad = 'Ingresa una cantidad inicial válida.';
+    }
+    if (Object.keys(validationErrors).length > 0) {
+      setNewProductErrors(validationErrors);
+      setFormError(null);
+      return;
+    }
+    setNewProductErrors({});
     const product = {
       codigo: newProduct.codigo.trim(),
       item: newProduct.item.trim(),
-      cantidad: Number(newProduct.cantidad)
+      cantidad
     };
-    if (!product.codigo || !product.item || !Number.isInteger(product.cantidad) || product.cantidad < 0) {
-      setFormError('Ingresa un código, nombre y cantidad inicial válidos.');
-      return;
-    }
     if (products.some((currentProduct) => currentProduct.codigo === product.codigo)) {
       setFormError('Ya existe un producto con ese código.');
       return;
@@ -168,15 +185,29 @@ const Tab2: React.FC = () => {
               {formError ?? catalogError ?? inventory.storageError}
             </p>
           )}
-          <form className="inventory__product-form" onSubmit={handleAddProduct}>
+          <form className="inventory__product-form" noValidate onSubmit={handleAddProduct}>
+            {Object.keys(newProductErrors).length > 0 && (
+              <p className="form-validation-error" role="alert">Completa correctamente los campos señalados.</p>
+            )}
             <label className="inventory__product-field">
               <span>Código</span>
               <input
                 aria-label="Código del producto nuevo"
                 required
                 value={newProduct.codigo}
-                onChange={(event) => setNewProduct((currentProduct) => ({ ...currentProduct, codigo: event.target.value }))}
+                aria-invalid={Boolean(newProductErrors.codigo)}
+                aria-describedby={newProductErrors.codigo ? 'new-product-code-error' : undefined}
+                className={newProductErrors.codigo ? 'form-input-invalid' : undefined}
+                onChange={(event) => {
+                  setNewProduct((currentProduct) => ({ ...currentProduct, codigo: event.target.value }));
+                  setNewProductErrors((currentErrors) => {
+                    const nextErrors = { ...currentErrors };
+                    delete nextErrors.codigo;
+                    return nextErrors;
+                  });
+                }}
               />
+              {newProductErrors.codigo && <span className="form-field-error" id="new-product-code-error">{newProductErrors.codigo}</span>}
             </label>
             <label className="inventory__product-field">
               <span>Producto</span>
@@ -184,8 +215,19 @@ const Tab2: React.FC = () => {
                 aria-label="Nombre del producto nuevo"
                 required
                 value={newProduct.item}
-                onChange={(event) => setNewProduct((currentProduct) => ({ ...currentProduct, item: event.target.value }))}
+                aria-invalid={Boolean(newProductErrors.item)}
+                aria-describedby={newProductErrors.item ? 'new-product-name-error' : undefined}
+                className={newProductErrors.item ? 'form-input-invalid' : undefined}
+                onChange={(event) => {
+                  setNewProduct((currentProduct) => ({ ...currentProduct, item: event.target.value }));
+                  setNewProductErrors((currentErrors) => {
+                    const nextErrors = { ...currentErrors };
+                    delete nextErrors.item;
+                    return nextErrors;
+                  });
+                }}
               />
+              {newProductErrors.item && <span className="form-field-error" id="new-product-name-error">{newProductErrors.item}</span>}
             </label>
             <label className="inventory__product-field">
               <span>Cantidad inicial</span>
@@ -196,8 +238,19 @@ const Tab2: React.FC = () => {
                 step="1"
                 required
                 value={newProduct.cantidad}
-                onChange={(event) => setNewProduct((currentProduct) => ({ ...currentProduct, cantidad: event.target.value }))}
+                aria-invalid={Boolean(newProductErrors.cantidad)}
+                aria-describedby={newProductErrors.cantidad ? 'new-product-quantity-error' : undefined}
+                className={newProductErrors.cantidad ? 'form-input-invalid' : undefined}
+                onChange={(event) => {
+                  setNewProduct((currentProduct) => ({ ...currentProduct, cantidad: event.target.value }));
+                  setNewProductErrors((currentErrors) => {
+                    const nextErrors = { ...currentErrors };
+                    delete nextErrors.cantidad;
+                    return nextErrors;
+                  });
+                }}
               />
+              {newProductErrors.cantidad && <span className="form-field-error" id="new-product-quantity-error">{newProductErrors.cantidad}</span>}
             </label>
             <button className="inventory__add" type="submit">Agregar producto</button>
           </form>

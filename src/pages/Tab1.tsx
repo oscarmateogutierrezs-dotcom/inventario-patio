@@ -2,6 +2,7 @@ import { FormEvent, useEffect, useState } from 'react';
 import { IonAlert, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { useDrivers } from '../drivers';
 import { useInventoryProducts } from '../inventory';
+import './form-validation.css';
 import './Tab1.css';
 
 const emptyForm = {
@@ -17,6 +18,7 @@ const emptyForm = {
 
 type EntryForm = typeof emptyForm;
 type Entry = EntryForm & { id: number };
+type EntryField = keyof EntryForm;
 
 const fields: Array<{
   name: keyof EntryForm;
@@ -36,6 +38,7 @@ const fields: Array<{
 
 const Tab1: React.FC = () => {
   const [form, setForm] = useState<EntryForm>({ ...emptyForm });
+  const [fieldErrors, setFieldErrors] = useState<Partial<Record<EntryField, string>>>({});
   const [entries, setEntries] = useState<Entry[]>([]);
   const [deleteMessage, setDeleteMessage] = useState('');
   const [entryToDelete, setEntryToDelete] = useState<Entry | null>(null);
@@ -50,6 +53,17 @@ const Tab1: React.FC = () => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const missingFields = fields.reduce<Partial<Record<EntryField, string>>>((errors, field) => {
+      if (!form[field.name].trim()) {
+        errors[field.name] = `Completa el campo ${field.label}.`;
+      }
+      return errors;
+    }, {});
+    if (Object.keys(missingFields).length > 0) {
+      setFieldErrors(missingFields);
+      return;
+    }
+    setFieldErrors({});
     setEntries((currentEntries) => {
       const nextId = currentEntries.reduce((largestId, entry) => Math.max(largestId, entry.id), 0) + 1;
       return [...currentEntries, { ...form, id: nextId }];
@@ -64,6 +78,14 @@ const Tab1: React.FC = () => {
     const entry = entryToDelete;
     setEntries((currentEntries) => currentEntries.filter((currentEntry) => currentEntry.id !== entry.id));
     setDeleteMessage(`Se eliminó el registro de remisión ${entry.remision}.`);
+  };
+
+  const clearFieldError = (fieldName: EntryField) => {
+    setFieldErrors((currentErrors) => {
+      const nextErrors = { ...currentErrors };
+      delete nextErrors[fieldName];
+      return nextErrors;
+    });
   };
 
   return (
@@ -81,7 +103,10 @@ const Tab1: React.FC = () => {
         </IonHeader>
         <main className="yard-exit">
           {deleteMessage && <p className="yard-exit__success" role="status">{deleteMessage}</p>}
-          <form className="yard-exit__form" onSubmit={handleSubmit}>
+          <form className="yard-exit__form" noValidate onSubmit={handleSubmit}>
+            {Object.keys(fieldErrors).length > 0 && (
+              <p className="form-validation-error" role="alert">Completa los campos obligatorios señalados.</p>
+            )}
             <div className="yard-exit__fields">
               {fields.map((field) => (
                 <label className="yard-exit__field" htmlFor={`yard-${field.name}`} key={field.name}>
@@ -90,12 +115,16 @@ const Tab1: React.FC = () => {
                     <select
                       id={`yard-${field.name}`}
                       name={field.name}
+                      aria-label={field.label}
                       value={form[field.name]}
+                      aria-invalid={Boolean(fieldErrors[field.name])}
+                      aria-describedby={fieldErrors[field.name] ? `yard-${field.name}-error` : undefined}
+                      className={fieldErrors[field.name] ? 'form-input-invalid' : undefined}
                       onChange={(event) =>
-                        setForm((currentForm) => ({
-                          ...currentForm,
-                          [field.name]: event.target.value
-                        }))
+                        {
+                          setForm((currentForm) => ({ ...currentForm, [field.name]: event.target.value }));
+                          clearFieldError(field.name);
+                        }
                       }
                       required
                     >
@@ -116,19 +145,28 @@ const Tab1: React.FC = () => {
                     <input
                       id={`yard-${field.name}`}
                       name={field.name}
+                      aria-label={field.label}
                       type={field.type}
                       placeholder={field.placeholder}
                       value={form[field.name]}
+                      aria-invalid={Boolean(fieldErrors[field.name])}
+                      aria-describedby={fieldErrors[field.name] ? `yard-${field.name}-error` : undefined}
+                      className={fieldErrors[field.name] ? 'form-input-invalid' : undefined}
                       onChange={(event) =>
-                        setForm((currentForm) => ({
-                          ...currentForm,
-                          [field.name]: event.target.value
-                        }))
+                        {
+                          setForm((currentForm) => ({ ...currentForm, [field.name]: event.target.value }));
+                          clearFieldError(field.name);
+                        }
                       }
                       required
                       min={field.type === 'number' ? '0' : undefined}
                       step={field.type === 'number' ? 'any' : undefined}
                     />
+                  )}
+                  {fieldErrors[field.name] && (
+                    <span className="form-field-error" id={`yard-${field.name}-error`}>
+                      {fieldErrors[field.name]}
+                    </span>
                   )}
                 </label>
               ))}
