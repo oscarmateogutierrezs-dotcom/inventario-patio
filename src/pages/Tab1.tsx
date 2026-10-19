@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useState } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonAlert, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { useDrivers } from '../drivers';
 import { useInventoryProducts } from '../inventory';
 import './Tab1.css';
@@ -37,6 +37,8 @@ const fields: Array<{
 const Tab1: React.FC = () => {
   const [form, setForm] = useState<EntryForm>({ ...emptyForm });
   const [entries, setEntries] = useState<Entry[]>([]);
+  const [deleteMessage, setDeleteMessage] = useState('');
+  const [entryToDelete, setEntryToDelete] = useState<Entry | null>(null);
   const { drivers } = useDrivers();
   const { products } = useInventoryProducts();
 
@@ -55,6 +57,15 @@ const Tab1: React.FC = () => {
     setForm({ ...emptyForm });
   };
 
+  const handleDeleteEntry = () => {
+    if (!entryToDelete) {
+      return;
+    }
+    const entry = entryToDelete;
+    setEntries((currentEntries) => currentEntries.filter((currentEntry) => currentEntry.id !== entry.id));
+    setDeleteMessage(`Se eliminó el registro de remisión ${entry.remision}.`);
+  };
+
   return (
     <IonPage>
       <IonHeader>
@@ -69,6 +80,7 @@ const Tab1: React.FC = () => {
           </IonToolbar>
         </IonHeader>
         <main className="yard-exit">
+          {deleteMessage && <p className="yard-exit__success" role="status">{deleteMessage}</p>}
           <form className="yard-exit__form" onSubmit={handleSubmit}>
             <div className="yard-exit__fields">
               {fields.map((field) => (
@@ -154,11 +166,7 @@ const Tab1: React.FC = () => {
                           className="yard-exit__delete"
                           type="button"
                           aria-label={`Eliminar registro de remisión ${entry.remision}`}
-                          onClick={() =>
-                            setEntries((currentEntries) =>
-                              currentEntries.filter((currentEntry) => currentEntry.id !== entry.id)
-                            )
-                          }
+                          onClick={() => setEntryToDelete(entry)}
                         >
                           Eliminar
                         </button>
@@ -169,6 +177,16 @@ const Tab1: React.FC = () => {
               </tbody>
             </table>
           </div>
+          <IonAlert
+            isOpen={entryToDelete !== null}
+            header="Confirmar eliminación"
+            message={entryToDelete ? `¿Desea eliminar el registro de remisión ${entryToDelete.remision}?` : ''}
+            buttons={[
+              { text: 'Cancelar', role: 'cancel' },
+              { text: 'Eliminar', role: 'destructive', handler: handleDeleteEntry }
+            ]}
+            onDidDismiss={() => setEntryToDelete(null)}
+          />
         </main>
       </IonContent>
     </IonPage>

@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonAlert, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { useDrivers } from '../drivers';
 import './Tab3.css';
 
@@ -8,6 +8,8 @@ const Tab3: React.FC = () => {
   const [nombre, setNombre] = useState('');
   const [placa, setPlaca] = useState('');
   const [formError, setFormError] = useState<string | null>(null);
+  const [deleteMessage, setDeleteMessage] = useState('');
+  const [driverToDelete, setDriverToDelete] = useState<{ nombre: string; placa: string } | null>(null);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -31,8 +33,13 @@ const Tab3: React.FC = () => {
     }
   };
 
-  const removeDriver = (plateToRemove: string) => {
-    saveDrivers(drivers.filter((driver) => driver.placa !== plateToRemove));
+  const removeDriver = () => {
+    if (!driverToDelete) {
+      return;
+    }
+    if (saveDrivers(drivers.filter((driver) => driver.placa !== driverToDelete.placa))) {
+      setDeleteMessage(`Se eliminó el conductor ${driverToDelete.nombre}, placa ${driverToDelete.placa}.`);
+    }
   };
 
   return (
@@ -82,6 +89,7 @@ const Tab3: React.FC = () => {
             <button className="drivers__submit" type="submit">Agregar conductor</button>
           </form>
 
+          {deleteMessage && <p className="drivers__success" role="status">{deleteMessage}</p>}
           <section className="drivers__list" aria-labelledby="drivers-list-heading">
             <h2 className="drivers__heading" id="drivers-list-heading">Conductores registrados</h2>
             {drivers.length === 0 ? (
@@ -98,7 +106,7 @@ const Tab3: React.FC = () => {
                       className="drivers__remove"
                       type="button"
                       aria-label={`Quitar conductor ${driver.nombre}, placa ${driver.placa}`}
-                      onClick={() => removeDriver(driver.placa)}
+                      onClick={() => setDriverToDelete(driver)}
                     >
                       Quitar
                     </button>
@@ -107,6 +115,20 @@ const Tab3: React.FC = () => {
               </ul>
             )}
           </section>
+          <IonAlert
+            isOpen={driverToDelete !== null}
+            header="Confirmar eliminación"
+            message={
+              driverToDelete
+                ? `¿Desea eliminar al conductor ${driverToDelete.nombre} de placa ${driverToDelete.placa}?`
+                : ''
+            }
+            buttons={[
+              { text: 'Cancelar', role: 'cancel' },
+              { text: 'Eliminar', role: 'destructive', handler: removeDriver }
+            ]}
+            onDidDismiss={() => setDriverToDelete(null)}
+          />
         </main>
       </IonContent>
     </IonPage>

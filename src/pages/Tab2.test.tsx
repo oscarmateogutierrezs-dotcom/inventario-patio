@@ -1,5 +1,4 @@
-import { fireEvent, render, screen, within } from '@testing-library/react';
-import { vi } from 'vitest';
+import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import inventoryData from '../../data/inventario.json';
 import Tab1 from './Tab1';
 import Tab2 from './Tab2';
@@ -56,10 +55,19 @@ test('adds and persists a product in the inventory catalog', () => {
 test('removes a product from both tabs and saved inventory', () => {
   const product = inventoryData.items[0];
   const { unmount } = render(<Tab2 />);
-  const confirmSpy = vi.spyOn(window, 'confirm').mockReturnValue(true);
 
   fireEvent.click(screen.getByRole('button', { name: `Eliminar producto ${product.codigo}` }));
+  const alert = document.querySelector('ion-alert');
+  expect(alert?.header).toBe('Confirmar eliminación');
+  expect(alert?.message).toBe(`¿Eliminar el producto ${product.codigo} - ${product.item}?`);
+  const deleteButton = alert?.buttons.find((button) => typeof button !== 'string' && button.text === 'Eliminar');
+  expect(deleteButton).toBeDefined();
+  if (deleteButton && typeof deleteButton !== 'string') {
+    act(() => deleteButton.handler?.(undefined));
+  }
+
   expect(screen.queryByRole('row', { name: /Bloque 4 Primera/ })).not.toBeInTheDocument();
+  expect(screen.getByRole('status')).toHaveTextContent(`Se eliminó el producto ${product.codigo} - ${product.item}.`);
   expect(localStorage.getItem('inventario-patio-productos')).not.toContain(product.codigo);
   expect(localStorage.getItem('inventario-patio-cantidades')).not.toContain(`"${product.codigo}"`);
 
@@ -71,5 +79,4 @@ test('removes a product from both tabs and saved inventory', () => {
     })
   ).not.toBeInTheDocument();
 
-  confirmSpy.mockRestore();
 });

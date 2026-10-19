@@ -7,6 +7,12 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.drivers__success {
+  margin: 0 0 16px;
+  color: #166534;
+  font-size: 16px;
+}
+
 .drivers__form,
 .drivers__list {
   padding: 20px;
@@ -67,6 +73,7 @@
   border-radius: 7px;
   cursor: pointer;
   font: inherit;
+  font-size: 15px;
   font-weight: 700;
 }
 
@@ -76,10 +83,17 @@
   border: 0;
   background: #0754c7;
   color: #fff;
+  box-shadow: 0 3px 0px rgb(0, 0, 0);
 }
 
 .drivers__submit:hover {
   background: #0646a8;
+}
+
+.drivers__submit:active {
+  background: #053a8c;
+  box-shadow: 0 3px 12px rgb(5 58 140 / 25%);
+  transform: translateY(4px);
 }
 
 .drivers__error {
@@ -130,12 +144,8 @@
 .drivers__remove {
   flex: 0 0 auto;
   border: 1px solid #dc2626;
-  background: #fff;
-  color: #b91c1c;
-}
-
-.drivers__remove:hover {
-  background: #fef2f2;
+  background: #b91c1c;
+  color: #fff;
 }
 
 .drivers__empty {

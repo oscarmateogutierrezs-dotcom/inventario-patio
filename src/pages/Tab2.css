@@ -19,6 +19,12 @@
   font-size: 16px;
 }
 
+.inventory__success {
+  margin: 0 0 16px;
+  color: #166534;
+  font-size: 16px;
+}
+
 .inventory__product-form {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
@@ -62,10 +68,19 @@
   color: #fff;
   cursor: pointer;
   font: inherit;
+  font-size: 15px;
+  font-weight: 700;
 }
 
 .inventory__add {
   background: #0754c7;
+
+}
+
+.inventory__add:active {
+  background: #fff;
+  color: #0754c7;
+  border: 1px solid #0754c7;
 }
 
 .inventory__remove {

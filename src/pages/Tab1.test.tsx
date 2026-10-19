@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import inventoryData from '../../data/inventario.json';
 import Tab1 from './Tab1';
 
@@ -31,7 +31,43 @@ test('adds and removes a yard exit record', () => {
   expect(screen.getByLabelText('Remisión')).toHaveValue('');
 
   fireEvent.click(within(row).getByRole('button', { name: 'Eliminar registro de remisión R-123' }));
+  const alert = document.querySelector('ion-alert');
+  expect(alert?.header).toBe('Confirmar eliminación');
+  expect(alert?.message).toBe('¿Desea eliminar el registro de remisión R-123?');
+  const deleteButton = alert?.buttons.find((button) => typeof button !== 'string' && button.text === 'Eliminar');
+  expect(deleteButton).toBeDefined();
+  if (deleteButton && typeof deleteButton !== 'string') {
+    act(() => deleteButton.handler?.(undefined));
+  }
   expect(screen.getByText('Aún no hay registros para este turno.')).toBeInTheDocument();
+  expect(screen.getByRole('status')).toHaveTextContent('Se eliminó el registro de remisión R-123.');
+});
+
+test('keeps a yard exit record when deletion is canceled', () => {
+  render(<Tab1 />);
+
+  const values = [
+    ['Remisión', 'R-456'],
+    ['Placa vehículo', 'ESZ 929'],
+    ['Cantidad entregada', '25'],
+    ['Código producto', inventoryData.items[0].codigo],
+    ['Lote despachado', 'L-67'],
+    ['Cantidad', '24'],
+    ['Desperdicio generado', '1'],
+    ['Reclasifica segunda', '0']
+  ];
+  values.forEach(([label, value]) => {
+    fireEvent.change(screen.getByLabelText(label), { target: { value } });
+  });
+  fireEvent.click(screen.getByRole('button', { name: 'Agregar registro' }));
+  const row = screen.getByRole('row', { name: /R-456/ });
+
+  fireEvent.click(within(row).getByRole('button', { name: 'Eliminar registro de remisión R-456' }));
+
+  const alert = document.querySelector('ion-alert');
+  expect(alert?.buttons.find((button) => typeof button !== 'string' && button.text === 'Cancelar')).toBeDefined();
+  expect(screen.getByRole('row', { name: /R-456/ })).toBeInTheDocument();
+  expect(screen.queryByRole('status')).not.toBeInTheDocument();
 });
 
 test('uses product codes from the inventory list', () => {

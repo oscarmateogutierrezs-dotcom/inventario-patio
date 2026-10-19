@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonAlert, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { InventoryProduct, useInventoryProducts } from '../inventory';
 import './Tab2.css';
 
@@ -50,6 +50,8 @@ const Tab2: React.FC = () => {
   const lastSavedProducts = useRef(products);
   const [newProduct, setNewProduct] = useState({ codigo: '', item: '', cantidad: '0' });
   const [formError, setFormError] = useState<string | null>(null);
+  const [deleteMessage, setDeleteMessage] = useState('');
+  const [productToDelete, setProductToDelete] = useState<Pick<InventoryProduct, 'codigo' | 'item'> | null>(null);
   const items = useMemo(
     () =>
       products.map((product) => ({
@@ -133,9 +135,15 @@ const Tab2: React.FC = () => {
     setFormError(null);
   };
 
-  const handleRemoveProduct = (product: Pick<InventoryProduct, 'codigo' | 'item'>) => {
-    if (window.confirm(`¿Eliminar el producto ${product.codigo} - ${product.item}?`)) {
-      removeProduct(product.codigo);
+  const handleRemoveProduct = () => {
+    if (!productToDelete) {
+      return;
+    }
+    if (removeProduct(productToDelete.codigo)) {
+      setDeleteMessage(`Se eliminó el producto ${productToDelete.codigo} - ${productToDelete.item}.`);
+      setFormError(null);
+    } else {
+      setFormError('No se pudo eliminar el producto. Inténtalo de nuevo.');
     }
   };
 
@@ -154,6 +162,7 @@ const Tab2: React.FC = () => {
         </IonHeader>
         <main className="inventory">
           <p className="inventory__hint">Administra los productos y sus cantidades; los cambios se guardan en este dispositivo.</p>
+          {deleteMessage && <p className="inventory__success" role="status">{deleteMessage}</p>}
           {(catalogError || inventory.storageError || formError) && (
             <p className="inventory__error" role="alert">
               {formError ?? catalogError ?? inventory.storageError}
@@ -228,7 +237,7 @@ const Tab2: React.FC = () => {
                         aria-label={`Eliminar producto ${product.codigo}`}
                         className="inventory__remove"
                         type="button"
-                        onClick={() => handleRemoveProduct(product)}
+                        onClick={() => setProductToDelete(product)}
                       >
                         Eliminar
                       </button>
@@ -238,6 +247,20 @@ const Tab2: React.FC = () => {
               </tbody>
             </table>
           </div>
+          <IonAlert
+            isOpen={productToDelete !== null}
+            header="Confirmar eliminación"
+            message={
+              productToDelete
+                ? `¿Eliminar el producto ${productToDelete.codigo} - ${productToDelete.item}?`
+                : ''
+            }
+            buttons={[
+              { text: 'Cancelar', role: 'cancel' },
+              { text: 'Eliminar', role: 'destructive', handler: handleRemoveProduct }
+            ]}
+            onDidDismiss={() => setProductToDelete(null)}
+          />
         </main>
       </IonContent>
     </IonPage>
