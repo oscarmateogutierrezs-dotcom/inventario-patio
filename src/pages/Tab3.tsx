@@ -1,6 +1,7 @@
 import { FormEvent, useState } from 'react';
 import { IonAlert, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { useDrivers } from '../drivers';
+import { useTimedMessage } from '../useTimedMessage';
 import './form-validation.css';
 import './Tab3.css';
 
@@ -12,7 +13,7 @@ const Tab3: React.FC = () => {
   const [placa, setPlaca] = useState('');
   const [formError, setFormError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Partial<Record<DriverField, string>>>({});
-  const [deleteMessage, setDeleteMessage] = useState('');
+  const [deleteMessage, setDeleteMessage] = useTimedMessage();
   const [driverToDelete, setDriverToDelete] = useState<{ nombre: string; placa: string } | null>(null);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -130,7 +131,7 @@ const Tab3: React.FC = () => {
             <button className="drivers__submit" type="submit">Agregar conductor</button>
           </form>
 
-          {deleteMessage && <p className="drivers__success" role="status">{deleteMessage}</p>}
+          {deleteMessage && <p className="drivers__success delete-popup" role="status">{deleteMessage}</p>}
           <section className="drivers__list" aria-labelledby="drivers-list-heading">
             <h2 className="drivers__heading" id="drivers-list-heading">Conductores registrados</h2>
             {drivers.length === 0 ? (

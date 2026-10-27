@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { IonAlert, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import { InventoryProduct, useInventoryProducts } from '../inventory';
+import { useTimedMessage } from '../useTimedMessage';
+import { InventoryProduct, onQuantitiesChanged, quantityStorageKey, useInventoryProducts } from '../inventory';
 import './form-validation.css';
 import './Tab2.css';
 
@@ -11,7 +12,7 @@ type InventoryState = {
   storageError: string | null;
 };
 
-const storageKey = 'inventario-patio-cantidades';
+const storageKey = quantityStorageKey;
 
 const loadInventory = (products: InventoryProduct[]): InventoryState => {
   try {
@@ -54,7 +55,7 @@ const Tab2: React.FC = () => {
   const [newProduct, setNewProduct] = useState({ codigo: '', item: '', cantidad: '0' });
   const [newProductErrors, setNewProductErrors] = useState<Partial<Record<NewProductField, string>>>({});
   const [formError, setFormError] = useState<string | null>(null);
-  const [deleteMessage, setDeleteMessage] = useState('');
+  const [deleteMessage, setDeleteMessage] = useTimedMessage();
   const [productToDelete, setProductToDelete] = useState<Pick<InventoryProduct, 'codigo' | 'item'> | null>(null);
   const items = useMemo(
     () =>
@@ -63,6 +64,11 @@ const Tab2: React.FC = () => {
         cantidad: inventory.quantities[product.codigo] ?? String(product.cantidad)
       })),
     [inventory.quantities, products]
+  );
+
+  useEffect(
+    () => onQuantitiesChanged(() => setInventory(loadInventory(products))),
+    [products]
   );
 
   useEffect(() => {
@@ -179,7 +185,7 @@ const Tab2: React.FC = () => {
         </IonHeader>
         <main className="inventory">
           <p className="inventory__hint">Administra los productos y sus cantidades; los cambios se guardan en este dispositivo.</p>
-          {deleteMessage && <p className="inventory__success" role="status">{deleteMessage}</p>}
+          {deleteMessage && <p className="inventory__success delete-popup" role="status">{deleteMessage}</p>}
           {(catalogError || inventory.storageError || formError) && (
             <p className="inventory__error" role="alert">
               {formError ?? catalogError ?? inventory.storageError}

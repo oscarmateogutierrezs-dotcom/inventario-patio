@@ -1,7 +1,8 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { IonAlert, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { useTimedMessage } from '../useTimedMessage';
 import { useDrivers } from '../drivers';
-import { useInventoryProducts } from '../inventory';
+import { adjustProductStock, useInventoryProducts, useSavedQuantities } from '../inventory';
 import './form-validation.css';
 import './Tab1.css';
 
@@ -40,10 +41,15 @@ const Tab1: React.FC = () => {
   const [form, setForm] = useState<EntryForm>({ ...emptyForm });
   const [fieldErrors, setFieldErrors] = useState<Partial<Record<EntryField, string>>>({});
   const [entries, setEntries] = useState<Entry[]>([]);
-  const [deleteMessage, setDeleteMessage] = useState('');
+  const [deleteMessage, setDeleteMessage] = useTimedMessage();
   const [entryToDelete, setEntryToDelete] = useState<Entry | null>(null);
   const { drivers } = useDrivers();
   const { products } = useInventoryProducts();
+  const savedQuantities = useSavedQuantities();
+  const selectedProduct = products.find((product) => product.codigo === form.codigoProducto);
+  const availableStock = selectedProduct
+    ? savedQuantities[selectedProduct.codigo] ?? selectedProduct.cantidad
+    : 0;
 
   useEffect(() => {
     if (form.codigoProducto && !products.some((product) => product.codigo === form.codigoProducto)) {
@@ -63,6 +69,19 @@ const Tab1: React.FC = () => {
       setFieldErrors(missingFields);
       return;
     }
+    const quantity = Number(form.cantidad);
+    if (!(quantity > 0)) {
+      setFieldErrors({ cantidad: 'La cantidad debe ser mayor a 0.' });
+      return;
+    }
+    if (quantity > availableStock) {
+      setFieldErrors({ cantidad: `La cantidad supera el inventario disponible (${availableStock}).` });
+      return;
+    }
+    if (!adjustProductStock(products, form.codigoProducto, -quantity)) {
+      setFieldErrors({ cantidad: 'No se pudo descontar del inventario.' });
+      return;
+    }
     setFieldErrors({});
     setEntries((currentEntries) => {
       const nextId = currentEntries.reduce((largestId, entry) => Math.max(largestId, entry.id), 0) + 1;
@@ -76,6 +95,7 @@ const Tab1: React.FC = () => {
       return;
     }
     const entry = entryToDelete;
+    adjustProductStock(products, entry.codigoProducto, Number(entry.cantidad));
     setEntries((currentEntries) => currentEntries.filter((currentEntry) => currentEntry.id !== entry.id));
     setDeleteMessage(`Se eliminó el registro de remisión ${entry.remision}.`);
   };
@@ -102,7 +122,7 @@ const Tab1: React.FC = () => {
           </IonToolbar>
         </IonHeader>
         <main className="yard-exit">
-          {deleteMessage && <p className="yard-exit__success" role="status">{deleteMessage}</p>}
+          {deleteMessage && <p className="yard-exit__success delete-popup" role="status">{deleteMessage}</p>}
           <form className="yard-exit__form" noValidate onSubmit={handleSubmit}>
             {Object.keys(fieldErrors).length > 0 && (
               <p className="form-validation-error" role="alert">Completa los campos obligatorios señalados.</p>
@@ -162,6 +182,9 @@ const Tab1: React.FC = () => {
                       min={field.type === 'number' ? '0' : undefined}
                       step={field.type === 'number' ? 'any' : undefined}
                     />
+                  )}
+                  {field.name === 'cantidad' && selectedProduct && (
+                    <span>Disponible: {availableStock}</span>
                   )}
                   {fieldErrors[field.name] && (
                     <span className="form-field-error" id={`yard-${field.name}-error`}>

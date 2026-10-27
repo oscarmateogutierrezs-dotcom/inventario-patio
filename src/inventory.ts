@@ -58,6 +58,75 @@ const loadProducts = (): InventoryProductsState => {
   }
 };
 
+export const quantityStorageKey = 'inventario-patio-cantidades';
+const quantityUpdateEvent = 'inventario-patio-cantidades-actualizadas';
+
+export const readSavedQuantities = (): Record<string, number> => {
+  try {
+    const savedQuantities = localStorage.getItem(quantityStorageKey);
+    const parsedQuantities: unknown = savedQuantities ? JSON.parse(savedQuantities) : {};
+    if (typeof parsedQuantities !== 'object' || parsedQuantities === null || Array.isArray(parsedQuantities)) {
+      return {};
+    }
+    return Object.fromEntries(
+      Object.entries(parsedQuantities).filter(
+        (entry): entry is [string, number] =>
+          typeof entry[1] === 'number' && Number.isFinite(entry[1]) && entry[1] >= 0
+      )
+    );
+  } catch {
+    return {};
+  }
+};
+
+export const useSavedQuantities = () => {
+  const [quantities, setQuantities] = useState(readSavedQuantities);
+
+  useEffect(() => {
+    const refreshQuantities = () => setQuantities(readSavedQuantities());
+    window.addEventListener(quantityUpdateEvent, refreshQuantities);
+    window.addEventListener('storage', refreshQuantities);
+    return () => {
+      window.removeEventListener(quantityUpdateEvent, refreshQuantities);
+      window.removeEventListener('storage', refreshQuantities);
+    };
+  }, []);
+
+  return quantities;
+};
+
+export const onQuantitiesChanged = (listener: () => void) => {
+  window.addEventListener(quantityUpdateEvent, listener);
+  return () => window.removeEventListener(quantityUpdateEvent, listener);
+};
+
+// Suma (delta positivo) o resta (delta negativo) existencias; falla si el resultado sería negativo.
+export const adjustProductStock = (
+  products: InventoryProduct[],
+  codigo: string,
+  delta: number
+): boolean => {
+  const product = products.find((currentProduct) => currentProduct.codigo === codigo);
+  if (!product) {
+    return false;
+  }
+
+  const savedQuantities = readSavedQuantities();
+  const nextQuantity = (savedQuantities[codigo] ?? product.cantidad) + delta;
+  if (nextQuantity < 0) {
+    return false;
+  }
+
+  try {
+    localStorage.setItem(quantityStorageKey, JSON.stringify({ ...savedQuantities, [codigo]: nextQuantity }));
+    window.dispatchEvent(new Event(quantityUpdateEvent));
+    return true;
+  } catch (error) {
+    console.error('No se pudo actualizar la cantidad del inventario.', error);
+    return false;
+  }
+};
+
 export const useInventoryProducts = () => {
   const [state, setState] = useState<InventoryProductsState>(loadProducts);
 
