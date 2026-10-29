@@ -3,10 +3,12 @@ import { IonAlert, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '
 import { useTimedMessage } from '../useTimedMessage';
 import { useDrivers } from '../drivers';
 import { adjustProductStock, useInventoryProducts, useSavedQuantities } from '../inventory';
+import { enqueueSync } from '../sheetSync';
 import './form-validation.css';
 import './Tab1.css';
 
 const emptyForm = {
+  fechaHora: '',
   remision: '',
   placaVehiculo: '',
   cantidadEntregada: '',
@@ -18,7 +20,7 @@ const emptyForm = {
 };
 
 type EntryForm = typeof emptyForm;
-type Entry = EntryForm & { id: number };
+type Entry = EntryForm & { id: number; sheetId: string };
 type EntryField = keyof EntryForm;
 
 const fields: Array<{
@@ -27,6 +29,7 @@ const fields: Array<{
   type: 'text' | 'number' | 'select';
   placeholder: string;
 }> = [
+  { name: 'fechaHora', label: 'Fecha y hora', type: 'text', placeholder: 'DD/MM/YYYY HH:MM' },
   { name: 'remision', label: 'Remisión', type: 'text', placeholder: 'Folio' },
   { name: 'placaVehiculo', label: 'Placa vehículo', type: 'select', placeholder: 'Seleccionar placa' },
   { name: 'cantidadEntregada', label: 'Cantidad entregada', type: 'number', placeholder: '#' },
@@ -36,6 +39,13 @@ const fields: Array<{
   { name: 'desperdicioGenerado', label: 'Desperdicio generado', type: 'number', placeholder: '#' },
   { name: 'reclasificaSegunda', label: 'Reclasifica segunda', type: 'number', placeholder: '#' }
 ];
+
+const formFields = fields.filter((field) => field.name !== 'fechaHora');
+
+const formatDateTime = (date: Date) => {
+  const pad = (value: number) => String(value).padStart(2, '0');
+  return `${pad(date.getDate())}/${pad(date.getMonth() + 1)}/${date.getFullYear()} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
+};
 
 const Tab1: React.FC = () => {
   const [form, setForm] = useState<EntryForm>({ ...emptyForm });
@@ -59,7 +69,7 @@ const Tab1: React.FC = () => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const missingFields = fields.reduce<Partial<Record<EntryField, string>>>((errors, field) => {
+    const missingFields = formFields.reduce<Partial<Record<EntryField, string>>>((errors, field) => {
       if (!form[field.name].trim()) {
         errors[field.name] = `Completa el campo ${field.label}.`;
       }
@@ -83,9 +93,12 @@ const Tab1: React.FC = () => {
       return;
     }
     setFieldErrors({});
+    const sheetId = crypto.randomUUID();
+    const newEntry = { ...form, fechaHora: formatDateTime(new Date()) };
+    enqueueSync({ action: 'add', entryId: sheetId, data: newEntry });
     setEntries((currentEntries) => {
       const nextId = currentEntries.reduce((largestId, entry) => Math.max(largestId, entry.id), 0) + 1;
-      return [...currentEntries, { ...form, id: nextId }];
+      return [...currentEntries, { ...newEntry, id: nextId, sheetId }];
     });
     setForm({ ...emptyForm });
   };
@@ -96,6 +109,7 @@ const Tab1: React.FC = () => {
     }
     const entry = entryToDelete;
     adjustProductStock(products, entry.codigoProducto, Number(entry.cantidad));
+    enqueueSync({ action: 'delete', entryId: entry.sheetId });
     setEntries((currentEntries) => currentEntries.filter((currentEntry) => currentEntry.id !== entry.id));
     setDeleteMessage(`Se eliminó el registro de remisión ${entry.remision}.`);
   };
@@ -128,7 +142,7 @@ const Tab1: React.FC = () => {
               <p className="form-validation-error" role="alert">Completa los campos obligatorios señalados.</p>
             )}
             <div className="yard-exit__fields">
-              {fields.map((field) => (
+              {formFields.map((field) => (
                 <label className="yard-exit__field" htmlFor={`yard-${field.name}`} key={field.name}>
                   <span>{field.label}</span>
                   {field.type === 'select' ? (

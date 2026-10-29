@@ -1,0 +1,2859 @@
+{
+  "items": [
+    {
+      "codigo": "0030101000062",
+      "nombre": "ADOQUIN CORBATIN 2,5",
+      "peso": 1.1,
+      "unidad": "M2",
+      "unidades": 45,
+      "calidad": "PRIM",
+      "total": 49.5,
+      "grupo": "ADOQUIN"
+    },
+    {
+      "codigo": "0030101400001",
+      "nombre": "ADOQUIN CORBATIN 2,5 DESP",
+      "peso": 1.1,
+      "unidad": "M2",
+      "unidades": 45,
+      "calidad": "DES",
+      "total": 49.5,
+      "grupo": "ADOQUIN"
+    },
+    {
+      "codigo": "0030101000068",
+      "nombre": "ADOQUIN CORBATIN 5.0",
+      "peso": 2.1,
+      "unidad": "M2",
+      "unidades": 45,
+      "calidad": "PRIM",
+      "total": 94.5,
+      "grupo": "ADOQUIN"
+    },
+    {
+      "codigo": "0030101400025",
+      "nombre": "ADOQUIN CORBATIN 5.0 DESP.",
+      "peso": 2.1,
+      "unidad": "M2",
+      "unidades": 45,
+      "calidad": "DES",
+      "total": 94.5,
+      "grupo": "ADOQUIN"
+    },
+    {
+      "codigo": "0030101000076",
+      "nombre": "ADOQUIN ECOLOGICO VEHICULAR",
+      "peso": 2.2,
+      "unidad": "M2",
+      "unidades": 25,
+      "calidad": "PRIM",
+      "total": 55,
+      "grupo": "ADOQUIN"
+    },
+    {
+      "codigo": "0030101400028",
+      "nombre": "ADOQUIN ECOLOGICO VEHICULAR DESP.",
+      "peso": 2.2,
+      "unidad": "M",
+      "unidades": 25,
+      "calidad": "DES",
+      "total": 55,
+      "grupo": "ADOQUIN"
+    },
+    {
+      "codigo": "0040009000100",
+      "nombre": "ADOQUIN RUSTICO ESTRUCTURAL",
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 0,
+      "grupo": "ADOQUIN"
+    },
+    {
+      "codigo": "0040009000006",
+      "nombre": "BALDOSA LISA BLANCA 20X20",
+      "peso": 1.5,
+      "unidad": "M2",
+      "unidades": 25,
+      "calidad": "PRIM",
+      "total": 37.5,
+      "grupo": "BALDOSA"
+    },
+    {
+      "codigo": "0030102400005",
+      "nombre": "BLOQUE SAMO # 4 DESP.",
+      "peso": 5.3,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 5.3
+    },
+    {
+      "codigo": "0030102000010",
+      "nombre": "BLOQUE SAMO # 4 SDA",
+      "peso": 5.3,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "SEG",
+      "total": 5.3
+    },
+    {
+      "codigo": "0030102000014",
+      "nombre": "BLOQUE SAMO # 5",
+      "peso": 7.7,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 7.7
+    },
+    {
+      "codigo": "0030102000023",
+      "nombre": "BLOQUE SAMO # 5 DE SDA",
+      "peso": 7.7,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "SEG",
+      "total": 7.7
+    },
+    {
+      "codigo": "0030102400006",
+      "nombre": "BLOQUE SAMO # 5 DESP.",
+      "peso": 7.7,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 7.7
+    },
+    {
+      "codigo": "0030102000015",
+      "nombre": "BLOQUE SAMO # 6",
+      "peso": 8.6,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 8.6
+    },
+    {
+      "codigo": "0030102000009",
+      "nombre": "BLOQUE SAMO #4",
+      "peso": 5.3,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 5.3
+    },
+    {
+      "codigo": "0030102000026",
+      "nombre": "BLOQUE SAMO # 6 DE SDA",
+      "peso": 8.6,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "SEG",
+      "total": 8.6
+    },
+    {
+      "codigo": "0030102400007",
+      "nombre": "BLOQUE SAMO #6 DESP.",
+      "peso": 8.6,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 8.6
+    },
+    {
+      "codigo": "0030102000144",
+      "nombre": "BLOQUE SAMO #6 MEDIO",
+      "peso": 4.25,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 4.25
+    },
+    {
+      "codigo": "0030102000020",
+      "nombre": "BLOQUE SAMO 33X20X9",
+      "peso": 4.37,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 4.37
+    },
+    {
+      "codigo": "0030102000094",
+      "nombre": "BLOQUELON",
+      "peso": 11,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 11,
+      "grupo": "BLOQUEL"
+    },
+    {
+      "codigo": "0030102400021",
+      "nombre": "BLOQUELON DESP",
+      "peso": 11,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 11,
+      "grupo": "BLOQUEL"
+    },
+    {
+      "codigo": "0030101000026",
+      "nombre": "BORDE DE PISCINA",
+      "peso": 2.123,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 2.123,
+      "grupo": "BORDE D"
+    },
+    {
+      "codigo": "0030101400012",
+      "nombre": "BORDE DE PISCINA DESP.",
+      "peso": 2.123,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 2.123,
+      "grupo": "BORDE D"
+    },
+    {
+      "codigo": "0040009000008",
+      "nombre": "CENEFAS 20X20",
+      "unidades": 25,
+      "calidad": "PRIM",
+      "total": 0,
+      "grupo": "CENEFAS"
+    },
+    {
+      "codigo": "0030102000011",
+      "nombre": "DESPERDICIO CHAMOTA",
+      "unidad": "TON",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 0,
+      "grupo": "DESPERD"
+    },
+    {
+      "codigo": "0040009000007",
+      "nombre": "ESQUINEROS 20X20",
+      "unidades": 25,
+      "calidad": "PRIM",
+      "total": 0,
+      "grupo": "ESQUINE"
+    },
+    {
+      "codigo": "0040001000020",
+      "nombre": "ESTIBAS USADAS",
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 0,
+      "grupo": "ESTIBAS"
+    },
+    {
+      "codigo": "0030104000005",
+      "nombre": "FACHALETA 25X15",
+      "peso": 2.239,
+      "unidad": "UN",
+      "unidades": 26,
+      "calidad": "PRIM",
+      "total": 58.214,
+      "grupo": "FACHALE"
+    },
+    {
+      "codigo": "0030104000002",
+      "nombre": "FACHALETA 25X7.5",
+      "peso": 1.21,
+      "unidad": "M2",
+      "unidades": 26,
+      "calidad": "PRIM",
+      "total": 31.46,
+      "grupo": "FACHALE"
+    },
+    {
+      "codigo": "0030104400001",
+      "nombre": "FACHALETA 25X7.5 DESP",
+      "peso": 1.21,
+      "unidad": "M2",
+      "unidades": 26,
+      "calidad": "DES",
+      "total": 31.46,
+      "grupo": "FACHALE"
+    },
+    {
+      "codigo": "0030104000003",
+      "nombre": "FACHALETA GRANDE",
+      "peso": 2.239,
+      "unidad": "M2",
+      "unidades": 16,
+      "calidad": "PRIM",
+      "total": 35.824,
+      "grupo": "FACHALE"
+    },
+    {
+      "codigo": "0030104000004",
+      "nombre": "FACHALETA GRANDE DE SDA",
+      "peso": 2.239,
+      "unidad": "M2",
+      "unidades": 16,
+      "calidad": "SEG",
+      "total": 35.824,
+      "grupo": "FACHALE"
+    },
+    {
+      "codigo": "0040009000009",
+      "nombre": "FONDOS-(TAPETE CENTAL) 20X20",
+      "unidad": "M2",
+      "unidades": 25,
+      "calidad": "PRIM",
+      "total": 0,
+      "grupo": "FONDOS-"
+    },
+    {
+      "codigo": "0030102000132",
+      "nombre": "LADRILLO 10X20X4,5",
+      "peso": 2.296,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "PRIM",
+      "total": 114.8,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000158",
+      "nombre": "LADRILLO 10X20X4,5 NEGRO",
+      "peso": 2.296,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "PRIM",
+      "total": 114.8,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102400025",
+      "nombre": "LADRILLO 10X20X4,5 NEGRO DESP.",
+      "peso": 2.296,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "PRIM",
+      "total": 114.8,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000140",
+      "nombre": "LADRILLO 15X30X2,5",
+      "peso": 2.4,
+      "unidad": "M2",
+      "unidades": 22,
+      "calidad": "PRIM",
+      "total": 52.8,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000151",
+      "nombre": "LADRILLO 15X30X2,5 DE SDA",
+      "peso": 2.4,
+      "unidad": "M2",
+      "unidades": 22,
+      "calidad": "SEG",
+      "total": 52.8,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000133",
+      "nombre": "LADRILLO 2,5",
+      "peso": 1.018,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "PRIM",
+      "total": 50.9,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000135",
+      "nombre": "LADRILLO 2,5 DE SDA",
+      "peso": 1.018,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "SEG",
+      "total": 50.9,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102400008",
+      "nombre": "LADRILLO 2,5 DESP.",
+      "peso": 1.018,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "DES",
+      "total": 50.9,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000017",
+      "nombre": "LADRILLO 3,5",
+      "peso": 1.6,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "DES",
+      "total": 80,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102400022",
+      "nombre": "LADRILLO 3,5 DESP.",
+      "peso": 1.6,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "PRIM",
+      "total": 80,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000018",
+      "nombre": "LADRILLO 3,5 SDA",
+      "peso": 1.6,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "SEG",
+      "total": 80,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102400152",
+      "nombre": "LADRILLO 30X15X2,5 DESP.",
+      "peso": 2.4,
+      "unidad": "M2",
+      "unidades": 22,
+      "calidad": "DES",
+      "total": 52.8,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000154",
+      "nombre": "LADRILLO 4",
+      "peso": 1.74,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "PRIM",
+      "total": 87,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000156",
+      "nombre": "LADRILLO 4 DE SDA",
+      "peso": 1.74,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "SEG",
+      "total": 87,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102400023",
+      "nombre": "LADRILLO 4 DESP.",
+      "peso": 1.74,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "DES",
+      "total": 87,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000152",
+      "nombre": "LADRILLO 5,0",
+      "peso": 2.5,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "PRIM",
+      "total": 125,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000153",
+      "nombre": "LADRILLO 5,0 DE SDA",
+      "peso": 2.5,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "PRIM",
+      "total": 125,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102004154",
+      "nombre": "LADRILLO 5,0 DE DESP.",
+      "peso": 2.5,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "DES",
+      "total": 125,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000180",
+      "nombre": "LADRILLO 6,0",
+      "peso": 2.3,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "PRIM",
+      "total": 115,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102400180",
+      "nombre": "LADRILLO 6,0 DE DESP",
+      "peso": 2.3,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "DES",
+      "total": 115,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000163",
+      "nombre": "LADRILLO CORBATIN 12X20X5",
+      "peso": 2.1,
+      "unidad": "M2",
+      "unidades": 45,
+      "calidad": "PRIM",
+      "total": 94.5,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000166",
+      "nombre": "LADRILLO RECTANGULAR 10X20X5",
+      "peso": 2.1,
+      "unidad": "M2",
+      "unidades": 46,
+      "calidad": "PRIM",
+      "total": 96.6,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000141",
+      "nombre": "LADRILLO DE (24 X 12 X 2.5)",
+      "peso": 1.51,
+      "unidad": "M2",
+      "unidades": 35,
+      "calidad": "PRIM",
+      "total": 52.85,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000159",
+      "nombre": "LADRILLO DE (24 X 12 X 5,0)",
+      "peso": 3.156,
+      "unidad": "M2",
+      "unidades": 35,
+      "calidad": "PRIM",
+      "total": 110.46,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000160",
+      "nombre": "LADRILLO DE (24 X 12 X 5,0) DE SDA",
+      "peso": 3.156,
+      "unidad": "M2",
+      "unidades": 35,
+      "calidad": "SEG",
+      "total": 110.46,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102400026",
+      "nombre": "LADRILLO DE (24 X 12 X 5,0) DESP.",
+      "peso": 3.156,
+      "unidad": "M2",
+      "unidades": 35,
+      "calidad": "DES",
+      "total": 110.46,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000155",
+      "nombre": "LADRILLO HECHO A MANO",
+      "peso": 3.954,
+      "unidad": "M2",
+      "unidades": 28,
+      "calidad": "PRIM",
+      "total": 110.712,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000157",
+      "nombre": "LADRILLO ADECO 4CMS",
+      "peso": 1.92,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 1.92,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000162",
+      "nombre": "LADRILLO 10X20X3",
+      "peso": 1.25,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "PRIM",
+      "total": 62.5,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102400034",
+      "nombre": "LADRILLO 10X20X3 DESP.",
+      "peso": 1.25,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "DES",
+      "total": 62.5,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030103000016",
+      "nombre": "REMATE DE CABALLETE MATIZADO",
+      "peso": 3.8,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 3.8
+    },
+    {
+      "codigo": "0030103000085",
+      "nombre": "REMATE DE CABALLETE NEGRO",
+      "peso": 3.8,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 3.8
+    },
+    {
+      "codigo": "0030103400025",
+      "nombre": "REMATE DE CABALLETE NEGRO DESP.",
+      "peso": 3.8,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 3.8
+    },
+    {
+      "codigo": "0030103000084",
+      "nombre": "REMATE DE CABALLETE ROJO",
+      "peso": 3.8,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 3.8
+    },
+    {
+      "codigo": "0030103400030",
+      "nombre": "TAPONES PARA CABALLETE NJA DESP",
+      "peso": 0.748,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 0.748,
+      "grupo": "TAPONES"
+    },
+    {
+      "codigo": "0030103000022",
+      "nombre": "TAPONES PARA CABALLETE ROJO",
+      "peso": 0.748,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 0.748,
+      "grupo": "TAPONES"
+    },
+    {
+      "codigo": "0030103000023",
+      "nombre": "TAPONES PARA CABALLETE NEGRO",
+      "peso": 0.748,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 0.748,
+      "grupo": "TAPONES"
+    },
+    {
+      "codigo": "0030103000011",
+      "nombre": "TAPONES PARA TEJA MATIZADO",
+      "peso": 0.55,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 0.55,
+      "grupo": "TAPONES"
+    },
+    {
+      "codigo": "0030103000001",
+      "nombre": "TAPONES PARA TEJA NARANJA",
+      "peso": 0.55,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 0.55,
+      "grupo": "TAPONES"
+    },
+    {
+      "codigo": "0030103000093",
+      "nombre": "TAPONES PARA TEJA NEGRO",
+      "peso": 0.55,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 0.55,
+      "grupo": "TAPONES"
+    },
+    {
+      "codigo": "0030103400004",
+      "nombre": "TEJA CAB TROQ. NARANJA  DESP.",
+      "peso": 2.8,
+      "unidad": "M2",
+      "unidades": 13,
+      "calidad": "DES",
+      "total": 36.4,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103000081",
+      "nombre": "TEJA CAB. ALAM NEGRA DE SDA",
+      "peso": 2.8,
+      "unidad": "M2",
+      "unidades": 13,
+      "calidad": "SEG",
+      "total": 36.4,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103400007",
+      "nombre": "TEJA CAB. ALAM. ESP. MATIZADA DESP.",
+      "peso": 2.8,
+      "unidad": "M2",
+      "unidades": 13,
+      "calidad": "DES",
+      "total": 36.4,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103000080",
+      "nombre": "TEJA CAB. ALAM. MATIZADA SDA",
+      "peso": 2.8,
+      "unidad": "M2",
+      "unidades": 13,
+      "calidad": "SEG",
+      "total": 36.4,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103000005",
+      "nombre": "TEJA CAB. ALAM. NEGRA",
+      "peso": 2.8,
+      "unidad": "M2",
+      "unidades": 13,
+      "calidad": "PRIM",
+      "total": 36.4,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103400022",
+      "nombre": "TEJA CAB. ALAM.ESP. NEGRA DESP.",
+      "peso": 2.8,
+      "unidad": "M2",
+      "unidades": 13,
+      "calidad": "DES",
+      "total": 36.4,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103400102",
+      "nombre": "TEJA CAB. ALAM.PIZARRA NEGRA DESP.",
+      "peso": 1.54,
+      "unidad": "M2",
+      "unidades": 15,
+      "calidad": "DES",
+      "total": 23.1,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103000101",
+      "nombre": "TEJA CAB. PIZARRA MATIZADA",
+      "peso": 1.2,
+      "unidad": "M2",
+      "unidades": 24,
+      "calidad": "PRIM",
+      "total": 28.8,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103000095",
+      "nombre": "TEJA CAB. PIZARRA NARANJA",
+      "peso": 1.2,
+      "unidad": "M2",
+      "unidades": 24,
+      "calidad": "PRIM",
+      "total": 28.8,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103400097",
+      "nombre": "TEJA CAB. PIZARRA NARANJA DESP.",
+      "peso": 1.2,
+      "unidad": "M2",
+      "unidades": 24,
+      "calidad": "DES",
+      "total": 28.8,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103400018",
+      "nombre": "TEJA CAB. PIZARRA NEGRA DESP.",
+      "peso": 1.2,
+      "unidad": "M2",
+      "unidades": 15,
+      "calidad": "DES",
+      "total": 18,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103000112",
+      "nombre": "TEJA CAB. PIZARRA NEGRA ESPECIAL",
+      "peso": 1.352,
+      "unidad": "M2",
+      "unidades": 15,
+      "calidad": "PRIM",
+      "total": 20.28,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103400035",
+      "nombre": "TEJA CAB. PIZARRA NEGRA ESPECIAL DESP.",
+      "peso": 1.352,
+      "unidad": "M2",
+      "unidades": 15,
+      "calidad": "DES",
+      "total": 20.28,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103000114",
+      "nombre": "TEJA CAB. PIZARRA ROJA ESPECIAL",
+      "peso": 1.352,
+      "unidad": "M2",
+      "unidades": 15,
+      "calidad": "PRIM",
+      "total": 20.28,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103400034",
+      "nombre": "TEJA CAB. PIZARRA ROJA ESPECIAL DESP.",
+      "peso": 1.352,
+      "unidad": "M2",
+      "unidades": 15,
+      "calidad": "DES",
+      "total": 20.28,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103000077",
+      "nombre": "TEJA CAB. TROQ.PERF. NEGRA PRIMERA",
+      "peso": 2.8,
+      "unidad": "M2",
+      "unidades": 13,
+      "calidad": "PRIM",
+      "total": 36.4,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103000072",
+      "nombre": "TEJA CAB. TROQUELADA MATIZADA",
+      "peso": 2.8,
+      "unidad": "M2",
+      "unidades": 13,
+      "calidad": "PRIM",
+      "total": 36.4,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103000015",
+      "nombre": "TEJA CAB. TROQUELADA MATIZADA SDA",
+      "peso": 2.8,
+      "unidad": "M2",
+      "unidades": 13,
+      "calidad": "SEG",
+      "total": 36.4,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103400005",
+      "nombre": "TEJA CAB. TROQUELADA MATIZADA DESP.",
+      "peso": 2.8,
+      "unidad": "M3",
+      "unidades": 13,
+      "calidad": "DES",
+      "total": 36.4,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103000073",
+      "nombre": "TEJA CAB. TROQUELADA NARANJA SDA",
+      "peso": 2.8,
+      "unidad": "M2",
+      "unidades": 13,
+      "calidad": "SEG",
+      "total": 36.4,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103000078",
+      "nombre": "TEJA CAB. TROQUELADA NEGRA SDA",
+      "peso": 2.8,
+      "unidad": "M2",
+      "unidades": 13,
+      "calidad": "SEG",
+      "total": 36.4,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103000007",
+      "nombre": "TEJA CAB.ALAM. MATIZADA",
+      "peso": 2.8,
+      "unidad": "M2",
+      "unidades": 13,
+      "calidad": "PRIM",
+      "total": 36.4,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103000079",
+      "nombre": "TEJA CAB.ALAM. NARANJA SDA",
+      "peso": 2.8,
+      "unidad": "M2",
+      "unidades": 13,
+      "calidad": "SEG",
+      "total": 36.4,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103000071",
+      "nombre": "TEJA CAB.ALAM.ESP.NARANJA",
+      "peso": 3.7,
+      "unidad": "M2",
+      "unidades": 13,
+      "calidad": "PRIM",
+      "total": 48.1,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103400009",
+      "nombre": "TEJA CAB.ALAM.ESP.NARANJA DESP.",
+      "peso": 3.7,
+      "unidad": "M2",
+      "unidades": 13,
+      "calidad": "DES",
+      "total": 48.1,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103000105",
+      "nombre": "TEJA CAB.ALAMB. PIZARRA NEGRA",
+      "peso": 1.54,
+      "unidad": "M2",
+      "unidades": 15,
+      "calidad": "PRIM",
+      "total": 23.1,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103000091",
+      "nombre": "TEJA CAB.PIZARRA NEGRA",
+      "peso": 1.2,
+      "unidad": "M2",
+      "unidades": 24,
+      "calidad": "PRIM",
+      "total": 28.8,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103000002",
+      "nombre": "TEJA CAB.TROQ.PERF.NARANJA",
+      "peso": 2.8,
+      "unidad": "M2",
+      "unidades": 13,
+      "calidad": "PRIM",
+      "total": 36.4,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103400006",
+      "nombre": "TEJA CAB.TROQPERF..NEGRA DESP.",
+      "peso": 2.8,
+      "unidad": "M2",
+      "unidades": 13,
+      "calidad": "DES",
+      "total": 36.4,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103000012",
+      "nombre": "TEJA CALIFORNIANA DE SDA",
+      "peso": 3.15,
+      "unidad": "M2",
+      "unidades": 10,
+      "calidad": "SEG",
+      "total": 31.5,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103000006",
+      "nombre": "TEJA CALIFORNIANA MATIZADA",
+      "peso": 3.15,
+      "unidad": "M2",
+      "unidades": 10,
+      "calidad": "PRIM",
+      "total": 31.5,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103400002",
+      "nombre": "TEJA CALIFORNIANA MATIZADA DESP.",
+      "peso": 3.15,
+      "unidad": "M2",
+      "unidades": 10,
+      "calidad": "DES",
+      "total": 31.5,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103000082",
+      "nombre": "TEJA CALIFORNIANA MATIZADA SDA",
+      "peso": 3.15,
+      "unidad": "M2",
+      "unidades": 10,
+      "calidad": "SEG",
+      "total": 31.5,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103000070",
+      "nombre": "TEJA CALIFORNIANA NARANJA",
+      "peso": 3.75,
+      "unidad": "M2",
+      "unidades": 10,
+      "calidad": "PRIM",
+      "total": 37.5,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103400001",
+      "nombre": "TEJA CALIFORNIANA NARANJA DESP.",
+      "peso": 3.75,
+      "unidad": "M2",
+      "unidades": 10,
+      "calidad": "DES",
+      "total": 37.5,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103400003",
+      "nombre": "TEJA CALIFORNIANA NEGRA DESP.",
+      "peso": 3.15,
+      "unidad": "M2",
+      "unidades": 10,
+      "calidad": "DES",
+      "total": 31.5,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103000083",
+      "nombre": "TEJA CALIFORNIANA NEGRA SDA",
+      "peso": 3.15,
+      "unidad": "M2",
+      "unidades": 10,
+      "calidad": "SEG",
+      "total": 31.5,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103000107",
+      "nombre": "TEJA CALIFORNIANA ROJA CHIMENEA",
+      "peso": 2.5,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 2.5,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103000108",
+      "nombre": "CHIMENEA",
+      "peso": 2.2,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 2.2,
+      "grupo": "CHIMENE"
+    },
+    {
+      "codigo": "0030103000109",
+      "nombre": "ACCESORIOS  CHIMENEA",
+      "peso": 1.4,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 1.4,
+      "grupo": "ACCESOR"
+    },
+    {
+      "codigo": "0030103000020",
+      "nombre": "TEJA CRIOLLA NARANJA",
+      "peso": 1.4,
+      "unidad": "M2",
+      "unidades": 28,
+      "calidad": "PRIM",
+      "total": 39.2,
+      "grupo": "TEJA CR"
+    },
+    {
+      "codigo": "0030103400029",
+      "nombre": "TEJA CRIOLLA NARANJA DESP.",
+      "peso": 1.4,
+      "unidad": "M2",
+      "unidades": 28,
+      "calidad": "DES",
+      "total": 39.2,
+      "grupo": "TEJA CR"
+    },
+    {
+      "codigo": "0030103000021",
+      "nombre": "TEJA CRIOLLA NARANJA SDA",
+      "peso": 1.4,
+      "unidad": "M2",
+      "unidades": 28,
+      "calidad": "SEG",
+      "total": 39.2,
+      "grupo": "TEJA CR"
+    },
+    {
+      "codigo": "0030103000018",
+      "nombre": "TEJA CRIOLLA NEGRA",
+      "peso": 1.4,
+      "unidad": "M2",
+      "unidades": 28,
+      "calidad": "PRIM",
+      "total": 39.2,
+      "grupo": "TEJA CR"
+    },
+    {
+      "codigo": "0030103400028",
+      "nombre": "TEJA CRIOLLA NEGRA DESP.",
+      "peso": 1.4,
+      "unidad": "M2",
+      "unidades": 28,
+      "calidad": "DES",
+      "total": 39.2,
+      "grupo": "TEJA CR"
+    },
+    {
+      "codigo": "0030103000019",
+      "nombre": "TEJA CRIOLLA NEGRA SDA",
+      "peso": 1.4,
+      "unidad": "M2",
+      "unidades": 28,
+      "calidad": "SEG",
+      "total": 39.2,
+      "grupo": "TEJA CR"
+    },
+    {
+      "codigo": "0030103000003",
+      "nombre": "TEJA CUATRO VIAS",
+      "peso": 4.9,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 4.9,
+      "grupo": "TEJA CU"
+    },
+    {
+      "codigo": "0030103000013",
+      "nombre": "TEJA CUATRO VIAS MATIZADA",
+      "peso": 4.9,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 4.9,
+      "grupo": "TEJA CU"
+    },
+    {
+      "codigo": "0030103000008",
+      "nombre": "TEJA CUATRO VIAS NEGRA",
+      "peso": 4.9,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 4.9,
+      "grupo": "TEJA CU"
+    },
+    {
+      "codigo": "0040009000130",
+      "nombre": "TEJA ESPAÑOLONA MATIZADA",
+      "peso": 2.3,
+      "unidad": "M2",
+      "unidades": 16,
+      "calidad": "PRIM",
+      "total": 36.8,
+      "grupo": "TEJA ES"
+    },
+    {
+      "codigo": "0030103000075",
+      "nombre": "TEJA ITALIANA",
+      "peso": 2.25,
+      "unidad": "M2",
+      "unidades": 23,
+      "calidad": "PRIM",
+      "total": 51.75,
+      "grupo": "TEJA IT"
+    },
+    {
+      "codigo": "0030103000097",
+      "nombre": "TEJA ITALIANA MATIZADA",
+      "peso": 2.25,
+      "unidad": "M2",
+      "unidades": 23,
+      "calidad": "PRIM",
+      "total": 51.75,
+      "grupo": "TEJA IT"
+    },
+    {
+      "codigo": "0030103000098",
+      "nombre": "TEJA ITALIANA MATIZADA SDA",
+      "peso": 2.25,
+      "unidad": "M2",
+      "unidades": 23,
+      "calidad": "SEG",
+      "total": 51.75,
+      "grupo": "TEJA IT"
+    },
+    {
+      "codigo": "0030103400020",
+      "nombre": "TEJA ITALIANA NEGRA",
+      "peso": 2.25,
+      "unidad": "M2",
+      "unidades": 23,
+      "calidad": "PRIM",
+      "total": 51.75,
+      "grupo": "TEJA IT"
+    },
+    {
+      "codigo": "0030103000014",
+      "nombre": "TEJA ITALIANA ROJA DE SDA",
+      "peso": 2.25,
+      "unidad": "M2",
+      "unidades": 23,
+      "calidad": "SEG",
+      "total": 51.75,
+      "grupo": "TEJA IT"
+    },
+    {
+      "codigo": "0030103400013",
+      "nombre": "TEJA ITALIANA ROJA DESP.",
+      "peso": 2.25,
+      "unidad": "M2",
+      "unidades": 23,
+      "calidad": "DES",
+      "total": 51.75,
+      "grupo": "TEJA IT"
+    },
+    {
+      "codigo": "0030103000103",
+      "nombre": "TEJA PIZARRA LISA NARANJA",
+      "peso": 1.45,
+      "unidad": "M2",
+      "unidades": 18,
+      "calidad": "PRIM",
+      "total": 26.1,
+      "grupo": "TEJA PI"
+    },
+    {
+      "codigo": "0030103400031",
+      "nombre": "TEJA PIZARRA LISA NARANJA DESP",
+      "peso": 1.45,
+      "unidad": "M2",
+      "unidades": 19.5,
+      "calidad": "DES",
+      "total": 28.275,
+      "grupo": "TEJA PI"
+    },
+    {
+      "codigo": "0030103000104",
+      "nombre": "TEJA PIZARRA LISA NARANJA SDA",
+      "peso": 1.45,
+      "unidad": "M2",
+      "unidades": 19.5,
+      "calidad": "SEG",
+      "total": 28.275,
+      "grupo": "TEJA PI"
+    },
+    {
+      "codigo": "0030103000099",
+      "nombre": "TEJA PIZARRA MATIZADA",
+      "peso": 1.5,
+      "unidad": "M2",
+      "unidades": 19.5,
+      "calidad": "PRIM",
+      "total": 29.25,
+      "grupo": "TEJA PI"
+    },
+    {
+      "codigo": "0030103400038",
+      "nombre": "TEJA PIZARRA MATIZADA DESP",
+      "peso": 1.5,
+      "unidad": "M2",
+      "unidades": 18,
+      "calidad": "DES",
+      "total": 27,
+      "grupo": "TEJA PI"
+    },
+    {
+      "codigo": "0030103000111",
+      "nombre": "TEJA PIZARRA MATIZADA ESPECIAL",
+      "peso": 1.45,
+      "unidad": "M2",
+      "unidades": 19.5,
+      "calidad": "PRIM",
+      "total": 28.275,
+      "grupo": "TEJA PI"
+    },
+    {
+      "codigo": "0030103400036",
+      "nombre": "TEJA PIZARRA MATIZADA ESPECIAL DESPER",
+      "peso": 1.45,
+      "unidad": "M2",
+      "unidades": 19.5,
+      "calidad": "DES",
+      "total": 28.275,
+      "grupo": "TEJA PI"
+    },
+    {
+      "codigo": "0030103000076",
+      "nombre": "TEJA PIZARRA NARANJA",
+      "peso": 1.5,
+      "unidad": "M2",
+      "unidades": 18,
+      "calidad": "PRIM",
+      "total": 27,
+      "grupo": "TEJA PI"
+    },
+    {
+      "codigo": "0030103400014",
+      "nombre": "TEJA PIZARRA NARANJA DESP.",
+      "peso": 1.5,
+      "unidad": "M2",
+      "unidades": 18,
+      "calidad": "DES",
+      "total": 27,
+      "grupo": "TEJA PI"
+    },
+    {
+      "codigo": "0030103000086",
+      "nombre": "TEJA PIZARRA NARANJA SDA",
+      "peso": 1.5,
+      "unidad": "M2",
+      "unidades": 18,
+      "calidad": "SEG",
+      "total": 27,
+      "grupo": "TEJA PI"
+    },
+    {
+      "codigo": "0030103000087",
+      "nombre": "TEJA PIZARRA NEGRA",
+      "peso": 1.5,
+      "unidad": "M2",
+      "unidades": 18,
+      "calidad": "PRIM",
+      "total": 27,
+      "grupo": "TEJA PI"
+    },
+    {
+      "codigo": "0030103000115",
+      "nombre": "TEJA PIZARRA NEGRA LISA",
+      "peso": 1.45,
+      "unidad": "M2",
+      "unidades": 19.5,
+      "calidad": "PRIM",
+      "total": 28.275,
+      "grupo": "TEJA PI"
+    },
+    {
+      "codigo": "0030103400037",
+      "nombre": "TEJA PIZARRA NEGRA LISA DESP",
+      "peso": 1.45,
+      "unidad": "M2",
+      "unidades": 19.5,
+      "calidad": "DES",
+      "total": 28.275,
+      "grupo": "TEJA PI"
+    },
+    {
+      "codigo": "0030103400015",
+      "nombre": "TEJA PIZARRA NEGRA DESP.",
+      "peso": 1.5,
+      "unidad": "M2",
+      "unidades": 18,
+      "calidad": "DES",
+      "total": 27,
+      "grupo": "TEJA PI"
+    },
+    {
+      "codigo": "0030103000110",
+      "nombre": "TEJA PIZARRA NEGRA ESPECIAL",
+      "peso": 1.45,
+      "unidad": "M2",
+      "unidades": 19.5,
+      "calidad": "PRIM",
+      "total": 28.275,
+      "grupo": "TEJA PI"
+    },
+    {
+      "codigo": "0030103400032",
+      "nombre": "TEJA PIZARRA NEGRA ESPECIAL DESP.",
+      "peso": 1.45,
+      "unidad": "M2",
+      "unidades": 19.5,
+      "calidad": "DES",
+      "total": 28.275,
+      "grupo": "TEJA PI"
+    },
+    {
+      "codigo": "0030103000113",
+      "nombre": "TEJA PIZARRA ROJA ESPECIAL",
+      "peso": 1.45,
+      "unidad": "M2",
+      "unidades": 19.5,
+      "calidad": "PRIM",
+      "total": 28.275,
+      "grupo": "TEJA PI"
+    },
+    {
+      "codigo": "0030103400033",
+      "nombre": "TEJA PIZARRA ROJA ESPECIAL DESP.",
+      "peso": 1.45,
+      "unidad": "M2",
+      "unidades": 19.5,
+      "calidad": "DES",
+      "total": 28.275,
+      "grupo": "TEJA PI"
+    },
+    {
+      "codigo": "0040009000132",
+      "nombre": "TEJA ROMANA SAN JOSE",
+      "peso": 2.5,
+      "unidad": "M2",
+      "unidades": 15,
+      "calidad": "PRIM",
+      "total": 37.5,
+      "grupo": "TEJA RO"
+    },
+    {
+      "codigo": "0030103000074",
+      "nombre": "TEJA SOBRE ETERNIT",
+      "peso": 1.15,
+      "unidad": "M2",
+      "unidades": 30,
+      "calidad": "PRIM",
+      "total": 34.5,
+      "grupo": "TEJA SO"
+    },
+    {
+      "codigo": "0030103000010",
+      "nombre": "TEJA SOBRE ETERNIT DE SDA",
+      "peso": 1.15,
+      "unidad": "M2",
+      "unidades": 30,
+      "calidad": "SEG",
+      "total": 34.5,
+      "grupo": "TEJA SO"
+    },
+    {
+      "codigo": "0030103400010",
+      "nombre": "TEJA SOBRE ETERNIT DESP.",
+      "peso": 1.15,
+      "unidad": "M2",
+      "unidades": 30,
+      "calidad": "DES",
+      "total": 34.5,
+      "grupo": "TEJA SO"
+    },
+    {
+      "codigo": "0030103000009",
+      "nombre": "TEJA TRES VIAS MATIZADA",
+      "peso": 4.3,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 4.3,
+      "grupo": "TEJA TR"
+    },
+    {
+      "codigo": "0030103000090",
+      "nombre": "TEJA TRES VIAS NEGRA",
+      "peso": 4.3,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 4.3,
+      "grupo": "TEJA TR"
+    },
+    {
+      "codigo": "0030103400017",
+      "nombre": "TEJA TRES VIAS NEGRA DESP.",
+      "peso": 4.3,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 4.3,
+      "grupo": "TEJA TR"
+    },
+    {
+      "codigo": "0030103000089",
+      "nombre": "TEJA TRES VIAS ROJA",
+      "peso": 4.3,
+      "unidad": "M2",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 4.3,
+      "grupo": "TEJA TR"
+    },
+    {
+      "codigo": "0030101000083",
+      "nombre": "TOCETO 12X12",
+      "peso": 0.5,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 0.5
+    },
+    {
+      "codigo": "0030102000207",
+      "nombre": "TOLETE 18 HUECOS DE PRIMERA",
+      "peso": 2.2,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 2.2
+    },
+    {
+      "codigo": "0030102000208",
+      "nombre": "TOLETE 18 HUECOS DE SEGUNDA",
+      "peso": 2.2,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "SEG",
+      "total": 2.2
+    },
+    {
+      "codigo": "0030102400209",
+      "nombre": "TOLETE 18 HUECOS DESPERDICIO",
+      "peso": 2.2,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 2.2
+    },
+    {
+      "codigo": "0030102000129",
+      "nombre": "TOLETE 2 HUECOS",
+      "peso": 2.25,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 2.25
+    },
+    {
+      "codigo": "0030102000130",
+      "nombre": "TOLETE 2 HUECOS DE SDA",
+      "peso": 2.25,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "SEG",
+      "total": 2.25
+    },
+    {
+      "codigo": "0030102400013",
+      "nombre": "TOLETE 2 HUECOS DESP.",
+      "peso": 2.25,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 2.25
+    },
+    {
+      "codigo": "0030102000125",
+      "nombre": "TOLETE CORBATIN 5 CMS",
+      "peso": 1.9,
+      "unidad": "M2",
+      "unidades": 45,
+      "calidad": "PRIM",
+      "total": 85.5
+    },
+    {
+      "codigo": "0030102000122",
+      "nombre": "TOLETE ESTRUCTURAL",
+      "peso": 2.132,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 2.132
+    },
+    {
+      "codigo": "0030102000043",
+      "nombre": "TOLETE REJILLA",
+      "peso": 2.045,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 2.045
+    },
+    {
+      "codigo": "0030102000161",
+      "nombre": "TOLETE GRAN FORMATO",
+      "peso": 3.7,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 3.7
+    },
+    {
+      "codigo": "0030102400162",
+      "nombre": "TOLETE GRAN FORMATO DESP",
+      "peso": 3.7,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 3.7
+    },
+    {
+      "codigo": "0040090000128",
+      "nombre": "TOLETE ESTRUCT. MATIZADO-REFRAC",
+      "peso": 2.132,
+      "unidad": "M2",
+      "unidades": 44,
+      "calidad": "PRIM",
+      "total": 93.808
+    },
+    {
+      "codigo": "0030103000092",
+      "nombre": "TEJA CAB. PIZARRA NEGRA DE 2a.",
+      "peso": 1.2,
+      "unidad": "M2",
+      "unidades": 24,
+      "calidad": "SEG",
+      "total": 28.8,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030102000021",
+      "nombre": "BLOQUE #3",
+      "peso": 4.7,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 4.7
+    },
+    {
+      "codigo": "0030102000022",
+      "nombre": "BLOQUE #3 SEGUNDA",
+      "peso": 4.7,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "SEG",
+      "total": 4.7
+    },
+    {
+      "codigo": "0030102000024",
+      "nombre": "BLOQUE #3 DESPERDICIO",
+      "peso": 4.7,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 4.7
+    },
+    {
+      "codigo": "0030102000169",
+      "nombre": "LADRILLO DE (24 X 12 X 2.5) 2DA",
+      "peso": 1.51,
+      "unidad": "M2",
+      "unidades": 35,
+      "calidad": "PRIM",
+      "total": 52.85,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000170",
+      "nombre": "TOLETE BOCADILLO",
+      "peso": 1.85,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 1.85
+    },
+    {
+      "codigo": "0030102000171",
+      "nombre": "TOLETE BOCADILLO NACIONAL",
+      "peso": 1.85,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "SEG",
+      "total": 1.85
+    },
+    {
+      "codigo": "0030102400172",
+      "nombre": "TOLETE BOCADILLO DESPERDICIO",
+      "peso": 1.85,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 1.85
+    },
+    {
+      "codigo": "0030102400010",
+      "nombre": "TOLETE REJILLA DESPERDICIO",
+      "peso": 2.045,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 2.045
+    },
+    {
+      "codigo": "0030102000032",
+      "nombre": "TOLETE REJILLA #6",
+      "peso": 1.78,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 1.78
+    },
+    {
+      "codigo": "0030102000033",
+      "nombre": "TOLETE REJILLA #6 SEGUNDA",
+      "peso": 1.78,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "SEG",
+      "total": 1.78
+    },
+    {
+      "codigo": "0030102400027",
+      "nombre": "TOLETE REJILLA #6 DESPERDICIO",
+      "peso": 1.78,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 1.78
+    },
+    {
+      "codigo": "0030102000025",
+      "nombre": "BLOQUE SAMO #4 LISO",
+      "peso": 5.335,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 5.335
+    },
+    {
+      "codigo": "0030102000029",
+      "nombre": "BLOQUE SAMO #4 LISO SEGUNDA",
+      "peso": 5.335,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "SEG",
+      "total": 5.335
+    },
+    {
+      "codigo": "0030102400029",
+      "nombre": "BLOQUE SAMO #4 LISO DESPERDICIO",
+      "peso": 5.335,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 5.335
+    },
+    {
+      "codigo": "0030101000076",
+      "nombre": "ADOQUIN ECOLOGICO VEHICULAR",
+      "peso": 2.2,
+      "unidad": "M2",
+      "unidades": 25,
+      "calidad": "PRIM",
+      "total": 55,
+      "grupo": "ADOQUIN"
+    },
+    {
+      "codigo": "0030101400028",
+      "nombre": "ADOQUIN ECOLOGICO VEHICULAR DESP.",
+      "peso": 2.2,
+      "unidad": "M2",
+      "unidades": 25,
+      "calidad": "PRIM",
+      "total": 55,
+      "grupo": "ADOQUIN"
+    },
+    {
+      "codigo": "0030103000118",
+      "nombre": "TEJA TRES VIAS PIZARRA NEGRA PRIM",
+      "peso": 3350,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 3350,
+      "grupo": "TEJA TR"
+    },
+    {
+      "codigo": "0030103000024",
+      "nombre": "TEJA VOLCAN ROJA PRIMERA",
+      "peso": "3,350",
+      "unidad": "M2",
+      "unidades": 9,
+      "calidad": "PRIM",
+      "total": 30.15,
+      "grupo": "TEJA VO"
+    },
+    {
+      "codigo": "0030103000025",
+      "nombre": "TEJA VOLCAN ROJA SEGUNDA",
+      "peso": "3,350",
+      "unidad": "M2",
+      "unidades": 9,
+      "calidad": "SEG",
+      "total": 30.15,
+      "grupo": "TEJA VO"
+    },
+    {
+      "codigo": "0030103000026",
+      "nombre": "TEJA VOLCAN ROJA DESPERDICIO",
+      "peso": "3,350",
+      "unidad": "M2",
+      "unidades": 9,
+      "calidad": "DES",
+      "total": 30.15,
+      "grupo": "TEJA VO"
+    },
+    {
+      "codigo": "0030103000027",
+      "nombre": "TEJA VOLCAN NEGRA  PRIMERA",
+      "peso": "3,350",
+      "unidad": "M2",
+      "unidades": 9,
+      "calidad": "PRIM",
+      "total": 30.15,
+      "grupo": "TEJA VO"
+    },
+    {
+      "codigo": "0030103000028",
+      "nombre": "TEJA VOLCAN NEGRA  SEGUNDA",
+      "peso": "3,350",
+      "unidad": "M2",
+      "unidades": 9,
+      "calidad": "SEG",
+      "total": 30.15,
+      "grupo": "TEJA VO"
+    },
+    {
+      "codigo": "0030103000029",
+      "nombre": "TEJA VOLCAN NEGRA  DESPERDICIO",
+      "peso": "3,350",
+      "unidad": "M2",
+      "unidades": 9,
+      "calidad": "DES",
+      "total": 30.15,
+      "grupo": "TEJA VO"
+    },
+    {
+      "codigo": "0030103000030",
+      "nombre": "TEJA VOLCAN MATIZADA PRIMERA",
+      "peso": "3,350",
+      "unidad": "M2",
+      "unidades": 9,
+      "calidad": "PRIM",
+      "total": 30.15,
+      "grupo": "TEJA VO"
+    },
+    {
+      "codigo": "0030103000031",
+      "nombre": "TEJA VOLCAN MATIZADA SEGUNDA",
+      "peso": "3,350",
+      "unidad": "M2",
+      "unidades": 9,
+      "calidad": "SEG",
+      "total": 30.15,
+      "grupo": "TEJA VO"
+    },
+    {
+      "codigo": "0030103000032",
+      "nombre": "TEJA VOLCAN MATIZADA DESPERDICIO",
+      "peso": "3,350",
+      "unidad": "M2",
+      "unidades": 9,
+      "calidad": "DES",
+      "total": 30.15,
+      "grupo": "TEJA VO"
+    },
+    {
+      "codigo": "003010200172",
+      "nombre": "LADRILLO 8,0 PRIMERA",
+      "peso": 3.242,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "PRIM",
+      "total": 162.1,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "003010200173",
+      "nombre": "LADRILLO 8,0 SEGUNDA",
+      "peso": 3.242,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "SEG",
+      "total": 162.1,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "003010240024",
+      "nombre": "LADRILLO 8,0 DES",
+      "peso": 3.242,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "DES",
+      "total": 162.1,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030101000029",
+      "nombre": "TABELON PRIMERA",
+      "peso": "11,05",
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 11.05,
+      "grupo": "TABELON"
+    },
+    {
+      "codigo": "0030101000030",
+      "nombre": "TABELON SEGUNDA",
+      "peso": "11,05",
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "SEG",
+      "total": 11.05,
+      "grupo": "TABELON"
+    },
+    {
+      "codigo": "0030101400031",
+      "nombre": "TABELON DESPERDICIO",
+      "peso": "11,05",
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 11.05,
+      "grupo": "TABELON"
+    },
+    {
+      "codigo": "0030102000174",
+      "nombre": "LADRILLO 30X15X3,5",
+      "peso": "3,5",
+      "unidad": "M2",
+      "unidades": 22,
+      "calidad": "PRIM",
+      "total": 77,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102400175",
+      "nombre": "LADRILLO 30X15X3,5 DESP.",
+      "peso": "3,5",
+      "unidad": "M2",
+      "unidades": 22,
+      "calidad": "DES",
+      "total": 77,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000175",
+      "nombre": "TOLETE GRAN FORMATO NEGRO",
+      "peso": 3.7,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 3.7
+    },
+    {
+      "codigo": "0030102400163",
+      "nombre": "TOLETE GRAN FORMATO NEGRO DESP",
+      "peso": 3.7,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 3.7
+    },
+    {
+      "codigo": "0030102400124",
+      "nombre": "TOLETE ESTRUCTURAL  DESP.",
+      "peso": 2.132,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 2.132
+    },
+    {
+      "codigo": "0030102000178",
+      "nombre": "LADRILLO CORAL PRIMERA",
+      "peso": 4.85,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 4.85,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000176",
+      "nombre": "LADRILLO CORAL SEGUNDA",
+      "peso": 4.85,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "SEG",
+      "total": 4.85,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000177",
+      "nombre": "LADRILLO CORAL DESPERDICIO",
+      "peso": 4.85,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 4.85,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030101555554",
+      "nombre": "BALDOSA 35X35 HECHA A MANO",
+      "peso": 5.1,
+      "unidad": "M2",
+      "unidades": 8,
+      "calidad": "PRIM",
+      "total": 40.8,
+      "grupo": "BALDOSA"
+    },
+    {
+      "codigo": "0030101555555",
+      "nombre": "BALDOSA 35X35 HECHA A MANO SEG.",
+      "peso": 5.1,
+      "unidad": "M2",
+      "unidades": 8,
+      "calidad": "SEG",
+      "total": 40.8,
+      "grupo": "BALDOSA"
+    },
+    {
+      "codigo": "0030101555556",
+      "nombre": "BALDOSA 35X35 HECHA A MANO DESP.",
+      "peso": 5.1,
+      "unidad": "M2",
+      "unidades": 8,
+      "calidad": "DES",
+      "total": 40.8,
+      "grupo": "BALDOSA"
+    },
+    {
+      "codigo": "0030102000077",
+      "nombre": "TOLETE ALFACER",
+      "peso": 13,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 13
+    },
+    {
+      "codigo": "0030102400019",
+      "nombre": "LADRILLO 24X12X2,5 DESP",
+      "peso": 1.51,
+      "unidad": "M2",
+      "unidades": 35,
+      "calidad": "DES",
+      "total": 52.85,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030103000039",
+      "nombre": "TEJA CRIOLLA ESPECIIAL NARANJA",
+      "peso": 1.5,
+      "unidad": "M2",
+      "unidades": 19,
+      "calidad": "PRIM",
+      "total": 28.5,
+      "grupo": "TEJA CR"
+    },
+    {
+      "codigo": "0030103400049",
+      "nombre": "TEJA CRIOLLA ESPECIAL NARANJA DESP.",
+      "peso": 1.5,
+      "unidad": "M2",
+      "unidades": 19,
+      "calidad": "DES",
+      "total": 28.5,
+      "grupo": "TEJA CR"
+    },
+    {
+      "codigo": "0030102000030",
+      "nombre": "BLOQUE SAMO #4 MEDIO",
+      "peso": 2.815,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 2.815
+    },
+    {
+      "codigo": "0030102400028",
+      "nombre": "BLOQUE SAMO #4 MEDIO DESP.",
+      "peso": 2.815,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 2.815
+    },
+    {
+      "codigo": "0030102000179",
+      "nombre": "TOLETE ESTRUCTURAL DE 6CM PRIME",
+      "peso": 2.35,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 2.35
+    },
+    {
+      "codigo": "0030102400164",
+      "nombre": "TOLETE ESTRUCTURAL DE 6CM DESPER",
+      "peso": 2.35,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 2.35
+    },
+    {
+      "codigo": "0030103000119",
+      "nombre": "TEJA CABALL. PIZARRA MATIZADA ESPECIAL",
+      "peso": 1.7,
+      "unidad": "M2",
+      "unidades": 15,
+      "calidad": "PRIM",
+      "total": 25.5,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030103400098",
+      "nombre": "TEJA CABALL.PIZARRA MATIZADA ESPECIAL DESP.",
+      "peso": 1.7,
+      "unidad": "M2",
+      "unidades": 15,
+      "calidad": "DES",
+      "total": 25.5,
+      "grupo": "TEJA CA"
+    },
+    {
+      "codigo": "0030101000077",
+      "nombre": "ADOQUIN ECOLOGICO PEATONAL",
+      "peso": 1.8,
+      "unidad": "M2",
+      "unidades": 25,
+      "calidad": "PRIM",
+      "total": 45,
+      "grupo": "ADOQUIN"
+    },
+    {
+      "codigo": "0030101400032",
+      "nombre": "ADOQUIN ECOLOGICO PEATONAL DESP.",
+      "peso": 1.8,
+      "unidad": "M2",
+      "unidades": 25,
+      "calidad": "PRIM",
+      "total": 45,
+      "grupo": "ADOQUIN"
+    },
+    {
+      "codigo": "0030102000180",
+      "nombre": "TOLETE ESTRUCTURAL ESPECIAL",
+      "peso": 3.43,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 3.43
+    },
+    {
+      "codigo": "0030102400165",
+      "nombre": "TOLETE ESTRUCTURAL ESPECIAL DESP.",
+      "peso": 3.43,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 3.43
+    },
+    {
+      "codigo": "0030102000185",
+      "nombre": "TOLETE ESTRUCTURAL 10X20X5",
+      "peso": 1.17,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 1.17
+    },
+    {
+      "codigo": "0030102400185",
+      "nombre": "TOLETE ESTRUCTURAL 10X20X5 DESP",
+      "peso": 1.17,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 1.17
+    },
+    {
+      "codigo": "0030102000189",
+      "nombre": "LADRILLO GRES 2.5",
+      "peso": 1.018,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "PRIM",
+      "total": 50.9,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102400033",
+      "nombre": "LADRILLO GRES 2,5 DESPERDICIO",
+      "peso": 1.018,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "DES",
+      "total": 50.9,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000182",
+      "nombre": "LADRILLO GRES 2,5 SEGUNDA",
+      "peso": 1.018,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "SEG",
+      "total": 50.9,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000187",
+      "nombre": "LADRILLO GRES 3,8 PRIMERA",
+      "peso": 1.018,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "PRIM",
+      "total": 50.9,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000188",
+      "nombre": "LADRILLO GRES 3,8  SEGUNDA",
+      "peso": 1.018,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "SEG",
+      "total": 50.9,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102400032",
+      "nombre": "LADRILLO GRES 3,8 DESPERDICIO",
+      "peso": 1.018,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "DES",
+      "total": 50.9,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000183",
+      "nombre": "LADRILLO GRES 5 PRIMERA",
+      "peso": 2.5,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "PRIM",
+      "total": 125,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000184",
+      "nombre": "LADRILLO GRES 5 SEGUNDA",
+      "peso": 2.5,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "SEG",
+      "total": 125,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102400030",
+      "nombre": "LADRILLO GRES 5 DESPERDICIO",
+      "peso": 2.5,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "DES",
+      "total": 125,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000190",
+      "nombre": "LADRILLO GRES 6 PRIMERA",
+      "peso": 2.3,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "PRIM",
+      "total": 115,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000186",
+      "nombre": "LADRILLO GRES 6 SEGUNDA",
+      "peso": 2.3,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "SEG",
+      "total": 115,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102400031",
+      "nombre": "LADRILLO GRES 6 DESPERDICIO",
+      "peso": 2.3,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "DES",
+      "total": 115,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "00030102000027",
+      "nombre": "BLOQUE  ESTRUCTURAL NO 6 PRIMERA",
+      "peso": 8.1,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 8.1
+    },
+    {
+      "codigo": "00030102000028",
+      "nombre": "BLOQUE   ESTRUCTURAL NO 6 SEGUNDA",
+      "peso": 8.1,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "SEG",
+      "total": 8.1
+    },
+    {
+      "codigo": "00030102400035",
+      "nombre": "BLOQUE   ESTRUCTURAL NO 6 DESPERDICIO",
+      "peso": 8.1,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 8.1
+    },
+    {
+      "codigo": "00030102000035",
+      "nombre": "BLOQUE   ESTRUCTURAL NO 5 PRIMERA",
+      "peso": 7.3,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 7.3
+    },
+    {
+      "codigo": "00030102000036",
+      "nombre": "BLOQUE   ESTRUCTURAL NO 5 SEGUNDA",
+      "peso": 7.3,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "SEG",
+      "total": 7.3
+    },
+    {
+      "codigo": "00030102400036",
+      "nombre": "BLOQUE   ESTRUCTURAL NO 5 DESPERDICIO",
+      "peso": 7.3,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 7.3
+    },
+    {
+      "codigo": "00030102000037",
+      "nombre": "BLOQUE  ESTRUCTURAL NO 4 PRIMERA",
+      "peso": 8.5,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 8.5
+    },
+    {
+      "codigo": "00030102000038",
+      "nombre": "BLOQUE ESTRUCTURAL NO 4 SEGUNDA",
+      "peso": 8.5,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "SEG",
+      "total": 8.5
+    },
+    {
+      "codigo": "00030102400038",
+      "nombre": "BLOQUE ESTRUCTURAL NO 4 DESPERDICIO",
+      "peso": 8.5,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 8.5
+    },
+    {
+      "codigo": "0030102000197",
+      "nombre": "TOLETE ESTRUCTURAL ESPECIAL MEDIO DE PRIMERA",
+      "peso": 1.9,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 1.9
+    },
+    {
+      "codigo": "0030102400199",
+      "nombre": "TOLETE ESTRUCTURAL ESPECIAL MEDIO DE DESPERDICIO",
+      "peso": 1.9,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 1.9
+    },
+    {
+      "codigo": "0030102000193",
+      "nombre": "TOLETE ESTRUCTURAL NARANJA  7.5 DE PRIMERA",
+      "peso": 2.19,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 2.19
+    },
+    {
+      "codigo": "0030102000196",
+      "nombre": "TOLETE ESTRUCTURAL NARANJA 7.5  DE SEGUNDA",
+      "peso": 2.19,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "SEG",
+      "total": 2.19
+    },
+    {
+      "codigo": "0030102400198",
+      "nombre": "TOLETE ESTRUCTURAL NARANJA 7.5 DE DESPERDICIO",
+      "peso": 2.19,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 2.19
+    },
+    {
+      "codigo": "0030102000194",
+      "nombre": "TOLETE ESTRUCTURAL ESPECIAL DE PRIMERA",
+      "peso": 3.5,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 3.5
+    },
+    {
+      "codigo": "0030102000198",
+      "nombre": "LADRILLO GRES 6 NEGRO PRIMERA",
+      "peso": 2.3,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "PRIM",
+      "total": 115,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000199",
+      "nombre": "LADRILLO GRES 6 NEGRO SEGUNDA",
+      "peso": 2.3,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "SEG",
+      "total": 115,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102400181",
+      "nombre": "LADRILLO GRES 6 NEGRO DESPERDICIO",
+      "peso": 2.3,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "DES",
+      "total": 115,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000050",
+      "nombre": "BLOQUE VERTICAL #4 DE PRIMERA",
+      "peso": 7,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 7
+    },
+    {
+      "codigo": "0030102000051",
+      "nombre": "BLOQUE VERTICAL #4 DE SEGUNDA",
+      "peso": 7,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "SEG",
+      "total": 7
+    },
+    {
+      "codigo": "0030102400052",
+      "nombre": "BLOQUE VERTICAL #4 DE DESPERDICIO",
+      "peso": 7,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 7
+    },
+    {
+      "codigo": "0030102000124",
+      "nombre": "TOLETE ESTRUCTURAL DE 7 CM",
+      "peso": 2.8,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 2.8
+    },
+    {
+      "codigo": "0030102000126",
+      "nombre": "TOLETE ESTRUCTURAL DE 7 CM",
+      "peso": 2.8,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "SEG",
+      "total": 2.8
+    },
+    {
+      "codigo": "0030102400127",
+      "nombre": "TOLETE ESTRUCTURAL DE 7 CM",
+      "peso": 2.8,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 2.8
+    },
+    {
+      "codigo": "0030102000202",
+      "nombre": "LADRILLO DE (24 X 12 X 6) PRIM",
+      "peso": 3.75,
+      "unidad": "M2",
+      "unidades": 35,
+      "calidad": "PRIM",
+      "total": 131.25,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000203",
+      "nombre": "LADRILLO DE (24 X 12 X 6)  SDA",
+      "peso": 3.75,
+      "unidad": "M2",
+      "unidades": 35,
+      "calidad": "SEG",
+      "total": 131.25,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102400204",
+      "nombre": "LADRILLO DE (24 X 12 X 6) DESP.",
+      "peso": 3.75,
+      "unidad": "M2",
+      "unidades": 35,
+      "calidad": "DES",
+      "total": 131.25,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000205",
+      "nombre": "LADRILLO GRES 5 NEGRO 1er",
+      "peso": 2.3,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "PRIM",
+      "total": 115,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000206",
+      "nombre": "LADRILLO GRES 5 NEGRO SDA",
+      "peso": 2.3,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "SEG",
+      "total": 115,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102400207",
+      "nombre": "LADRILLO GRES 5 NEGRO DESP.",
+      "peso": 2.3,
+      "unidad": "M2",
+      "unidades": 50,
+      "calidad": "DES",
+      "total": 115,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030004000006",
+      "nombre": "FACHALETA NEGRA 25 X 7.5",
+      "peso": 1.21,
+      "unidad": "M2",
+      "unidades": 26,
+      "calidad": "PRIM",
+      "total": 31.46,
+      "grupo": "FACHALE"
+    },
+    {
+      "codigo": "0030004000007",
+      "nombre": "FACHALETA NEGRA 25 X 7.5 DE SDA",
+      "peso": 1.21,
+      "unidad": "M2",
+      "unidades": 26,
+      "calidad": "PRIM",
+      "total": 31.46,
+      "grupo": "FACHALE"
+    },
+    {
+      "codigo": "0030004400008",
+      "nombre": "FACHALETA NEGRA 25 X 7.5 DSPRC",
+      "peso": 1.21,
+      "unidad": "M2",
+      "unidades": 26,
+      "calidad": "DES",
+      "total": 31.46,
+      "grupo": "FACHALE"
+    },
+    {
+      "codigo": "0030102000056",
+      "nombre": "BLOQUE VERTICAL #6 DE PRIMERA",
+      "peso": 9,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 9
+    },
+    {
+      "codigo": "0030102000057",
+      "nombre": "BLOQUE VERTICAL # 6 DE SEGUNDA",
+      "peso": 16.79,
+      "unidad": "M3",
+      "unidades": 1,
+      "calidad": "SEG",
+      "total": 16.79
+    },
+    {
+      "codigo": "0030102400058",
+      "nombre": "BLOQUE VERTICAL # 6 DE DESPERDICIO",
+      "peso": 24.58,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 24.58
+    },
+    {
+      "codigo": "0030101000069",
+      "nombre": "ADOQUIN CORBATIN 6 CM  DE PRIMERA",
+      "peso": 2.6,
+      "unidad": "M2",
+      "unidades": 45,
+      "calidad": "PRIM",
+      "total": 117,
+      "grupo": "ADOQUIN"
+    },
+    {
+      "codigo": "0030101000070",
+      "nombre": "ADOQUIN CORBATIN 6 CM  DE SEGUNDA",
+      "peso": 2.6,
+      "unidad": "M2",
+      "unidades": 45,
+      "calidad": "SEG",
+      "total": 117,
+      "grupo": "ADOQUIN"
+    },
+    {
+      "codigo": "0030101400071",
+      "nombre": "ADOQUIN CORBATIN 6 CM  DE DESPERDICIO",
+      "peso": 2.6,
+      "unidad": "M2",
+      "unidades": 45,
+      "calidad": "DES",
+      "total": 117,
+      "grupo": "ADOQUIN"
+    },
+    {
+      "codigo": "0030102000209",
+      "nombre": "LADRILLO CATALAN DE PRIMERA",
+      "peso": 7,
+      "unidad": "M2",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 7,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102000210",
+      "nombre": "LADRILLO CATALAN DE SEGUNDA",
+      "peso": 8.1,
+      "unidad": "M2",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 8.1,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030102400211",
+      "nombre": "LADRILLO CATALAN DESPERDICIO",
+      "peso": 9.2,
+      "unidad": "M2",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 9.2,
+      "grupo": "LADRILL"
+    },
+    {
+      "codigo": "0030103000206",
+      "nombre": "TEJA PANEL NEGRA",
+      "peso": 4,
+      "unidad": "M2",
+      "unidades": 9,
+      "calidad": "PRIM",
+      "total": 36,
+      "grupo": "TEJA PA"
+    },
+    {
+      "codigo": "0030103000207",
+      "nombre": "TEJA PANEL NEGRA DE SEGUNDA",
+      "peso": 4,
+      "unidad": "M2",
+      "unidades": 9,
+      "calidad": "SEG",
+      "total": 36,
+      "grupo": "TEJA PA"
+    },
+    {
+      "codigo": "0030103400208",
+      "nombre": "TEJA PANEL NEGRA DESPERDICIO",
+      "peso": 4,
+      "unidad": "M2",
+      "unidades": 9,
+      "calidad": "DES",
+      "total": 36,
+      "grupo": "TEJA PA"
+    },
+    {
+      "codigo": "0030102000053",
+      "nombre": "BLOQUE VERTICAL #5 DE PRIMERA",
+      "peso": 7.375,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 7.375
+    },
+    {
+      "codigo": "0030102000054",
+      "nombre": "BLOQUE VERTICAL # 5 DE SEGUNDA",
+      "peso": 7.375,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "SEG",
+      "total": 7.375
+    },
+    {
+      "codigo": "0030102400055",
+      "nombre": "BLOQUE VERTICAL # 5 DE DESPERDICIO",
+      "peso": 7.375,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 7.375
+    },
+    {
+      "codigo": "0030102000131",
+      "nombre": "TOLETE ESTRUCTURAL DE 6 CMS NEGRO RUSTICO",
+      "peso": 2.212,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 2.212
+    },
+    {
+      "codigo": "0030102400133",
+      "nombre": "TOLETE ESTRUCTURAL DE 6 CMS NEGRO RUSTICO DES",
+      "peso": 0,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 0
+    },
+    {
+      "codigo": "0030102000127",
+      "nombre": "TOLETE ESTRUCTURAL DE 6CM PRIMERA NEGRO",
+      "peso": 2.212,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 2.212
+    },
+    {
+      "codigo": "0030102400130",
+      "nombre": "TOLETE ESTRUCTURAL DE 6CM PRIMERA NEGRO DES",
+      "peso": 0,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 0
+    },
+    {
+      "codigo": "0030102000060",
+      "nombre": "BLOQUE VERTICAL # 3 DE PRIMERA",
+      "peso": 4.7,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "PRIM",
+      "total": 4.7
+    },
+    {
+      "codigo": "0030102040062",
+      "nombre": "BLOQUE VERTICAL # 3 DESPERDICIO",
+      "peso": 4.7,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "DES",
+      "total": 4.7
+    },
+    {
+      "codigo": "0030102000061",
+      "nombre": "BLOQUE VERTICAL # 3 SEGUNDA",
+      "peso": 4.7,
+      "unidad": "UN",
+      "unidades": 1,
+      "calidad": "SEG",
+      "total": 4.7
+    }
+  ]
+}

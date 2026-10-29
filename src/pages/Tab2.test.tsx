@@ -5,6 +5,7 @@ import Tab2 from './Tab2';
 
 beforeEach(() => {
   localStorage.clear();
+  document.querySelectorAll('ion-modal').forEach((modal) => modal.remove());
 });
 
 test('shows every inventory field and saves edited quantities', () => {
@@ -27,29 +28,30 @@ test('shows every inventory field and saves edited quantities', () => {
   expect(screen.getByRole('spinbutton', { name: 'Cantidad de Bloque 4 Primera' })).toHaveValue(300260);
 });
 
-test('adds and persists a product in the inventory catalog', () => {
+test('adds and persists a product from the catalog search modal', async () => {
   const { unmount } = render(<Tab2 />);
 
-  fireEvent.change(screen.getByLabelText('Código del producto nuevo'), { target: { value: 'NEW-1' } });
-  fireEvent.change(screen.getByLabelText('Nombre del producto nuevo'), { target: { value: 'Producto nuevo' } });
-  fireEvent.change(screen.getByLabelText('Cantidad inicial del producto'), { target: { value: '7' } });
   fireEvent.click(screen.getByRole('button', { name: 'Agregar producto' }));
+  fireEvent.change(await screen.findByLabelText('Buscar producto por nombre'), { target: { value: 'corbatin 2,5' } });
+  fireEvent.click(await screen.findByRole('button', { name: '0030101000062 - ADOQUIN CORBATIN 2,5' }));
+  fireEvent.change(screen.getByLabelText('Cantidad inicial del producto'), { target: { value: '7' } });
+  fireEvent.click(screen.getByRole('button', { name: 'Confirmar' }));
 
-  const newProductRow = screen.getByRole('row', { name: /NEW-1 Producto nuevo/ });
-  expect(within(newProductRow).getByRole('spinbutton', { name: 'Cantidad de Producto nuevo' })).toHaveValue(7);
-  expect(localStorage.getItem('inventario-patio-productos')).toContain('"codigo":"NEW-1"');
+  const newProductRow = screen.getByRole('row', { name: /0030101000062 ADOQUIN CORBATIN 2,5/ });
+  expect(within(newProductRow).getByRole('spinbutton', { name: 'Cantidad de ADOQUIN CORBATIN 2,5' })).toHaveValue(7);
+  expect(localStorage.getItem('inventario-patio-productos')).toContain('"codigo":"0030101000062"');
 
   unmount();
   const { unmount: unmountReloadedTab } = render(<Tab2 />);
-  expect(screen.getByRole('row', { name: /NEW-1 Producto nuevo/ })).toBeInTheDocument();
+  expect(screen.getByRole('row', { name: /0030101000062 ADOQUIN CORBATIN 2,5/ })).toBeInTheDocument();
 
   unmountReloadedTab();
   render(<Tab1 />);
   expect(
     within(screen.getByLabelText('Código producto')).getByRole('option', {
-      name: 'NEW-1 - Producto nuevo'
+      name: '0030101000062 - ADOQUIN CORBATIN 2,5'
     })
-  ).toHaveValue('NEW-1');
+  ).toHaveValue('0030101000062');
 });
 
 test('removes a product from both tabs and saved inventory', () => {
@@ -81,17 +83,28 @@ test('removes a product from both tabs and saved inventory', () => {
 
 });
 
-test('shows errors and shakes missing product fields', () => {
+test('shows an error when the initial quantity is invalid', async () => {
   render(<Tab2 />);
 
-  fireEvent.change(screen.getByLabelText('Cantidad inicial del producto'), { target: { value: '' } });
   fireEvent.click(screen.getByRole('button', { name: 'Agregar producto' }));
+  fireEvent.change(await screen.findByLabelText('Buscar producto por nombre'), { target: { value: 'corbatin 5.0 desp' } });
+  fireEvent.click(await screen.findByRole('button', { name: /^0030101400025 - ADOQUIN CORBATIN 5\.0 DESP\s?\.$/ }));
+  fireEvent.change(screen.getByLabelText('Cantidad inicial del producto'), { target: { value: '' } });
+  fireEvent.click(screen.getByRole('button', { name: 'Confirmar' }));
 
-  expect(screen.getByRole('alert')).toHaveTextContent('Completa correctamente los campos señalados.');
-  expect(screen.getByLabelText('Código del producto nuevo')).toHaveClass('form-input-invalid');
-  expect(screen.getByLabelText('Nombre del producto nuevo')).toHaveClass('form-input-invalid');
-  expect(screen.getByLabelText('Cantidad inicial del producto')).toHaveClass('form-input-invalid');
-  expect(screen.getByText('Ingresa el código del producto.')).toBeInTheDocument();
-  expect(screen.getByText('Ingresa el nombre del producto.')).toBeInTheDocument();
-  expect(screen.getByText('Ingresa una cantidad inicial válida.')).toBeInTheDocument();
+  expect(screen.getByRole('alert')).toHaveTextContent('Ingresa una cantidad inicial válida.');
+});
+
+test('clears the selected product when the search changes', async () => {
+  render(<Tab2 />);
+
+  fireEvent.click(screen.getByRole('button', { name: 'Agregar producto' }));
+  const codeInput = await screen.findByLabelText(/Buscar producto por c.digo/);
+  fireEvent.change(codeInput, { target: { value: '0030101000062' } });
+  fireEvent.click(await screen.findByRole('button', { name: /0030101000062/ }));
+  expect(screen.getByLabelText('Buscar producto por nombre')).toHaveValue('ADOQUIN CORBATIN 2,5');
+
+  fireEvent.change(codeInput, { target: { value: '' } });
+  expect(screen.getByLabelText('Buscar producto por nombre')).toHaveValue('');
+  expect(screen.queryByRole('button', { name: /0030101000062/ })).not.toBeInTheDocument();
 });

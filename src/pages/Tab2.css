@@ -37,6 +37,40 @@
   background: #fff;
 }
 
+.inventory__search-results mark {
+  background: #fde047;
+  color: inherit;
+  text-decoration: underline;
+}
+
+.inventory__search-results {
+  margin: 12px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.inventory__search-results button {
+  width: 100%;
+  min-height: 44px;
+  margin-bottom: 6px;
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  background: #fff;
+  color: #172033;
+  font: inherit;
+  text-align: left;
+}
+
+.inventory__search-results button[aria-pressed='true'] {
+  border-color: #0754c7;
+  background: #e8f0fd;
+}
+
+.inventory__search-results button:disabled {
+  opacity: 0.5;
+}
+
 .inventory__product-field {
   display: flex;
   flex-direction: column;
@@ -74,13 +108,20 @@
 
 .inventory__add {
   background: #0754c7;
-
 }
 
 .inventory__add:active {
   background: #fff;
   color: #0754c7;
   border: 1px solid #0754c7;
+}
+
+.inventory__add--main {
+  display: block;
+  width: min(100%, 300px);
+  min-height: 56px;
+  margin: 0 auto 20px;
+  font-size: 18px;
 }
 
 .inventory__remove {

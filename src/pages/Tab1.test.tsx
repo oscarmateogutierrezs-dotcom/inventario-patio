@@ -27,7 +27,8 @@ test('adds and removes a yard exit record', () => {
 
   const row = screen.getByRole('row', { name: /R-123/ });
   expect(within(row).getByText('ESZ 929')).toBeInTheDocument();
-  expect(within(row).getAllByRole('cell')[3]).toHaveTextContent(inventoryData.items[0].codigo);
+  expect(within(row).getAllByRole('cell')[4]).toHaveTextContent(inventoryData.items[0].codigo);
+  expect(within(row).getAllByRole('cell')[0]).toHaveTextContent(/^\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}$/);
   expect(screen.getByLabelText('Remisión')).toHaveValue('');
 
   fireEvent.click(within(row).getByRole('button', { name: 'Eliminar registro de remisión R-123' }));
