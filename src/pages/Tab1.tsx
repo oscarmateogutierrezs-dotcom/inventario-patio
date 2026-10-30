@@ -3,7 +3,7 @@ import { IonAlert, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '
 import { useTimedMessage } from '../useTimedMessage';
 import { useDrivers } from '../drivers';
 import { adjustProductStock, useInventoryProducts, useSavedQuantities } from '../inventory';
-import { enqueueSync } from '../sheetSync';
+import { enqueueSync, usePendingSyncCount } from '../sheetSync';
 import './form-validation.css';
 import './Tab1.css';
 
@@ -47,10 +47,34 @@ const formatDateTime = (date: Date) => {
   return `${pad(date.getDate())}/${pad(date.getMonth() + 1)}/${date.getFullYear()} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
 };
 
+const entriesStorageKey = 'inventario-patio-salidas';
+
+const isEntry = (value: unknown): value is Entry => {
+  if (typeof value !== 'object' || value === null) {
+    return false;
+  }
+  const record = value as Record<string, unknown>;
+  return (
+    typeof record.id === 'number' &&
+    typeof record.sheetId === 'string' &&
+    Object.keys(emptyForm).every((key) => typeof record[key] === 'string')
+  );
+};
+
+const loadEntries = (): Entry[] => {
+  try {
+    const parsed: unknown = JSON.parse(localStorage.getItem(entriesStorageKey) ?? '[]');
+    return Array.isArray(parsed) ? parsed.filter(isEntry) : [];
+  } catch {
+    return [];
+  }
+};
+
 const Tab1: React.FC = () => {
   const [form, setForm] = useState<EntryForm>({ ...emptyForm });
   const [fieldErrors, setFieldErrors] = useState<Partial<Record<EntryField, string>>>({});
-  const [entries, setEntries] = useState<Entry[]>([]);
+  const [entries, setEntries] = useState<Entry[]>(loadEntries);
+  const pendingSync = usePendingSyncCount();
   const [deleteMessage, setDeleteMessage] = useTimedMessage();
   const [entryToDelete, setEntryToDelete] = useState<Entry | null>(null);
   const { drivers } = useDrivers();
@@ -60,6 +84,14 @@ const Tab1: React.FC = () => {
   const availableStock = selectedProduct
     ? savedQuantities[selectedProduct.codigo] ?? selectedProduct.cantidad
     : 0;
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(entriesStorageKey, JSON.stringify(entries));
+    } catch (error) {
+      console.error('No se pudo guardar la lista de salidas.', error);
+    }
+  }, [entries]);
 
   useEffect(() => {
     if (form.codigoProducto && !products.some((product) => product.codigo === form.codigoProducto)) {
@@ -136,6 +168,11 @@ const Tab1: React.FC = () => {
           </IonToolbar>
         </IonHeader>
         <main className="yard-exit">
+          <p className="yard-exit__sync" aria-live="polite" data-pending={pendingSync > 0}>
+            {pendingSync > 0
+              ? `${pendingSync} pendiente${pendingSync === 1 ? '' : 's'} de sincronizar`
+              : 'Todo sincronizado'}
+          </p>
           {deleteMessage && <p className="yard-exit__success delete-popup" role="status">{deleteMessage}</p>}
           <form className="yard-exit__form" noValidate onSubmit={handleSubmit}>
             {Object.keys(fieldErrors).length > 0 && (

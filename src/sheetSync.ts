@@ -1,4 +1,7 @@
+import { useEffect, useState } from 'react';
+
 const outboxKey = 'inventario-patio-outbox';
+const outboxEvent = 'inventario-patio-outbox-actualizada';
 const sheetUrl = import.meta.env.VITE_SHEETS_URL as string | undefined;
 const retryMs = 30000;
 
@@ -13,7 +16,10 @@ const readOutbox = (): SyncJob[] => {
   }
 };
 
-const writeOutbox = (jobs: SyncJob[]) => localStorage.setItem(outboxKey, JSON.stringify(jobs));
+const writeOutbox = (jobs: SyncJob[]) => {
+  localStorage.setItem(outboxKey, JSON.stringify(jobs));
+  window.dispatchEvent(new Event(outboxEvent));
+};
 
 let flushing = false;
 
@@ -49,6 +55,20 @@ export const enqueueSync = (job: Omit<SyncJob, 'uid'>): void => {
 };
 
 export const pendingSyncCount = (): number => readOutbox().length;
+
+export const usePendingSyncCount = (): number => {
+  const [count, setCount] = useState(pendingSyncCount);
+  useEffect(() => {
+    const refresh = () => setCount(pendingSyncCount());
+    window.addEventListener(outboxEvent, refresh);
+    window.addEventListener('storage', refresh);
+    return () => {
+      window.removeEventListener(outboxEvent, refresh);
+      window.removeEventListener('storage', refresh);
+    };
+  }, []);
+  return count;
+};
 
 export const startSheetSync = (): void => {
   void flushOutbox();

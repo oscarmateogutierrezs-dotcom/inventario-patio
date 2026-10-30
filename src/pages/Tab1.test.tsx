@@ -44,6 +44,33 @@ test('adds and removes a yard exit record', () => {
   expect(screen.getByRole('status')).toHaveTextContent('Se eliminó el registro de remisión R-123.');
 });
 
+test('persists yard exit records and shows pending sync count', () => {
+  const { unmount } = render(<Tab1 />);
+  expect(screen.getByText('Todo sincronizado')).toBeInTheDocument();
+
+  const values = [
+    ['Remisión', 'R-789'],
+    ['Placa vehículo', 'ESZ 929'],
+    ['Cantidad entregada', '25'],
+    ['Código producto', inventoryData.items[0].codigo],
+    ['Lote despachado', 'L-67'],
+    ['Cantidad', '24'],
+    ['Desperdicio generado', '1'],
+    ['Reclasifica segunda', '0']
+  ];
+  values.forEach(([label, value]) => {
+    fireEvent.change(screen.getByLabelText(label), { target: { value } });
+  });
+  fireEvent.click(screen.getByRole('button', { name: 'Agregar registro' }));
+
+  expect(screen.getByText('1 pendiente de sincronizar')).toBeInTheDocument();
+
+  unmount();
+  render(<Tab1 />);
+  expect(screen.getByRole('row', { name: /R-789/ })).toBeInTheDocument();
+  expect(screen.getByText('1 pendiente de sincronizar')).toBeInTheDocument();
+});
+
 test('keeps a yard exit record when deletion is canceled', () => {
   render(<Tab1 />);
 
