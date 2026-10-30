@@ -137,19 +137,6 @@
   text-align: center;
 }
 
-.yard-exit__delete {
-  min-height: 40px;
-  padding: 7px 12px;
-  border: 1px solid #dc2626;
-  border-radius: 6px;
-  background: #b91c1c;
-  color: #fff;
-  cursor: pointer;
-  font: inherit;
-  font-size: 15px;
-  font-weight: 700;
-}
-
 @media (min-width: 601px) and (max-width: 1024px) {
   .yard-exit {
     padding: 28px;
@@ -182,11 +169,6 @@
   .yard-exit__table th,
   .yard-exit__table td {
     padding: 16px;
-  }
-
-  .yard-exit__delete {
-    min-height: 44px;
-    padding: 8px 14px;
   }
 }
 

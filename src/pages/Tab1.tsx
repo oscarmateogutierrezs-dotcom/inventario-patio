@@ -1,6 +1,5 @@
 import { FormEvent, useEffect, useState } from 'react';
-import { IonAlert, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import { useTimedMessage } from '../useTimedMessage';
+import {IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { useDrivers } from '../drivers';
 import { adjustProductStock, useInventoryProducts, useSavedQuantities } from '../inventory';
 import { enqueueSync, usePendingSyncCount } from '../sheetSync';
@@ -75,8 +74,6 @@ const Tab1: React.FC = () => {
   const [fieldErrors, setFieldErrors] = useState<Partial<Record<EntryField, string>>>({});
   const [entries, setEntries] = useState<Entry[]>(loadEntries);
   const pendingSync = usePendingSyncCount();
-  const [deleteMessage, setDeleteMessage] = useTimedMessage();
-  const [entryToDelete, setEntryToDelete] = useState<Entry | null>(null);
   const { drivers } = useDrivers();
   const { products } = useInventoryProducts();
   const savedQuantities = useSavedQuantities();
@@ -135,17 +132,6 @@ const Tab1: React.FC = () => {
     setForm({ ...emptyForm });
   };
 
-  const handleDeleteEntry = () => {
-    if (!entryToDelete) {
-      return;
-    }
-    const entry = entryToDelete;
-    adjustProductStock(products, entry.codigoProducto, Number(entry.cantidad));
-    enqueueSync({ action: 'delete', entryId: entry.sheetId });
-    setEntries((currentEntries) => currentEntries.filter((currentEntry) => currentEntry.id !== entry.id));
-    setDeleteMessage(`Se eliminó el registro de remisión ${entry.remision}.`);
-  };
-
   const clearFieldError = (fieldName: EntryField) => {
     setFieldErrors((currentErrors) => {
       const nextErrors = { ...currentErrors };
@@ -173,7 +159,6 @@ const Tab1: React.FC = () => {
               ? `${pendingSync} pendiente${pendingSync === 1 ? '' : 's'} de sincronizar`
               : 'Todo sincronizado'}
           </p>
-          {deleteMessage && <p className="yard-exit__success delete-popup" role="status">{deleteMessage}</p>}
           <form className="yard-exit__form" noValidate onSubmit={handleSubmit}>
             {Object.keys(fieldErrors).length > 0 && (
               <p className="form-validation-error" role="alert">Completa los campos obligatorios señalados.</p>
@@ -257,7 +242,6 @@ const Tab1: React.FC = () => {
                   {fields.map((field) => (
                     <th key={field.name} scope="col">{field.label}</th>
                   ))}
-                  <th scope="col">Eliminar</th>
                 </tr>
               </thead>
               <tbody>
@@ -273,32 +257,12 @@ const Tab1: React.FC = () => {
                       {fields.map((field) => (
                         <td key={field.name}>{entry[field.name]}</td>
                       ))}
-                      <td>
-                        <button
-                          className="yard-exit__delete"
-                          type="button"
-                          aria-label={`Eliminar registro de remisión ${entry.remision}`}
-                          onClick={() => setEntryToDelete(entry)}
-                        >
-                          Eliminar
-                        </button>
-                      </td>
                     </tr>
                   ))
                 )}
               </tbody>
             </table>
           </div>
-          <IonAlert
-            isOpen={entryToDelete !== null}
-            header="Confirmar eliminación"
-            message={entryToDelete ? `¿Desea eliminar el registro de remisión ${entryToDelete.remision}?` : ''}
-            buttons={[
-              { text: 'Cancelar', role: 'cancel' },
-              { text: 'Eliminar', role: 'destructive', handler: handleDeleteEntry }
-            ]}
-            onDidDismiss={() => setEntryToDelete(null)}
-          />
         </main>
       </IonContent>
     </IonPage>
