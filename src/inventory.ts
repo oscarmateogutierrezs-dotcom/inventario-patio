@@ -12,9 +12,9 @@ type InventoryProductsState = {
   error: string | null;
 };
 
-const storageKey = 'inventario-patio-productos';
+export const storageKey = 'inventario-patio-productos';
 const updateEvent = 'inventario-patio-productos-actualizados';
-const initialProducts: InventoryProduct[] = inventoryData.items.map((product) => ({
+export const initialProducts: InventoryProduct[] = inventoryData.items.map((product) => ({
   ...product
 }));
 

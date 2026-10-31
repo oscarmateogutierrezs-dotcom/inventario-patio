@@ -11,9 +11,9 @@ type DriversState = {
   error: string | null;
 };
 
-const storageKey = 'inventario-patio-conductores';
+export const storageKey = 'inventario-patio-conductores';
 const updateEvent = 'inventario-patio-conductores-actualizados';
-const initialDrivers: Driver[] = driversData.conductores;
+export const initialDrivers: Driver[] = driversData.conductores;
 
 const isDriverList = (value: unknown): value is Driver[] =>
   Array.isArray(value) &&
