@@ -10,7 +10,8 @@ import {
   setupIonicReact
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { ellipse, square, triangle } from 'ionicons/icons';
+import { brickStackIcon, sheetIcon, truckIcon } from './components/tabIcons';
+import ThemeToggle from './components/ThemeToggle';
 import Tab1 from './pages/Tab1';
 import Tab2 from './pages/Tab2';
 import Tab3 from './pages/Tab3';
@@ -39,16 +40,18 @@ import '@ionic/react/css/display.css';
  */
 
 /* import '@ionic/react/css/palettes/dark.always.css'; */
-/* import '@ionic/react/css/palettes/dark.class.css'; */
-import '@ionic/react/css/palettes/dark.system.css';
+import '@ionic/react/css/palettes/dark.class.css';
+/* import '@ionic/react/css/palettes/dark.system.css'; */
 
 /* Theme variables */
 import './theme/variables.css';
+import './theme/dark-mode.css';
 
 setupIonicReact();
 
 const App: React.FC = () => (
   <IonApp>
+    <ThemeToggle />
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
@@ -59,15 +62,15 @@ const App: React.FC = () => (
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
           <IonTabButton tab="tab1" href="/tab1">
-            <IonIcon aria-hidden="true" icon={triangle} />
+            <IonIcon aria-hidden="true" icon={sheetIcon} />
             <IonLabel>Salidas de Patio</IonLabel>
           </IonTabButton>
           <IonTabButton tab="tab2" href="/tab2">
-            <IonIcon aria-hidden="true" icon={ellipse} />
+            <IonIcon aria-hidden="true" icon={brickStackIcon} />
             <IonLabel>Inventario</IonLabel>
           </IonTabButton>
           <IonTabButton tab="tab3" href="/tab3">
-            <IonIcon aria-hidden="true" icon={square} />
+            <IonIcon aria-hidden="true" icon={truckIcon} />
             <IonLabel>Conductor y Placa</IonLabel>
           </IonTabButton>
         </IonTabBar>

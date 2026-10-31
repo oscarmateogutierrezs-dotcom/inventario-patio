@@ -1,0 +1,116 @@
+.theme-toggle {
+  position: fixed;
+  top: calc(env(safe-area-inset-top, 0px) + 6px);
+  right: 12px;
+  z-index: 10000;
+  display: flex;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--ion-border-color, #cbd5e1);
+  border-radius: 50%;
+  background: var(--ion-background-color, #fff);
+  color: var(--ion-text-color, #172033);
+  cursor: pointer;
+  font-size: 22px;
+}
+
+.ion-palette-dark .yard-exit,
+.ion-palette-dark .inventory,
+.ion-palette-dark .drivers,
+.ion-palette-dark .yard-exit__field,
+.ion-palette-dark .inventory__product-field,
+.ion-palette-dark .drivers__field,
+.ion-palette-dark .drivers__heading,
+.ion-palette-dark .drivers__name {
+  color: #e5eaf3;
+}
+
+.ion-palette-dark .inventory__hint,
+.ion-palette-dark .drivers__plate,
+.ion-palette-dark .yard-exit__field input::placeholder,
+.ion-palette-dark .inventory__empty,
+.ion-palette-dark .drivers__empty,
+.ion-palette-dark .yard-exit__table .yard-exit__empty {
+  color: #a8b3c7;
+}
+
+.ion-palette-dark .yard-exit__success,
+.ion-palette-dark .inventory__success,
+.ion-palette-dark .drivers__success,
+.ion-palette-dark .yard-exit__sync {
+  color: #4ade80;
+}
+
+.ion-palette-dark .yard-exit__sync[data-pending='true'] {
+  color: #fbbf24;
+}
+
+.ion-palette-dark .inventory__error,
+.ion-palette-dark .drivers__error,
+.ion-palette-dark .form-field-error,
+.ion-palette-dark .form-validation-error {
+  color: #f87171;
+}
+
+.ion-palette-dark .yard-exit__form,
+.ion-palette-dark .yard-exit__table-wrap,
+.ion-palette-dark .inventory__product-form,
+.ion-palette-dark .inventory__table-wrap,
+.ion-palette-dark .drivers__form,
+.ion-palette-dark .drivers__list {
+  border-color: #334155;
+  background: #1a2233;
+  box-shadow: none;
+}
+
+.ion-palette-dark .yard-exit__field input,
+.ion-palette-dark .yard-exit__field select,
+.ion-palette-dark .inventory__product-field input,
+.ion-palette-dark .inventory__quantity,
+.ion-palette-dark .drivers__field input,
+.ion-palette-dark .inventory__search-results button {
+  border-color: #475569;
+  background: #0f1624;
+  color: #e5eaf3;
+}
+
+.ion-palette-dark .inventory__search-results button[aria-pressed='true'] {
+  border-color: #60a5fa;
+  background: #1e3a6e;
+}
+
+.ion-palette-dark .inventory__search-results mark {
+  background: #a16207;
+  color: #fff;
+}
+
+.ion-palette-dark .yard-exit__table th,
+.ion-palette-dark .inventory__table th {
+  border-bottom-color: #334155;
+  background: #232d42;
+  color: #e5eaf3;
+}
+
+.ion-palette-dark .yard-exit__table td,
+.ion-palette-dark .inventory__table td {
+  border-bottom-color: #2a3447;
+  color: #cbd5e1;
+}
+
+.ion-palette-dark .yard-exit__table tbody tr:nth-child(even),
+.ion-palette-dark .inventory__table tbody tr:nth-child(even),
+.ion-palette-dark .drivers__item {
+  background: #1f283a;
+}
+
+.ion-palette-dark .drivers__item {
+  border-color: #334155;
+}
+
+.ion-palette-dark .inventory__add:active {
+  background: #0f1624;
+  color: #93c5fd;
+  border-color: #93c5fd;
+}
