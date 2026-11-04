@@ -1,4 +1,5 @@
 import { act, fireEvent, render, screen } from '@testing-library/react';
+import { vi } from 'vitest';
 import Tab3 from './Tab3';
 import Tab1 from './Tab1';
 
@@ -69,4 +70,30 @@ test('shows errors and shakes missing driver fields', () => {
   expect(screen.getByLabelText('Placa')).toHaveClass('form-input-invalid');
   expect(screen.getByText('Ingresa el nombre del conductor.')).toBeInTheDocument();
   expect(screen.getByText('Ingresa la placa.')).toBeInTheDocument();
+});
+
+test('clears driver validation errors after ten seconds', () => {
+  vi.useFakeTimers();
+  try {
+    render(<Tab3 />);
+    fireEvent.click(screen.getByRole('button', { name: 'Agregar conductor' }));
+    expect(screen.getByRole('alert')).toBeInTheDocument();
+
+    act(() => vi.advanceTimersByTime(10000));
+
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+    expect(screen.queryByText('Ingresa el nombre del conductor.')).not.toBeInTheDocument();
+    expect(screen.getByLabelText('Nombre del conductor')).not.toHaveAttribute('aria-invalid', 'true');
+
+    fireEvent.change(screen.getByLabelText('Nombre del conductor'), { target: { value: 'Ana' } });
+    fireEvent.change(screen.getByLabelText('Placa'), { target: { value: 'ESZ 929' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Agregar conductor' }));
+    expect(screen.getByRole('alert')).toHaveTextContent('Ya existe un conductor registrado con esa placa.');
+
+    act(() => vi.advanceTimersByTime(10000));
+
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+  } finally {
+    vi.useRealTimers();
+  }
 });

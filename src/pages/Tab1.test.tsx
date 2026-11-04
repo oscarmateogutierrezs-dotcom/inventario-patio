@@ -1,5 +1,6 @@
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import inventoryData from '../../data/inventario.json';
+import { vi } from 'vitest';
 import Tab1 from './Tab1';
 
 beforeEach(() => {
@@ -159,4 +160,20 @@ test('shows errors and shakes every missing required field', () => {
   expect(screen.getByText('Completa el campo Remisión.')).toBeInTheDocument();
   expect(screen.getByText('Completa el campo Código producto.')).toBeInTheDocument();
   expect(screen.queryByText('Aún no hay registros para este turno.')).toBeInTheDocument();
+});
+
+test('clears yard exit validation errors after ten seconds', () => {
+  vi.useFakeTimers();
+  try {
+    render(<Tab1 />);
+    fireEvent.click(screen.getByRole('button', { name: 'Agregar registro' }));
+    expect(screen.getByRole('alert')).toBeInTheDocument();
+
+    act(() => vi.advanceTimersByTime(10000));
+
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+    expect(screen.getByLabelText('Remisión')).not.toHaveAttribute('aria-invalid', 'true');
+  } finally {
+    vi.useRealTimers();
+  }
 });

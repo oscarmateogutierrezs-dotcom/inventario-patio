@@ -1,20 +1,40 @@
-import { FormEvent, useState } from 'react';
-import { IonAlert, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { FormEvent, useEffect, useState } from 'react';
+import { IonAlert, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, useIonViewWillLeave } from '@ionic/react';
 import { useDrivers } from '../drivers';
 import { useTimedMessage } from '../useTimedMessage';
 import './form-validation.css';
 import './Tab3.css';
 
 type DriverField = 'nombre' | 'placa';
+const errorDuration = 10000;
 
 const Tab3: React.FC = () => {
   const { drivers, error: storageError, saveDrivers } = useDrivers();
   const [nombre, setNombre] = useState('');
   const [placa, setPlaca] = useState('');
-  const [formError, setFormError] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useTimedMessage(errorDuration);
   const [fieldErrors, setFieldErrors] = useState<Partial<Record<DriverField, string>>>({});
   const [deleteMessage, setDeleteMessage] = useTimedMessage();
   const [driverToDelete, setDriverToDelete] = useState<{ nombre: string; placa: string } | null>(null);
+
+  useEffect(() => {
+    if (storageError) {
+      setErrorMessage(storageError);
+    }
+  }, [storageError, setErrorMessage]);
+
+  useEffect(() => {
+    if (Object.keys(fieldErrors).length === 0) {
+      return;
+    }
+    const timer = setTimeout(() => setFieldErrors({}), errorDuration);
+    return () => clearTimeout(timer);
+  }, [fieldErrors]);
+
+  useIonViewWillLeave(() => {
+    setErrorMessage('');
+    setFieldErrors({});
+  });
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -30,20 +50,20 @@ const Tab3: React.FC = () => {
     }
     if (Object.keys(missingFields).length > 0) {
       setFieldErrors(missingFields);
-      setFormError(null);
+      setErrorMessage('');
       return;
     }
     setFieldErrors({});
 
     if (drivers.some((driver) => driver.placa.toUpperCase() === normalizedPlate)) {
-      setFormError('Ya existe un conductor registrado con esa placa.');
+      setErrorMessage('Ya existe un conductor registrado con esa placa.');
       return;
     }
 
     if (saveDrivers([...drivers, { nombre: normalizedName, placa: normalizedPlate }])) {
       setNombre('');
       setPlaca('');
-      setFormError(null);
+      setErrorMessage('');
       setFieldErrors({});
     }
   };
@@ -126,8 +146,7 @@ const Tab3: React.FC = () => {
                 {fieldErrors.placa && <span className="form-field-error" id="driver-plate-error">{fieldErrors.placa}</span>}
               </label>
             </div>
-            {formError && <p className="drivers__error" role="alert">{formError}</p>}
-            {storageError && <p className="drivers__error" role="alert">{storageError}</p>}
+            {errorMessage && <p className="drivers__error" role="alert">{errorMessage}</p>}
             <button className="drivers__submit" type="submit">Agregar conductor</button>
           </form>
 

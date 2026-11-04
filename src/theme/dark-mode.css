@@ -70,7 +70,8 @@
 .ion-palette-dark .inventory__product-field input,
 .ion-palette-dark .inventory__quantity,
 .ion-palette-dark .drivers__field input,
-.ion-palette-dark .inventory__search-results button {
+.ion-palette-dark .inventory__search-results button,
+.ion-palette-dark .inventory__lot-entry input {
   border-color: #475569;
   background: #0f1624;
   color: #e5eaf3;

@@ -1,5 +1,6 @@
 import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import inventoryData from '../../data/inventario.json';
+import { vi } from 'vitest';
 import Tab1 from './Tab1';
 import Tab2 from './Tab2';
 
@@ -172,6 +173,21 @@ test('shows an error when the initial quantity is invalid', async () => {
   fireEvent.click(screen.getByRole('button', { name: 'Confirmar' }));
 
   expect(screen.getByRole('alert')).toHaveTextContent('Ingresa una cantidad inicial válida para el lote.');
+});
+
+test('clears inventory form errors after ten seconds', () => {
+  vi.useFakeTimers();
+  try {
+    render(<Tab2 />);
+    fireEvent.click(screen.getAllByRole('button', { name: 'Agregar lote' })[0]);
+    expect(screen.getByRole('alert')).toHaveTextContent('Ingresa el lote del producto.');
+
+    act(() => vi.advanceTimersByTime(10000));
+
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+  } finally {
+    vi.useRealTimers();
+  }
 });
 
 test('clears the selected product when the search changes', async () => {

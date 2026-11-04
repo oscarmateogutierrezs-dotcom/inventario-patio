@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useState } from 'react';
-import {IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, useIonViewWillLeave } from '@ionic/react';
 import { useDrivers } from '../drivers';
 import { useInventoryProducts } from '../inventory';
 import { enqueueSync, usePendingSyncCount } from '../sheetSync';
@@ -7,6 +7,7 @@ import './form-validation.css';
 import './Tab1.css';
 
 const yardEntriesStorageKey = 'inventario-patio-salidas';
+const errorDuration = 10000;
 
 const emptyForm = {
   fechaHora: '',
@@ -79,6 +80,16 @@ const Tab1: React.FC = () => {
   const selectedProduct = products.find((product) => product.codigo === form.codigoProducto);
   const selectedLot = selectedProduct?.lotes.find((lot) => lot.lote === form.loteDespachado);
   const availableStock = selectedLot?.cantidad ?? 0;
+
+  useEffect(() => {
+    if (Object.keys(fieldErrors).length === 0) {
+      return;
+    }
+    const timer = setTimeout(() => setFieldErrors({}), errorDuration);
+    return () => clearTimeout(timer);
+  }, [fieldErrors]);
+
+  useIonViewWillLeave(() => setFieldErrors({}));
 
   useEffect(() => {
     try {

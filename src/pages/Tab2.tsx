@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { IonAlert, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { useEffect, useState } from 'react';
+import { IonAlert, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, useIonViewWillLeave } from '@ionic/react';
 import { useTimedMessage } from '../useTimedMessage';
 import { InventoryProduct, useInventoryProducts } from '../inventory';
 import AddProductModal from '../components/AddProductModal';
@@ -18,9 +18,17 @@ const Tab2: React.FC = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [lotInputs, setLotInputs] = useState<Record<string, string>>({});
   const [lotQuantityInputs, setLotQuantityInputs] = useState<Record<string, Record<string, string>>>({});
-  const [formError, setFormError] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useTimedMessage(10000);
   const [deleteMessage, setDeleteMessage] = useTimedMessage();
   const [lotToDelete, setLotToDelete] = useState<{ codigo: string; item: string; lote: string } | null>(null);
+
+  useEffect(() => {
+    if (catalogError) {
+      setErrorMessage(catalogError);
+    }
+  }, [catalogError, setErrorMessage]);
+
+  useIonViewWillLeave(() => setErrorMessage(''));
 
   const handleAddProduct = (product: InventoryProduct): boolean => {
     if (products.some((currentProduct) => currentProduct.codigo === product.codigo)) {
@@ -29,7 +37,7 @@ const Tab2: React.FC = () => {
     if (!addProduct(product)) {
       return false;
     }
-    setFormError(null);
+    setErrorMessage('');
     return true;
   };
 
@@ -38,25 +46,25 @@ const Tab2: React.FC = () => {
     const cantidadText = lotQuantityInputs[codigo]?.newLot ?? '';
     const cantidad = Number(cantidadText);
     if (!lote) {
-      setFormError('Ingresa el lote del producto.');
+      setErrorMessage('Ingresa el lote del producto.');
       return;
     }
     if (!cantidadText.trim() || !Number.isFinite(cantidad) || cantidad < 0) {
-      setFormError('Ingresa una cantidad válida para el lote.');
+      setErrorMessage('Ingresa una cantidad válida para el lote.');
       return;
     }
     if (products.find((product) => product.codigo === codigo)?.lotes.some((lot) => lot.lote === lote)) {
-      setFormError('Ese lote ya está registrado para este producto.');
+      setErrorMessage('Ese lote ya está registrado para este producto.');
       return;
     }
     if (!addProductLot(codigo, lote, cantidad)) {
-      setFormError('No se pudo guardar el lote. Inténtalo de nuevo.');
+      setErrorMessage('No se pudo guardar el lote. Inténtalo de nuevo.');
       return;
     }
 
     setLotInputs((currentInputs) => ({ ...currentInputs, [codigo]: '' }));
     setLotQuantityInputs((currentInputs) => ({ ...currentInputs, [codigo]: { ...currentInputs[codigo], newLot: '' } }));
-    setFormError(null);
+    setErrorMessage('');
   };
 
   const saveLotQuantity = (codigo: string, lote: string) => {
@@ -66,7 +74,7 @@ const Tab2: React.FC = () => {
     }
     const cantidad = Number(value);
     if (!value.trim() || !Number.isFinite(cantidad) || cantidad < 0) {
-      setFormError('Ingresa una cantidad válida para el lote.');
+      setErrorMessage('Ingresa una cantidad válida para el lote.');
       setLotQuantityInputs((currentInputs) => {
         const productInputs = { ...currentInputs[codigo] };
         delete productInputs[lote];
@@ -75,9 +83,9 @@ const Tab2: React.FC = () => {
       return;
     }
     if (!updateProductLotQuantity(codigo, lote, cantidad)) {
-      setFormError('No se pudo guardar la cantidad del lote. Inténtalo de nuevo.');
+      setErrorMessage('No se pudo guardar la cantidad del lote. Inténtalo de nuevo.');
     } else {
-      setFormError(null);
+      setErrorMessage('');
     }
     setLotQuantityInputs((currentInputs) => {
       const productInputs = { ...currentInputs[codigo] };
@@ -92,9 +100,9 @@ const Tab2: React.FC = () => {
     }
     if (removeProductLot(lotToDelete.codigo, lotToDelete.lote)) {
       setDeleteMessage(`Se eliminó el lote ${lotToDelete.lote} de ${lotToDelete.codigo} - ${lotToDelete.item}.`);
-      setFormError(null);
+      setErrorMessage('');
     } else {
-      setFormError('No se pudo eliminar el lote. Inténtalo de nuevo.');
+      setErrorMessage('No se pudo eliminar el lote. Inténtalo de nuevo.');
     }
   };
 
@@ -114,11 +122,7 @@ const Tab2: React.FC = () => {
         <main className="inventory">
           <p className="inventory__hint">Administra productos y existencias por lote; los cambios se guardan en este dispositivo.</p>
           {deleteMessage && <p className="inventory__success delete-popup" role="status">{deleteMessage}</p>}
-          {(catalogError || formError) && (
-            <p className="inventory__error" role="alert">
-              {formError ?? catalogError}
-            </p>
-          )}
+          {errorMessage && <p className="inventory__error" role="alert">{errorMessage}</p>}
           <button className="inventory__add inventory__add--main" type="button" onClick={() => setIsAddModalOpen(true)}>
             Agregar producto
           </button>
