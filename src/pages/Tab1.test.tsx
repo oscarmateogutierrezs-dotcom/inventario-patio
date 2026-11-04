@@ -6,7 +6,20 @@ beforeEach(() => {
   localStorage.clear();
 });
 
+const addLotToFirstProduct = () => {
+  const firstProduct = inventoryData.items[0];
+  localStorage.setItem(
+    'inventario-patio-productos',
+    JSON.stringify([{
+      codigo: firstProduct.codigo,
+      item: firstProduct.item,
+      lotes: [{ lote: 'L-67', cantidad: 100 }]
+    }])
+  );
+};
+
 test('adds a yard exit record', () => {
+  addLotToFirstProduct();
   render(<Tab1 />);
 
   const values = [
@@ -33,6 +46,7 @@ test('adds a yard exit record', () => {
 });
 
 test('persists yard exit records and shows pending sync count', () => {
+  addLotToFirstProduct();
   const { unmount } = render(<Tab1 />);
   expect(screen.getByText('Todo sincronizado')).toBeInTheDocument();
 
@@ -70,6 +84,68 @@ test('uses product codes from the inventory list', () => {
       name: `${firstProduct.codigo} - ${firstProduct.item}`
     })
   ).toHaveValue(firstProduct.codigo);
+});
+
+test('shows only the lots registered for the selected product', () => {
+  const [firstProduct, secondProduct] = inventoryData.items;
+  localStorage.setItem(
+    'inventario-patio-productos',
+    JSON.stringify([
+      { codigo: firstProduct.codigo, item: firstProduct.item, lotes: [{ lote: 'L-67', cantidad: 20 }] },
+      { codigo: secondProduct.codigo, item: secondProduct.item, lotes: [{ lote: 'L-88', cantidad: 30 }] }
+    ])
+  );
+  render(<Tab1 />);
+
+  fireEvent.change(screen.getByLabelText('Código producto'), { target: { value: firstProduct.codigo } });
+  const lotSelect = screen.getByLabelText('Lote despachado');
+  expect(within(lotSelect).getByRole('option', { name: 'L-67' })).toBeInTheDocument();
+  expect(within(lotSelect).queryByRole('option', { name: 'L-88' })).not.toBeInTheDocument();
+
+  fireEvent.change(screen.getByLabelText('Código producto'), { target: { value: secondProduct.codigo } });
+  expect(lotSelect).toHaveValue('');
+  expect(within(lotSelect).getByRole('option', { name: 'L-88' })).toBeInTheDocument();
+});
+
+test('deducts a yard exit from the selected lot and prevents overdrawing it', () => {
+  const firstProduct = inventoryData.items[0];
+  localStorage.setItem(
+    'inventario-patio-productos',
+    JSON.stringify([{
+      codigo: firstProduct.codigo,
+      item: firstProduct.item,
+      lotes: [
+        { lote: 'L-67', cantidad: 10 },
+        { lote: 'L-68', cantidad: 50 }
+      ]
+    }])
+  );
+  render(<Tab1 />);
+
+  const values = [
+    ['Remisión', 'R-999'],
+    ['Placa vehículo', 'ESZ 929'],
+    ['Cantidad entregada', '25'],
+    ['Código producto', firstProduct.codigo],
+    ['Lote despachado', 'L-67'],
+    ['Cantidad', '11'],
+    ['Desperdicio generado', '1'],
+    ['Reclasifica segunda', '0']
+  ];
+  values.forEach(([label, value]) => {
+    fireEvent.change(screen.getByLabelText(label), { target: { value } });
+  });
+  fireEvent.click(screen.getByRole('button', { name: 'Agregar registro' }));
+  expect(screen.getByText('La cantidad supera el inventario disponible (10).')).toBeInTheDocument();
+
+  fireEvent.change(screen.getByLabelText('Cantidad'), { target: { value: '7' } });
+  fireEvent.click(screen.getByRole('button', { name: 'Agregar registro' }));
+
+  const savedProducts = JSON.parse(localStorage.getItem('inventario-patio-productos') ?? '[]');
+  expect(savedProducts[0].lotes).toEqual([
+    { lote: 'L-67', cantidad: 3 },
+    { lote: 'L-68', cantidad: 50 }
+  ]);
 });
 
 test('shows errors and shakes every missing required field', () => {

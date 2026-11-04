@@ -1,120 +1,26 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useState } from 'react';
 import { IonAlert, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { useTimedMessage } from '../useTimedMessage';
-import { InventoryProduct, onQuantitiesChanged, quantityStorageKey, useInventoryProducts } from '../inventory';
+import { InventoryProduct, useInventoryProducts } from '../inventory';
 import AddProductModal from '../components/AddProductModal';
 import './form-validation.css';
 import './Tab2.css';
 
-type InventoryState = {
-  quantities: Record<string, string>;
-  storageError: string | null;
-};
-
-const storageKey = quantityStorageKey;
-
-const loadInventory = (products: InventoryProduct[]): InventoryState => {
-  try {
-    const savedQuantities = localStorage.getItem(storageKey);
-    if (!savedQuantities) {
-      return { quantities: {}, storageError: null };
-    }
-
-    const parsedQuantities: unknown = JSON.parse(savedQuantities);
-    if (typeof parsedQuantities !== 'object' || parsedQuantities === null || Array.isArray(parsedQuantities)) {
-      throw new Error('El formato de las cantidades guardadas no es válido.');
-    }
-
-    const quantities = parsedQuantities as Record<string, unknown>;
-    return {
-      quantities: Object.fromEntries(
-        products.flatMap((product) => {
-          const savedQuantity = quantities[product.codigo];
-          return typeof savedQuantity === 'number' && Number.isFinite(savedQuantity) && savedQuantity >= 0
-            ? [[product.codigo, String(savedQuantity)]]
-            : [];
-        })
-      ),
-      storageError: null
-    };
-  } catch (error) {
-    console.error('No se pudo cargar el inventario guardado.', error);
-    return {
-      quantities: {},
-      storageError: 'No se pudieron cargar las cantidades guardadas. Se muestran las cantidades iniciales.'
-    };
-  }
-};
-
 const Tab2: React.FC = () => {
-  const { products, error: catalogError, addProduct, removeProduct } = useInventoryProducts();
-  const [inventory, setInventory] = useState<InventoryState>(() => loadInventory(products));
-  const lastSavedQuantities = useRef(inventory.quantities);
-  const lastSavedProducts = useRef(products);
+  const {
+    products,
+    error: catalogError,
+    addProduct,
+    addProductLot,
+    updateProductLotQuantity,
+    removeProductLot
+  } = useInventoryProducts();
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [lotInputs, setLotInputs] = useState<Record<string, string>>({});
+  const [lotQuantityInputs, setLotQuantityInputs] = useState<Record<string, Record<string, string>>>({});
   const [formError, setFormError] = useState<string | null>(null);
   const [deleteMessage, setDeleteMessage] = useTimedMessage();
-  const [productToDelete, setProductToDelete] = useState<Pick<InventoryProduct, 'codigo' | 'item'> | null>(null);
-  const items = useMemo(
-    () =>
-      products.map((product) => ({
-        ...product,
-        cantidad: inventory.quantities[product.codigo] ?? String(product.cantidad)
-      })),
-    [inventory.quantities, products]
-  );
-
-  useEffect(
-    () => onQuantitiesChanged(() => setInventory(loadInventory(products))),
-    [products]
-  );
-
-  useEffect(() => {
-    if (
-      lastSavedQuantities.current === inventory.quantities &&
-      lastSavedProducts.current === products
-    ) {
-      return;
-    }
-
-    lastSavedQuantities.current = inventory.quantities;
-    lastSavedProducts.current = products;
-    try {
-      const quantities = Object.fromEntries(
-        items.flatMap((product) => {
-          const quantity = Number(product.cantidad);
-          return Number.isFinite(quantity) && quantity >= 0 ? [[product.codigo, quantity]] : [];
-        })
-      );
-      localStorage.setItem(storageKey, JSON.stringify(quantities));
-      setInventory((currentInventory) =>
-        currentInventory.storageError === null
-          ? currentInventory
-          : { ...currentInventory, storageError: null }
-      );
-    } catch (error) {
-      console.error('No se pudo guardar el inventario.', error);
-      setInventory((currentInventory) => ({
-        ...currentInventory,
-        storageError: 'No se pudieron guardar los cambios de cantidades en este dispositivo.'
-      }));
-    }
-  }, [inventory.quantities, items, products]);
-
-  const updateQuantity = (codigo: string, cantidad: string) => {
-    setInventory((currentInventory) => ({
-      ...currentInventory,
-      quantities: { ...currentInventory.quantities, [codigo]: cantidad }
-    }));
-  };
-
-  const normalizeQuantity = (product: Omit<InventoryProduct, 'cantidad'> & { cantidad: string }) => {
-    const quantity = Number(product.cantidad);
-    const normalizedQuantity = Number.isFinite(quantity) && quantity >= 0 ? String(quantity) : '0';
-    if (normalizedQuantity !== product.cantidad) {
-      updateQuantity(product.codigo, normalizedQuantity);
-    }
-  };
+  const [lotToDelete, setLotToDelete] = useState<{ codigo: string; item: string; lote: string } | null>(null);
 
   const handleAddProduct = (product: InventoryProduct): boolean => {
     if (products.some((currentProduct) => currentProduct.codigo === product.codigo)) {
@@ -123,23 +29,72 @@ const Tab2: React.FC = () => {
     if (!addProduct(product)) {
       return false;
     }
-    setInventory((currentInventory) => ({
-      ...currentInventory,
-      quantities: { ...currentInventory.quantities, [product.codigo]: String(product.cantidad) }
-    }));
     setFormError(null);
     return true;
   };
 
-  const handleRemoveProduct = () => {
-    if (!productToDelete) {
+  const handleAddLot = (codigo: string) => {
+    const lote = lotInputs[codigo]?.trim() ?? '';
+    const cantidadText = lotQuantityInputs[codigo]?.newLot ?? '';
+    const cantidad = Number(cantidadText);
+    if (!lote) {
+      setFormError('Ingresa el lote del producto.');
       return;
     }
-    if (removeProduct(productToDelete.codigo)) {
-      setDeleteMessage(`Se eliminó el producto ${productToDelete.codigo} - ${productToDelete.item}.`);
+    if (!cantidadText.trim() || !Number.isFinite(cantidad) || cantidad < 0) {
+      setFormError('Ingresa una cantidad válida para el lote.');
+      return;
+    }
+    if (products.find((product) => product.codigo === codigo)?.lotes.some((lot) => lot.lote === lote)) {
+      setFormError('Ese lote ya está registrado para este producto.');
+      return;
+    }
+    if (!addProductLot(codigo, lote, cantidad)) {
+      setFormError('No se pudo guardar el lote. Inténtalo de nuevo.');
+      return;
+    }
+
+    setLotInputs((currentInputs) => ({ ...currentInputs, [codigo]: '' }));
+    setLotQuantityInputs((currentInputs) => ({ ...currentInputs, [codigo]: { ...currentInputs[codigo], newLot: '' } }));
+    setFormError(null);
+  };
+
+  const saveLotQuantity = (codigo: string, lote: string) => {
+    const value = lotQuantityInputs[codigo]?.[lote];
+    if (value === undefined) {
+      return;
+    }
+    const cantidad = Number(value);
+    if (!value.trim() || !Number.isFinite(cantidad) || cantidad < 0) {
+      setFormError('Ingresa una cantidad válida para el lote.');
+      setLotQuantityInputs((currentInputs) => {
+        const productInputs = { ...currentInputs[codigo] };
+        delete productInputs[lote];
+        return { ...currentInputs, [codigo]: productInputs };
+      });
+      return;
+    }
+    if (!updateProductLotQuantity(codigo, lote, cantidad)) {
+      setFormError('No se pudo guardar la cantidad del lote. Inténtalo de nuevo.');
+    } else {
+      setFormError(null);
+    }
+    setLotQuantityInputs((currentInputs) => {
+      const productInputs = { ...currentInputs[codigo] };
+      delete productInputs[lote];
+      return { ...currentInputs, [codigo]: productInputs };
+    });
+  };
+
+  const handleRemoveLot = () => {
+    if (!lotToDelete) {
+      return;
+    }
+    if (removeProductLot(lotToDelete.codigo, lotToDelete.lote)) {
+      setDeleteMessage(`Se eliminó el lote ${lotToDelete.lote} de ${lotToDelete.codigo} - ${lotToDelete.item}.`);
       setFormError(null);
     } else {
-      setFormError('No se pudo eliminar el producto. Inténtalo de nuevo.');
+      setFormError('No se pudo eliminar el lote. Inténtalo de nuevo.');
     }
   };
 
@@ -157,11 +112,11 @@ const Tab2: React.FC = () => {
           </IonToolbar>
         </IonHeader>
         <main className="inventory">
-          <p className="inventory__hint">Administra los productos y sus cantidades; los cambios se guardan en este dispositivo.</p>
+          <p className="inventory__hint">Administra productos y existencias por lote; los cambios se guardan en este dispositivo.</p>
           {deleteMessage && <p className="inventory__success delete-popup" role="status">{deleteMessage}</p>}
-          {(catalogError || inventory.storageError || formError) && (
+          {(catalogError || formError) && (
             <p className="inventory__error" role="alert">
-              {formError ?? catalogError ?? inventory.storageError}
+              {formError ?? catalogError}
             </p>
           )}
           <button className="inventory__add inventory__add--main" type="button" onClick={() => setIsAddModalOpen(true)}>
@@ -179,40 +134,88 @@ const Tab2: React.FC = () => {
                 <tr>
                   <th scope="col">Código</th>
                   <th scope="col">Producto</th>
-                  <th scope="col">Cantidad</th>
-                  <th scope="col">Acciones</th>
+                  <th scope="col">Lotes y cantidades</th>
                 </tr>
               </thead>
               <tbody>
-                {items.length === 0 ? (
+                {products.length === 0 ? (
                   <tr>
-                    <td className="inventory__empty" colSpan={4}>No hay productos en el inventario.</td>
+                    <td className="inventory__empty" colSpan={3}>No hay productos en el inventario.</td>
                   </tr>
-                ) : items.map((product) => (
+                ) : products.map((product) => (
                   <tr key={product.codigo}>
                     <td>{product.codigo}</td>
                     <td>{product.item}</td>
                     <td>
-                      <input
-                        aria-label={`Cantidad de ${product.item}`}
-                        className="inventory__quantity"
-                        type="number"
-                        min="0"
-                        step="1"
-                        value={product.cantidad}
-                        onChange={(event) => updateQuantity(product.codigo, event.target.value)}
-                        onBlur={() => normalizeQuantity(product)}
-                      />
-                    </td>
-                    <td>
-                      <button
-                        aria-label={`Eliminar producto ${product.codigo}`}
-                        className="inventory__remove"
-                        type="button"
-                        onClick={() => setProductToDelete(product)}
-                      >
-                        Eliminar
-                      </button>
+                      {product.lotes.map((lot) => (
+                        <div className="inventory__lot-row" key={lot.lote}>
+                          <span>{lot.lote}</span>
+                          <input
+                            aria-label={`Cantidad del lote ${lot.lote} de ${product.item}`}
+                            className="inventory__quantity"
+                            type="number"
+                            min="0"
+                            step="any"
+                            value={lotQuantityInputs[product.codigo]?.[lot.lote] ?? String(lot.cantidad)}
+                            onChange={(event) =>
+                              setLotQuantityInputs((currentInputs) => ({
+                                ...currentInputs,
+                                [product.codigo]: {
+                                  ...currentInputs[product.codigo],
+                                  [lot.lote]: event.target.value
+                                }
+                              }))
+                            }
+                            onBlur={() => saveLotQuantity(product.codigo, lot.lote)}
+                          />
+                          <button
+                            aria-label={`Eliminar lote ${lot.lote} de ${product.item}`}
+                            className="inventory__remove"
+                            type="button"
+                            onClick={() => setLotToDelete({ codigo: product.codigo, item: product.item, lote: lot.lote })}
+                          >
+                            Eliminar
+                          </button>
+                        </div>
+                      ))}
+                      <div className="inventory__lot-entry">
+                        <input
+                          aria-label={`Nuevo lote de ${product.item}`}
+                          type="text"
+                          placeholder="Lote"
+                          value={lotInputs[product.codigo] ?? ''}
+                          onChange={(event) =>
+                            setLotInputs((currentInputs) => ({
+                              ...currentInputs,
+                              [product.codigo]: event.target.value
+                            }))
+                          }
+                        />
+                        <input
+                          aria-label={`Cantidad del nuevo lote de ${product.item}`}
+                          type="number"
+                          min="0"
+                          step="any"
+                          placeholder="Cantidad"
+                          value={lotQuantityInputs[product.codigo]?.newLot ?? ''}
+                          onChange={(event) =>
+                            setLotQuantityInputs((currentInputs) => ({
+                              ...currentInputs,
+                              [product.codigo]: {
+                                ...currentInputs[product.codigo],
+                                newLot: event.target.value
+                              }
+                            }))
+                          }
+                        />
+                        <button
+                          className="inventory__add"
+                          type="button"
+                          onClick={() => handleAddLot(product.codigo)}
+                        >
+                          Agregar lote
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -220,18 +223,18 @@ const Tab2: React.FC = () => {
             </table>
           </div>
           <IonAlert
-            isOpen={productToDelete !== null}
+            isOpen={lotToDelete !== null}
             header="Confirmar eliminación"
             message={
-              productToDelete
-                ? `¿Eliminar el producto ${productToDelete.codigo} - ${productToDelete.item}?`
+              lotToDelete
+                ? `¿Eliminar el lote ${lotToDelete.lote} del producto ${lotToDelete.codigo} - ${lotToDelete.item}?`
                 : ''
             }
             buttons={[
               { text: 'Cancelar', role: 'cancel' },
-              { text: 'Eliminar', role: 'destructive', handler: handleRemoveProduct }
+              { text: 'Eliminar', role: 'destructive', handler: handleRemoveLot }
             ]}
-            onDidDismiss={() => setProductToDelete(null)}
+            onDidDismiss={() => setLotToDelete(null)}
           />
         </main>
       </IonContent>

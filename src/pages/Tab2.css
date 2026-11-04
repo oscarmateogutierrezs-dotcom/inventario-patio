@@ -148,7 +148,7 @@
 
 .inventory__table {
   width: 100%;
-  min-width: 480px;
+  min-width: 700px;
   border-collapse: collapse;
   font-size: 16px;
 }
@@ -212,6 +212,44 @@
   outline-offset: 1px;
 }
 
+.inventory__lot-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.inventory__lot-row > span {
+  min-width: 90px;
+  overflow-wrap: anywhere;
+}
+
+.inventory__lot-entry {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.inventory__lot-entry input {
+  box-sizing: border-box;
+  width: 130px;
+  min-width: 0;
+  min-height: 40px;
+  padding: 8px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  background: #fff;
+  color: #172033;
+  font: inherit;
+}
+
+.inventory__lot-entry .inventory__add {
+  min-height: 40px;
+  padding: 6px 10px;
+  font-size: 13px;
+}
+
 @media (min-width: 601px) and (max-width: 1024px) {
   .inventory {
     padding: 28px;
@@ -271,4 +309,13 @@
   .inventory__quantity {
     width: 125px;
   }
+}
+.inventory__table th:last-child,
+.inventory__table td:last-child {
+  width: auto;
+}
+
+.inventory__lot-row .inventory__remove {
+  min-height: 36px;
+  padding: 6px 12px;
 }

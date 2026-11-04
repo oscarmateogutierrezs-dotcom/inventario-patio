@@ -68,6 +68,7 @@ const AddProductModal: React.FC<Props> = ({ isOpen, existingCodes, onClose, onAd
   // Términos de búsqueda: no cambian al seleccionar una opción, para conservar la lista.
   const [search, setSearch] = useState({ codigo: '', nombre: '' });
   const [selected, setSelected] = useState<CatalogItem | null>(null);
+  const [lot, setLot] = useState('');
   const [quantity, setQuantity] = useState('0');
   const [error, setError] = useState<string | null>(null);
 
@@ -111,6 +112,7 @@ const AddProductModal: React.FC<Props> = ({ isOpen, existingCodes, onClose, onAd
     setNameInput('');
     setSearch({ codigo: '', nombre: '' });
     setSelected(null);
+    setLot('');
     setQuantity('0');
     setError(null);
   };
@@ -120,11 +122,19 @@ const AddProductModal: React.FC<Props> = ({ isOpen, existingCodes, onClose, onAd
       return;
     }
     const cantidad = Number(quantity);
-    if (!quantity.trim() || !Number.isInteger(cantidad) || cantidad < 0) {
-      setError('Ingresa una cantidad inicial válida.');
+    if (!lot.trim()) {
+      setError('Ingresa el lote del producto.');
       return;
     }
-    if (!onAdd({ codigo: selected.codigo, item: selected.nombre, cantidad })) {
+    if (!quantity.trim() || !Number.isFinite(cantidad) || cantidad < 0) {
+      setError('Ingresa una cantidad inicial válida para el lote.');
+      return;
+    }
+    if (!onAdd({
+      codigo: selected.codigo,
+      item: selected.nombre,
+      lotes: [{ lote: lot.trim(), cantidad }]
+    })) {
       setError('No se pudo guardar el producto. Inténtalo de nuevo.');
       return;
     }
@@ -185,12 +195,19 @@ const AddProductModal: React.FC<Props> = ({ isOpen, existingCodes, onClose, onAd
           <div className="inventory__product-field">
             <p>Seleccionado: {selected.codigo} - {selected.nombre}</p>
             <label>
+              <span>Lote</span>
+              <input
+                aria-label="Lote del producto"
+                type="text"
+                value={lot}
+                onChange={(event) => setLot(event.target.value)}
+              />
               <span>Cantidad inicial</span>
               <input
                 aria-label="Cantidad inicial del producto"
                 type="number"
                 min="0"
-                step="1"
+                step="any"
                 value={quantity}
                 onChange={(event) => { setQuantity(event.target.value); setError(null); }}
               />

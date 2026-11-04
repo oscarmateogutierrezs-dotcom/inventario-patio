@@ -1,10 +1,12 @@
 import { FormEvent, useEffect, useState } from 'react';
 import {IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { useDrivers } from '../drivers';
-import { adjustProductStock, useInventoryProducts, useSavedQuantities } from '../inventory';
+import { useInventoryProducts } from '../inventory';
 import { enqueueSync, usePendingSyncCount } from '../sheetSync';
 import './form-validation.css';
 import './Tab1.css';
+
+const yardEntriesStorageKey = 'inventario-patio-salidas';
 
 const emptyForm = {
   fechaHora: '',
@@ -33,7 +35,7 @@ const fields: Array<{
   { name: 'placaVehiculo', label: 'Placa vehículo', type: 'select', placeholder: 'Seleccionar placa' },
   { name: 'cantidadEntregada', label: 'Cantidad entregada', type: 'number', placeholder: '#' },
   { name: 'codigoProducto', label: 'Código producto', type: 'select', placeholder: 'Seleccionar producto' },
-  { name: 'loteDespachado', label: 'Lote despachado', type: 'text', placeholder: 'Lote' },
+  { name: 'loteDespachado', label: 'Lote despachado', type: 'select', placeholder: 'Seleccionar lote' },
   { name: 'cantidad', label: 'Cantidad', type: 'number', placeholder: '#' },
   { name: 'desperdicioGenerado', label: 'Desperdicio generado', type: 'number', placeholder: '#' },
   { name: 'reclasificaSegunda', label: 'Reclasifica segunda', type: 'number', placeholder: '#' }
@@ -45,8 +47,6 @@ const formatDateTime = (date: Date) => {
   const pad = (value: number) => String(value).padStart(2, '0');
   return `${pad(date.getDate())}/${pad(date.getMonth() + 1)}/${date.getFullYear()} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
 };
-
-const entriesStorageKey = 'inventario-patio-salidas';
 
 const isEntry = (value: unknown): value is Entry => {
   if (typeof value !== 'object' || value === null) {
@@ -62,7 +62,7 @@ const isEntry = (value: unknown): value is Entry => {
 
 const loadEntries = (): Entry[] => {
   try {
-    const parsed: unknown = JSON.parse(localStorage.getItem(entriesStorageKey) ?? '[]');
+    const parsed: unknown = JSON.parse(localStorage.getItem(yardEntriesStorageKey) ?? '[]');
     return Array.isArray(parsed) ? parsed.filter(isEntry) : [];
   } catch {
     return [];
@@ -75,16 +75,14 @@ const Tab1: React.FC = () => {
   const [entries, setEntries] = useState<Entry[]>(loadEntries);
   const pendingSync = usePendingSyncCount();
   const { drivers } = useDrivers();
-  const { products } = useInventoryProducts();
-  const savedQuantities = useSavedQuantities();
+  const { products, adjustProductLotStock } = useInventoryProducts();
   const selectedProduct = products.find((product) => product.codigo === form.codigoProducto);
-  const availableStock = selectedProduct
-    ? savedQuantities[selectedProduct.codigo] ?? selectedProduct.cantidad
-    : 0;
+  const selectedLot = selectedProduct?.lotes.find((lot) => lot.lote === form.loteDespachado);
+  const availableStock = selectedLot?.cantidad ?? 0;
 
   useEffect(() => {
     try {
-      localStorage.setItem(entriesStorageKey, JSON.stringify(entries));
+      localStorage.setItem(yardEntriesStorageKey, JSON.stringify(entries));
     } catch (error) {
       console.error('No se pudo guardar la lista de salidas.', error);
     }
@@ -117,8 +115,8 @@ const Tab1: React.FC = () => {
       setFieldErrors({ cantidad: `La cantidad supera el inventario disponible (${availableStock}).` });
       return;
     }
-    if (!adjustProductStock(products, form.codigoProducto, -quantity)) {
-      setFieldErrors({ cantidad: 'No se pudo descontar del inventario.' });
+    if (!adjustProductLotStock(form.codigoProducto, form.loteDespachado, -quantity)) {
+      setFieldErrors({ cantidad: 'No se pudo descontar la cantidad del lote seleccionado.' });
       return;
     }
     setFieldErrors({});
@@ -176,12 +174,17 @@ const Tab1: React.FC = () => {
                       aria-invalid={Boolean(fieldErrors[field.name])}
                       aria-describedby={fieldErrors[field.name] ? `yard-${field.name}-error` : undefined}
                       className={fieldErrors[field.name] ? 'form-input-invalid' : undefined}
-                      onChange={(event) =>
-                        {
-                          setForm((currentForm) => ({ ...currentForm, [field.name]: event.target.value }));
-                          clearFieldError(field.name);
+                      onChange={(event) => {
+                        setForm((currentForm) => ({
+                          ...currentForm,
+                          [field.name]: event.target.value,
+                          ...(field.name === 'codigoProducto' ? { loteDespachado: '' } : {})
+                        }));
+                        clearFieldError(field.name);
+                        if (field.name === 'codigoProducto') {
+                          clearFieldError('loteDespachado');
                         }
-                      }
+                      }}
                       required
                     >
                       <option value="">{field.placeholder}</option>
@@ -191,10 +194,14 @@ const Tab1: React.FC = () => {
                               {driver.placa}
                             </option>
                           ))
-                        : products.map((product) => (
+                        : field.name === 'codigoProducto'
+                          ? products.map((product) => (
                             <option key={product.codigo} value={product.codigo}>
                               {product.codigo} - {product.item}
                             </option>
+                          ))
+                          : selectedProduct?.lotes.map((lot) => (
+                            <option key={lot.lote} value={lot.lote}>{lot.lote}</option>
                           ))}
                     </select>
                   ) : (
@@ -220,7 +227,7 @@ const Tab1: React.FC = () => {
                     />
                   )}
                   {field.name === 'cantidad' && selectedProduct && (
-                    <span>Disponible: {availableStock}</span>
+                    <span>Disponible en el lote seleccionado: {availableStock}</span>
                   )}
                   {fieldErrors[field.name] && (
                     <span className="form-field-error" id={`yard-${field.name}-error`}>
