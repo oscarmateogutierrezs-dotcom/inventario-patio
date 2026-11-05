@@ -56,10 +56,10 @@ export const enqueueSync = (job: Omit<SyncJob, 'uid'>): void => {
 
 export const pendingSyncCount = (): number => readOutbox().length;
 
-export const usePendingSyncCount = (): number => {
-  const [count, setCount] = useState(pendingSyncCount);
+export const usePendingSyncEntryIds = (): ReadonlySet<string> => {
+  const [entryIds, setEntryIds] = useState(() => new Set(readOutbox().map((job) => job.entryId)));
   useEffect(() => {
-    const refresh = () => setCount(pendingSyncCount());
+    const refresh = () => setEntryIds(new Set(readOutbox().map((job) => job.entryId)));
     window.addEventListener(outboxEvent, refresh);
     window.addEventListener('storage', refresh);
     return () => {
@@ -67,8 +67,10 @@ export const usePendingSyncCount = (): number => {
       window.removeEventListener('storage', refresh);
     };
   }, []);
-  return count;
+  return entryIds;
 };
+
+export const usePendingSyncCount = (): number => usePendingSyncEntryIds().size;
 
 export const startSheetSync = (): void => {
   void flushOutbox();

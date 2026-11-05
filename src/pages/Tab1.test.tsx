@@ -42,6 +42,9 @@ test('adds a yard exit record', () => {
   const row = screen.getByRole('row', { name: /R-123/ });
   expect(within(row).getByText('ESZ 929')).toBeInTheDocument();
   expect(within(row).getAllByRole('cell')[4]).toHaveTextContent(inventoryData.items[0].codigo);
+  expect(within(row).queryByText(inventoryData.items[0].item)).not.toBeInTheDocument();
+  const queuedJobs = JSON.parse(localStorage.getItem('inventario-patio-outbox') ?? '[]');
+  expect(queuedJobs[0].data.nombreProducto).toBe(inventoryData.items[0].item);
   expect(within(row).getAllByRole('cell')[0]).toHaveTextContent(/^\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}$/);
   expect(screen.getByLabelText('Remisión')).toHaveValue('');
 });
@@ -67,11 +70,39 @@ test('persists yard exit records and shows pending sync count', () => {
   fireEvent.click(screen.getByRole('button', { name: 'Agregar registro' }));
 
   expect(screen.getByText('1 pendiente de sincronizar')).toBeInTheDocument();
+  expect(screen.getByRole('img', { name: 'Pendiente de sincronización' })).toBeInTheDocument();
 
   unmount();
   render(<Tab1 />);
   expect(screen.getByRole('row', { name: /R-789/ })).toBeInTheDocument();
   expect(screen.getByText('1 pendiente de sincronizar')).toBeInTheDocument();
+  expect(screen.getByRole('img', { name: 'Pendiente de sincronización' })).toBeInTheDocument();
+});
+
+test('orders history newest first and marks synchronized records', () => {
+  const makeEntry = (id: number, fechaHora: string, remision: string) => ({
+    id,
+    sheetId: `sheet-${id}`,
+    fechaHora,
+    remision,
+    placaVehiculo: 'ESZ 929',
+    cantidadEntregada: '25',
+    codigoProducto: inventoryData.items[0].codigo,
+    loteDespachado: 'L-67',
+    cantidad: '24',
+    desperdicioGenerado: '1',
+    reclasificaSegunda: '0'
+  });
+  localStorage.setItem('inventario-patio-salidas', JSON.stringify([
+    makeEntry(1, '04/11/2026 10:00', 'R-OLD'),
+    makeEntry(2, '05/11/2026 09:00', 'R-NEW')
+  ]));
+  render(<Tab1 />);
+
+  const rows = screen.getAllByRole('row');
+  expect(within(rows[1]).getByText('R-NEW')).toBeInTheDocument();
+  expect(within(rows[2]).getByText('R-OLD')).toBeInTheDocument();
+  expect(screen.getAllByRole('img', { name: 'Sincronizado' })).toHaveLength(2);
 });
 
 test('uses product codes from the inventory list', () => {

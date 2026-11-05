@@ -2,7 +2,7 @@ import { FormEvent, useEffect, useState } from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, useIonViewWillLeave } from '@ionic/react';
 import { useDrivers } from '../drivers';
 import { useInventoryProducts } from '../inventory';
-import { enqueueSync, usePendingSyncCount } from '../sheetSync';
+import { enqueueSync, usePendingSyncCount, usePendingSyncEntryIds } from '../sheetSync';
 import './form-validation.css';
 import './Tab1.css';
 
@@ -49,6 +49,15 @@ const formatDateTime = (date: Date) => {
   return `${pad(date.getDate())}/${pad(date.getMonth() + 1)}/${date.getFullYear()} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
 };
 
+const parseEntryDateTime = (value: string): number | null => {
+  const match = /^(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2})$/.exec(value);
+  if (!match) {
+    return null;
+  }
+  const [, day, month, year, hour, minute] = match;
+  return new Date(Number(year), Number(month) - 1, Number(day), Number(hour), Number(minute)).getTime();
+};
+
 const isEntry = (value: unknown): value is Entry => {
   if (typeof value !== 'object' || value === null) {
     return false;
@@ -75,11 +84,17 @@ const Tab1: React.FC = () => {
   const [fieldErrors, setFieldErrors] = useState<Partial<Record<EntryField, string>>>({});
   const [entries, setEntries] = useState<Entry[]>(loadEntries);
   const pendingSync = usePendingSyncCount();
+  const pendingEntryIds = usePendingSyncEntryIds();
   const { drivers } = useDrivers();
   const { products, adjustProductLotStock } = useInventoryProducts();
   const selectedProduct = products.find((product) => product.codigo === form.codigoProducto);
   const selectedLot = selectedProduct?.lotes.find((lot) => lot.lote === form.loteDespachado);
   const availableStock = selectedLot?.cantidad ?? 0;
+  const sortedEntries = [...entries].sort((a, b) => {
+    const aDate = parseEntryDateTime(a.fechaHora);
+    const bDate = parseEntryDateTime(b.fechaHora);
+    return aDate !== null && bDate !== null ? bDate - aDate || b.id - a.id : b.id - a.id;
+  });
 
   useEffect(() => {
     if (Object.keys(fieldErrors).length === 0) {
@@ -133,7 +148,12 @@ const Tab1: React.FC = () => {
     setFieldErrors({});
     const sheetId = crypto.randomUUID();
     const newEntry = { ...form, fechaHora: formatDateTime(new Date()) };
-    enqueueSync({ action: 'add', entryId: sheetId, data: newEntry });
+    const conductor = drivers.find((driver) => driver.placa === form.placaVehiculo)?.nombre ?? '';
+    enqueueSync({
+      action: 'add',
+      entryId: sheetId,
+      data: { ...newEntry, conductor, nombreProducto: selectedProduct?.item ?? '' }
+    });
     setEntries((currentEntries) => {
       const nextId = currentEntries.reduce((largestId, entry) => Math.max(largestId, entry.id), 0) + 1;
       return [...currentEntries, { ...newEntry, id: nextId, sheetId }];
@@ -260,6 +280,7 @@ const Tab1: React.FC = () => {
                   {fields.map((field) => (
                     <th key={field.name} scope="col">{field.label}</th>
                   ))}
+                  <th className="yard-exit__sync-status-heading" scope="col">Estado</th>
                 </tr>
               </thead>
               <tbody>
@@ -270,11 +291,18 @@ const Tab1: React.FC = () => {
                     </td>
                   </tr>
                 ) : (
-                  entries.map((entry) => (
+                  sortedEntries.map((entry) => (
                     <tr key={entry.id}>
                       {fields.map((field) => (
                         <td key={field.name}>{entry[field.name]}</td>
                       ))}
+                      <td className="yard-exit__sync-status">
+                        {pendingEntryIds.has(entry.sheetId) ? (
+                          <span className="yard-exit__sync-pending" role="img" aria-label="Pendiente de sincronización" />
+                        ) : (
+                          <span className="yard-exit__sync-complete" role="img" aria-label="Sincronizado">✓</span>
+                        )}
+                      </td>
                     </tr>
                   ))
                 )}

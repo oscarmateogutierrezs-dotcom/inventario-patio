@@ -116,6 +116,38 @@
   letter-spacing: 0.03em;
 }
 
+.yard-exit__table .yard-exit__sync-status-heading,
+.yard-exit__table .yard-exit__sync-status {
+  width: 72px;
+  text-align: right;
+}
+
+.yard-exit__sync-status {
+  white-space: nowrap;
+}
+
+.yard-exit__sync-pending,
+.yard-exit__sync-complete {
+  display: inline-flex;
+  width: 18px;
+  height: 18px;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+.yard-exit__sync-pending {
+  border-radius: 50%;
+  background: #b45309;
+}
+
+.yard-exit__sync-complete {
+  color: #166534;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+}
+
 .yard-exit__table td {
   padding: 14px 12px;
   border-bottom: 1px solid #edf1f6;
