@@ -5,7 +5,15 @@ const outboxEvent = 'inventario-patio-outbox-actualizada';
 const sheetUrl = import.meta.env.VITE_SHEETS_URL as string | undefined;
 const retryMs = 30000;
 
-export type SyncJob = { uid: string; action: 'add' | 'delete'; entryId: string; data?: Record<string, string> };
+export type InventorySyncRow = { codigo: string; nombre: string; lote: string; cantidad: number };
+
+export type SyncJob = {
+  uid: string;
+  action: 'add' | 'delete' | 'inventory';
+  entryId: string;
+  data?: Record<string, string>;
+  rows?: InventorySyncRow[];
+};
 
 const readOutbox = (): SyncJob[] => {
   try {
@@ -29,18 +37,30 @@ export const flushOutbox = async (): Promise<void> => {
     return;
   }
   flushing = true;
+  // Un envío de inventario fallido no debe bloquear las salidas: se omite y se reintenta en el siguiente ciclo.
+  const skipped = new Set<string>();
   try {
-    for (let jobs = readOutbox(); jobs.length > 0; jobs = readOutbox()) {
+    for (
+      let job = readOutbox().find((candidate) => !skipped.has(candidate.uid));
+      job;
+      job = readOutbox().find((candidate) => !skipped.has(candidate.uid))
+    ) {
       const response = await fetch(sheetUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(jobs[0])
+        body: JSON.stringify(job)
       });
-      const result = (await response.json()) as { ok?: boolean };
+      const result = (await response.json()) as { ok?: boolean; error?: string };
       if (!response.ok || !result.ok) {
+        console.error('La hoja de cálculo rechazó el envío.', result.error ?? response.status);
+        if (job.action === 'inventory') {
+          skipped.add(job.uid);
+          continue;
+        }
         break;
       }
-      writeOutbox(readOutbox().filter((job) => job.uid !== jobs[0].uid));
+      const sentUid = job.uid;
+      writeOutbox(readOutbox().filter((pending) => pending.uid !== sentUid));
     }
   } catch (error) {
     console.error('No se pudo sincronizar con la hoja de cálculo.', error);
@@ -54,12 +74,23 @@ export const enqueueSync = (job: Omit<SyncJob, 'uid'>): void => {
   void flushOutbox();
 };
 
-export const pendingSyncCount = (): number => readOutbox().length;
+// El inventario se envía como foto completa; sólo importa la más reciente, así que reemplaza a la pendiente.
+export const enqueueInventorySync = (rows: InventorySyncRow[]): void => {
+  writeOutbox([
+    ...readOutbox().filter((job) => job.action !== 'inventory'),
+    { uid: crypto.randomUUID(), action: 'inventory', entryId: 'inventario', rows }
+  ]);
+  void flushOutbox();
+};
+
+const readEntryJobs = (): SyncJob[] => readOutbox().filter((job) => job.action !== 'inventory');
+
+export const pendingSyncCount = (): number => readEntryJobs().length;
 
 export const usePendingSyncEntryIds = (): ReadonlySet<string> => {
-  const [entryIds, setEntryIds] = useState(() => new Set(readOutbox().map((job) => job.entryId)));
+  const [entryIds, setEntryIds] = useState(() => new Set(readEntryJobs().map((job) => job.entryId)));
   useEffect(() => {
-    const refresh = () => setEntryIds(new Set(readOutbox().map((job) => job.entryId)));
+    const refresh = () => setEntryIds(new Set(readEntryJobs().map((job) => job.entryId)));
     window.addEventListener(outboxEvent, refresh);
     window.addEventListener('storage', refresh);
     return () => {
@@ -72,12 +103,35 @@ export const usePendingSyncEntryIds = (): ReadonlySet<string> => {
 
 export const usePendingSyncCount = (): number => usePendingSyncEntryIds().size;
 
-export const startSheetSync = (): void => {
-  void flushOutbox();
-  window.addEventListener('online', () => void flushOutbox());
-  window.setInterval(() => {
-    if (pendingSyncCount() > 0) {
-      void flushOutbox();
+let pulling = false;
+
+// Descarga el inventario de la hoja sólo si no hay nada pendiente por enviar, para no pisar cambios locales.
+export const pullInventory = async (apply: (rows: InventorySyncRow[]) => void): Promise<void> => {
+  if (!sheetUrl || pulling || flushing || readOutbox().length > 0) {
+    return;
+  }
+  pulling = true;
+  try {
+    const response = await fetch(sheetUrl);
+    const result = (await response.json()) as { ok?: boolean; rows?: unknown };
+    // Se revisa de nuevo: pudo encolarse un cambio local mientras llegaba la respuesta.
+    if (!response.ok || !result.ok || !Array.isArray(result.rows) || readOutbox().length > 0) {
+      return;
     }
-  }, retryMs);
+    apply(result.rows as InventorySyncRow[]);
+  } catch (error) {
+    console.error('No se pudo descargar el inventario de la hoja de cálculo.', error);
+  } finally {
+    pulling = false;
+  }
+};
+
+export const startSheetSync = (applyInventory: (rows: InventorySyncRow[]) => void): void => {
+  const sync = async () => {
+    await flushOutbox();
+    await pullInventory(applyInventory);
+  };
+  void sync();
+  window.addEventListener('online', () => void sync());
+  window.setInterval(() => void sync(), retryMs);
 };

@@ -44,7 +44,9 @@ test('adds a yard exit record', () => {
   expect(within(row).getAllByRole('cell')[4]).toHaveTextContent(inventoryData.items[0].codigo);
   expect(within(row).queryByText(inventoryData.items[0].item)).not.toBeInTheDocument();
   const queuedJobs = JSON.parse(localStorage.getItem('inventario-patio-outbox') ?? '[]');
-  expect(queuedJobs[0].data.nombreProducto).toBe(inventoryData.items[0].item);
+  const addJob = queuedJobs.find((job: { action: string }) => job.action === 'add');
+  expect(addJob.data.nombreProducto).toBe(inventoryData.items[0].item);
+  expect(queuedJobs.some((job: { action: string }) => job.action === 'inventory')).toBe(true);
   expect(within(row).getAllByRole('cell')[0]).toHaveTextContent(/^\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}$/);
   expect(screen.getByLabelText('Remisión')).toHaveValue('');
 });

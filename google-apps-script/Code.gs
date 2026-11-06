@@ -58,12 +58,49 @@ function updateSummary(ss, placa, conductor, codigoProducto, nombreProducto, qty
   }
 }
 
+var INVENTORY_SHEET_NAME = 'Inventario';
+var INVENTORY_HEADERS = ['codigo', 'nombre', 'lote', 'cantidad'];
+
+function findSheet(ss, name) {
+  return ss.getSheets().filter(function (s) { return s.getName().toLowerCase() === name.toLowerCase(); })[0] || null;
+}
+
+// La app envía el inventario completo; la hoja se reescribe y siempre refleja el último estado (idempotente).
+function replaceInventory(ss, rows) {
+  var sheet = findSheet(ss, INVENTORY_SHEET_NAME) || ss.insertSheet(INVENTORY_SHEET_NAME);
+  sheet.clearContents();
+  var values = [INVENTORY_HEADERS].concat(rows.map(function (r) {
+    return [String(r.codigo), r.nombre, r.lote, r.cantidad];
+  }));
+  var range = sheet.getRange(1, 1, values.length, INVENTORY_HEADERS.length);
+  range.setNumberFormat('@');
+  if (rows.length) sheet.getRange(2, 4, rows.length, 1).setNumberFormat('0');
+  range.setValues(values);
+}
+
+// La app lee el inventario de esta hoja (GET) cuando no tiene cambios pendientes por enviar.
+function doGet() {
+  var sheet = findSheet(SpreadsheetApp.getActiveSpreadsheet(), INVENTORY_SHEET_NAME);
+  var rows = [];
+  if (sheet && sheet.getLastRow() > 1) {
+    rows = sheet.getRange(2, 1, sheet.getLastRow() - 1, INVENTORY_HEADERS.length).getValues()
+      .map(function (r) { return { codigo: String(r[0]), nombre: String(r[1]), lote: String(r[2]), cantidad: r[3] }; });
+  }
+  return ContentService.createTextOutput(JSON.stringify({ ok: true, rows: rows }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
 function doPost(e) {
   var lock = LockService.getScriptLock();
   lock.waitLock(30000);
   try {
     var job = JSON.parse(e.postData.contents);
     var ss = SpreadsheetApp.getActiveSpreadsheet();
+    if (job.action === 'inventory') {
+      replaceInventory(ss, job.rows || []);
+      return ContentService.createTextOutput(JSON.stringify({ ok: true }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
     var sheet = ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
     var headers = ensureHeaders(sheet, HEADERS);
     // El id no es una columna: se guarda como metadato oculto de la fila, que la sigue si se mueve o borra.

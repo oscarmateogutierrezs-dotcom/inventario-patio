@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import inventoryData from '../data/inventario.json';
+import { enqueueInventorySync } from './sheetSync';
 
 export type InventoryProduct = {
   codigo: string;
@@ -150,6 +151,42 @@ const loadProducts = (): InventoryProductsState => {
   }
 };
 
+// Reemplaza el inventario local con las filas de la hoja; ignora filas inválidas y no actúa con una hoja vacía.
+export const applySheetInventory = (rows: unknown[]): void => {
+  const byCode = new Map<string, InventoryProduct>();
+  rows.forEach((row) => {
+    if (typeof row !== 'object' || row === null) {
+      return;
+    }
+    const { codigo, nombre, lote, cantidad } = row as Record<string, unknown>;
+    const code = String(codigo ?? '').trim();
+    const name = String(nombre ?? '').trim();
+    const lot = String(lote ?? '').trim() || 'Sin lote';
+    const quantity = typeof cantidad === 'number' ? cantidad : Number(String(cantidad ?? '').trim());
+    if (!code || !name || cantidad === '' || !Number.isFinite(quantity) || quantity < 0) {
+      return;
+    }
+    const product = byCode.get(code) ?? { codigo: code, item: name, lotes: [] };
+    if (!product.lotes.some((currentLot) => currentLot.lote === lot)) {
+      product.lotes.push({ lote: lot, cantidad: quantity });
+    }
+    byCode.set(code, product);
+  });
+  const products = Array.from(byCode.values());
+  if (products.length === 0) {
+    return;
+  }
+  try {
+    const serialized = JSON.stringify(products);
+    if (localStorage.getItem(storageKey) !== serialized) {
+      localStorage.setItem(storageKey, serialized);
+      window.dispatchEvent(new Event(updateEvent));
+    }
+  } catch (error) {
+    console.error('No se pudo guardar el inventario descargado de la hoja.', error);
+  }
+};
+
 export const useInventoryProducts = () => {
   const [state, setState] = useState<InventoryProductsState>(loadProducts);
 
@@ -168,6 +205,16 @@ export const useInventoryProducts = () => {
       localStorage.setItem(storageKey, JSON.stringify(products));
       setState({ products, error: null });
       window.dispatchEvent(new Event(updateEvent));
+      enqueueInventorySync(
+        products.flatMap((product) =>
+          product.lotes.map((lot) => ({
+            codigo: product.codigo,
+            nombre: product.item,
+            lote: lot.lote,
+            cantidad: lot.cantidad
+          }))
+        )
+      );
       return true;
     } catch (error) {
       console.error('No se pudo guardar la lista de productos.', error);
