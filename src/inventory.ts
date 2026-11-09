@@ -20,6 +20,12 @@ type StoredInventoryProduct = {
   lotes?: Array<string | InventoryLot>;
 };
 
+type InitialInventoryProduct = {
+  codigo: string;
+  item: string;
+  cantidad: number;
+};
+
 type InventoryProductsState = {
   products: InventoryProduct[];
   error: string | null;
@@ -28,7 +34,8 @@ type InventoryProductsState = {
 export const storageKey = 'inventario-patio-productos';
 const updateEvent = 'inventario-patio-productos-actualizados';
 const legacyQuantityStorageKey = 'inventario-patio-cantidades';
-export const initialProducts: InventoryProduct[] = inventoryData.items.map((product) => ({
+const initialProductList: InitialInventoryProduct[] = inventoryData.items;
+export const initialProducts: InventoryProduct[] = initialProductList.map((product) => ({
   codigo: product.codigo,
   item: product.item,
   lotes: [{ lote: 'Sin lote', cantidad: product.cantidad }]
@@ -124,8 +131,6 @@ const needsInventoryMigration = (products: StoredInventoryProduct[]) =>
       !Array.isArray(product.lotes) ||
       product.lotes.some((lot) => typeof lot === 'string')
   );
-
-const initialProductList = inventoryData.items.map((product) => ({ ...product }));
 
 const loadProducts = (): InventoryProductsState => {
   try {

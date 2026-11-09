@@ -1,20 +1,21 @@
 import { act, fireEvent, render, screen, within } from '@testing-library/react';
-import inventoryData from '../../data/inventario.json';
+import { seedTestInventory, testInventory } from '../testInventory';
 import { vi } from 'vitest';
 import Tab1 from './Tab1';
 import Tab2 from './Tab2';
 
 beforeEach(() => {
   localStorage.clear();
+  seedTestInventory();
   document.querySelectorAll('ion-modal').forEach((modal) => modal.remove());
 });
 
 test('shows every inventory field and saves quantities within their lots', () => {
   const { unmount } = render(<Tab2 />);
 
-  expect(screen.getAllByRole('row')).toHaveLength(15);
+  expect(screen.getAllByRole('row')).toHaveLength(3);
   const productRow = screen.getByRole('row', { name: /Bloque 4 Primera/ });
-  const firstProduct = inventoryData.items[0];
+  const firstProduct = testInventory[0];
   expect(within(productRow).getByText(firstProduct.codigo)).toBeInTheDocument();
   const lotQuantity = within(productRow).getByRole('spinbutton', {
     name: 'Cantidad del lote Sin lote de Bloque 4 Primera'
@@ -69,7 +70,7 @@ test('adds and persists a product from the catalog search modal', async () => {
 
 test('adds a lot with its own quantity to an existing product', () => {
   render(<Tab2 />);
-  const product = inventoryData.items[0];
+  const product = testInventory[0];
   fireEvent.change(screen.getByLabelText(`Nuevo lote de ${product.item}`), { target: { value: 'L-67' } });
   fireEvent.change(screen.getByLabelText(`Cantidad del nuevo lote de ${product.item}`), { target: { value: '18' } });
   fireEvent.click(screen.getAllByRole('button', { name: 'Agregar lote' })[0]);
@@ -89,7 +90,7 @@ test('adds a lot with its own quantity to an existing product', () => {
 });
 
 test('migrates existing product and separate quantities into the Sin lote lot', () => {
-  const product = inventoryData.items[0];
+  const product = testInventory[0];
   localStorage.setItem(
     'inventario-patio-productos',
     JSON.stringify([{ ...product, lotes: ['L-OLD'] }])
@@ -109,7 +110,7 @@ test('migrates existing product and separate quantities into the Sin lote lot', 
 });
 
 test('removes only the selected lot from Tab2 and saved inventory', () => {
-  const product = inventoryData.items[0];
+  const product = testInventory[0];
   localStorage.setItem(
     'inventario-patio-productos',
     JSON.stringify([
@@ -143,7 +144,7 @@ test('removes only the selected lot from Tab2 and saved inventory', () => {
 });
 
 test('removes the product when its last lot is deleted', () => {
-  const product = inventoryData.items[0];
+  const product = testInventory[0];
   localStorage.setItem(
     'inventario-patio-productos',
     JSON.stringify([{ codigo: product.codigo, item: product.item, lotes: [{ lote: 'L-1', cantidad: 5 }] }])

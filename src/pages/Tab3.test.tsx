@@ -2,9 +2,11 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 import { vi } from 'vitest';
 import Tab3 from './Tab3';
 import Tab1 from './Tab1';
+import { seedTestDrivers } from '../testInventory';
 
 beforeEach(() => {
   localStorage.clear();
+  seedTestDrivers();
 });
 
 test('shows saved drivers and supports adding and removing drivers', () => {
@@ -16,7 +18,7 @@ test('shows saved drivers and supports adding and removing drivers', () => {
   );
 
   expect(screen.getAllByText('ESZ 929')).toHaveLength(2);
-  expect(screen.getAllByRole('listitem')).toHaveLength(7);
+  expect(screen.getAllByRole('listitem')).toHaveLength(1);
 
   fireEvent.change(screen.getByLabelText('Nombre del conductor'), {
     target: { value: 'Ana Pérez' }

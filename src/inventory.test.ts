@@ -1,7 +1,15 @@
-import { applySheetInventory, storageKey } from './inventory';
+import { renderHook } from '@testing-library/react';
+import { applySheetInventory, storageKey, useInventoryProducts } from './inventory';
 
 beforeEach(() => {
   localStorage.clear();
+});
+
+test('starts with an empty inventory when there is no saved data', () => {
+  const { result } = renderHook(() => useInventoryProducts());
+
+  expect(result.current.products).toEqual([]);
+  expect(result.current.error).toBeNull();
 });
 
 test('replaces the local inventory with valid sheet rows grouped by product', () => {

@@ -1,14 +1,16 @@
 import { act, fireEvent, render, screen, within } from '@testing-library/react';
-import inventoryData from '../../data/inventario.json';
+import { seedTestDrivers, seedTestInventory, testInventory } from '../testInventory';
 import { vi } from 'vitest';
 import Tab1 from './Tab1';
 
 beforeEach(() => {
   localStorage.clear();
+  seedTestInventory();
+  seedTestDrivers();
 });
 
 const addLotToFirstProduct = () => {
-  const firstProduct = inventoryData.items[0];
+  const firstProduct = testInventory[0];
   localStorage.setItem(
     'inventario-patio-productos',
     JSON.stringify([{
@@ -27,7 +29,7 @@ test('adds a yard exit record', () => {
     ['Remisión', 'R-123'],
     ['Placa vehículo', 'ESZ 929'],
     ['Cantidad entregada', '25'],
-    ['Código producto', inventoryData.items[0].codigo],
+    ['Código producto', testInventory[0].codigo],
     ['Lote despachado', 'L-67'],
     ['Cantidad', '24'],
     ['Desperdicio generado', '1'],
@@ -41,11 +43,11 @@ test('adds a yard exit record', () => {
 
   const row = screen.getByRole('row', { name: /R-123/ });
   expect(within(row).getByText('ESZ 929')).toBeInTheDocument();
-  expect(within(row).getAllByRole('cell')[4]).toHaveTextContent(inventoryData.items[0].codigo);
-  expect(within(row).queryByText(inventoryData.items[0].item)).not.toBeInTheDocument();
+  expect(within(row).getAllByRole('cell')[4]).toHaveTextContent(testInventory[0].codigo);
+  expect(within(row).queryByText(testInventory[0].item)).not.toBeInTheDocument();
   const queuedJobs = JSON.parse(localStorage.getItem('inventario-patio-outbox') ?? '[]');
   const addJob = queuedJobs.find((job: { action: string }) => job.action === 'add');
-  expect(addJob.data.nombreProducto).toBe(inventoryData.items[0].item);
+  expect(addJob.data.nombreProducto).toBe(testInventory[0].item);
   expect(queuedJobs.some((job: { action: string }) => job.action === 'inventory')).toBe(true);
   expect(within(row).getAllByRole('cell')[0]).toHaveTextContent(/^\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}$/);
   expect(screen.getByLabelText('Remisión')).toHaveValue('');
@@ -60,7 +62,7 @@ test('persists yard exit records and shows pending sync count', () => {
     ['Remisión', 'R-789'],
     ['Placa vehículo', 'ESZ 929'],
     ['Cantidad entregada', '25'],
-    ['Código producto', inventoryData.items[0].codigo],
+    ['Código producto', testInventory[0].codigo],
     ['Lote despachado', 'L-67'],
     ['Cantidad', '24'],
     ['Desperdicio generado', '1'],
@@ -89,7 +91,7 @@ test('orders history newest first and marks synchronized records', () => {
     remision,
     placaVehiculo: 'ESZ 929',
     cantidadEntregada: '25',
-    codigoProducto: inventoryData.items[0].codigo,
+    codigoProducto: testInventory[0].codigo,
     loteDespachado: 'L-67',
     cantidad: '24',
     desperdicioGenerado: '1',
@@ -112,7 +114,7 @@ test('uses product codes from the inventory list', () => {
 
   const productCode = screen.getByLabelText('Código producto');
   expect(productCode.tagName).toBe('SELECT');
-  const firstProduct = inventoryData.items[0];
+  const firstProduct = testInventory[0];
   expect(
     within(productCode).getByRole('option', {
       name: `${firstProduct.codigo} - ${firstProduct.item}`
@@ -121,7 +123,7 @@ test('uses product codes from the inventory list', () => {
 });
 
 test('shows only the lots registered for the selected product', () => {
-  const [firstProduct, secondProduct] = inventoryData.items;
+  const [firstProduct, secondProduct] = testInventory;
   localStorage.setItem(
     'inventario-patio-productos',
     JSON.stringify([
@@ -142,7 +144,7 @@ test('shows only the lots registered for the selected product', () => {
 });
 
 test('deducts a yard exit from the selected lot and prevents overdrawing it', () => {
-  const firstProduct = inventoryData.items[0];
+  const firstProduct = testInventory[0];
   localStorage.setItem(
     'inventario-patio-productos',
     JSON.stringify([{
